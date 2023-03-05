@@ -1,0 +1,67 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Service</a></li>
+                    <li class="breadcrumb-item"><a data-ui-sref="mainpage.offre-sms">Mes Messages</a></li>
+                    <li class="breadcrumb-item active">Mes Messages Trait&eacute;s</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <div class="form-row p-0">
+                <div  class="col-md-9 p-0">
+                    <h4 class="header-title"><b>Mes Messages</b></h4>
+                    <p class="sub-header">
+                        Liste des Messages Trait&eacute;s
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <table id="datatable" data-datatable="ng" data-dt-options="dtOptions" data-dt-column-defs="dtColumnDefs"
+                       class="table table-bordered dt-responsive nowrap"
+                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                    <tr>
+                        <th style="width: 70px">Code</th>
+                        <th>N&deg; T&eacute;l&eacute;phone</th>
+                        <th>Date d'envoi</th>
+                        <th>Type Op&eacute;ration</th>
+                        <th>Statut</th>
+                        <th>Nbre Page</th>
+                        <th style="width: 100px"> Actions possibles</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="item in datas track by $index" ng-if="item.statut === 'TRAITE'" >
+                        <td>{{$index}}</td>
+                        <td class="text-center">{{item.numeroContact}}</td>
+                        <td class="text-center">{{item.dateEnvoi | date:'dd/MM/yyyy'}}</td>
+                        <td>{{item.typeMessage}}</td>
+                        <td>{{item.statut}}</td>
+                        <td>{{item.nbrePage}} Page(s)</td>
+                        <td>
+                            <a href="javascript:void(0);" data-ng-click="openFrmMsgTraite($event, item)"
+                               class="btn btn-outline-primary btn-rounded waves-effect waves-light btn-sm">
+                                <i class="fa fa-desktop mr-1"></i> D&eacute;tails
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End row -->

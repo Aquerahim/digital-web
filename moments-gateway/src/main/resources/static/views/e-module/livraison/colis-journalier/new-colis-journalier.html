@@ -1,0 +1,322 @@
+<style>
+    .table thead th {
+        border-bottom: 1px dashed #dee2e6;
+    }
+    .table-bordered td, .table-bordered th {
+        border: 1px dashed #dee2e6;
+    }
+    .table-bordered thead td, .table-bordered thead th {
+        border-bottom-width: 1px;
+    }
+    .btn-warning.disabled, .btn-warning:disabled {
+        cursor: not-allowed !important;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+</style>
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Module Livraison</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Livraison</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Colis Journalier</a></li>
+                    <li class="breadcrumb-item active">Cr&eacute;er un Colis Journalier</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<!-- Basic Form Wizard -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <h4 class="header-title"><b>Exp&eacute;dition d'un colis</b></h4>
+            <p class="sub-header">
+                Enregistrement d'un nouveau bon de commande de colis Journalier.
+            </p>
+
+            <form role="form" novalidate class="parsley-examples"
+                  action="javascript:void(0);" name="sendForm"
+                  data-ng-submit="submitForm(sendForm.$valid)">
+
+                <fieldset id="default-wizard-step-4" class="stepy-step">
+                    <legend>Informations Partenaires</legend>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="partners">N&deg; Partenaire<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly name="ownerNumber" id="ownerNumber" placeholder="..." data-ng-model="items.ownerNumber">
+                            </div>
+                            <div class="form-group">
+                                <label for="partners">Nom Partenaire<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly name="partners" id="partners" placeholder="..." data-ng-model="partnersName">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact">Contact<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly id="contact" name="contact" placeholder="..." data-ng-model="partnersContact">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="owner">Activit&eacute;<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly id="activity" name="activity" placeholder="..." data-ng-model="activity">
+                            </div>
+                            <div class="form-group">
+                                <label for="owner">Nom Responsable<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly id="owner" name="owner" placeholder="..." data-ng-model="partnerOwner">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ownerPhone">Contact Responsable<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly id="ownerPhone" name="ownerPhone" placeholder="..." data-ng-model="ownerPhone">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset id="default-wizard-step-0" class="stepy-step">
+                    <legend>Informations Zone de recup&eacute;rations g&eacute;n&eacute;ral des colis</legend>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="refBon">Ref&eacute;rence Bon<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly name="refBon" id="refBon" placeholder="..." data-ng-model="items.reference">
+                            </div>
+                            <div class="form-group">
+                                <label for="typeLivraison">Type de livraison <span class="text-danger">*</span></label>
+                                <select class="form-control custom-select" required style="cursor: pointer" id="typeLivraison"
+                                        data-ng-model="items.typeLivraison" name="typeLivraison">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                    <option data-ng-repeat="val in typeEnvoiListBc" value="{{val.key}}"> {{val.value}} </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="datelivraisonSouhaite">Date de livraison souhait&eacute;e <span class="text-danger">*</span></label>
+                                <input type="date" data-date="" data-date-format="YYYY-MM-DD" class="form-control text-uppercase" name="datelivraisonSouhaite" id="datelivraisonSouhaite"
+                                       placeholder="..." required data-ng-model="items.datelivraisonSouhaite">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="typeRecuperation">Type Zone de Recupr&eacute;ration<span class="text-danger">*</span></label>
+                                <select class="form-control custom-select" style="cursor: pointer" required id="typeRecuperation"
+                                        data-ng-model="typeZoneCouverture" name="typeRecuperation"
+                                        ng-change="loadPerimetreCreateFiche(typeZoneCouverture, 0)"
+                                        data-ng-options="item as item.typezone for item in typeZoneListBc | orderBy:'typezone' track by item.typezone">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="zoneRecuperation">Zone de Recupr&eacute;ration<span class="text-danger">*</span></label>
+                                <select class="form-control custom-select" style="cursor: pointer" required id="zoneRecuperation"
+                                        data-ng-model="items.zoneRecuperation" name="zoneRecuperation"
+                                        data-ng-options="item as item.zoneCouverture for item in zoneRecuperationListBc | orderBy:'zoneCouverture' track by item.zoneCouverture">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="precisionZoneRecup">Pr&eacute;cision sur zone de recupr&eacute;ration <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" name="precisionZoneRecup" id="precisionZoneRecup"
+                                       data-ng-minlength="3" placeholder="..." required data-ng-model="items.precisionZoneRecup">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset id="default-wizard-step-3" class="stepy-step">
+                    <legend>Mise en place du bon de Commande</legend>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="natureColis">Nature Colis <span class="text-danger">*</span></label>
+                                <select class="form-control custom-select" style="cursor: pointer" id="natureColis"
+                                        data-ng-model="jxes.natureColis"
+                                        data-ng-options="item as item.typecolis for item in natureColisListBc | orderBy:'typecolis' track by item.typecolis">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nomProduit">Pr&eacute;cision sur colis <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" id="nomProduit"
+                                       data-ng-minlength="3" placeholder="..."  data-ng-model="jxes.nomProduit">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="montantColis">Montant du colis (FCFA) <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="montantColis" maxlength="9"
+                                       data-ng-model="jxes.montantColis" number-input>
+                            </div>
+                            <div class="form-group">
+                                <label for="prixLivraison">Prix de la livraison (FCFA) <span class="text-danger">*</span></label>
+                                <select class="form-control custom-select" style="cursor: pointer" id="prixLivraison"
+                                        data-ng-model="jxes.prixLivraison">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                    <option data-ng-repeat="val in tabPrice" value="{{val}}"> {{val}} </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="elementCassable">Le produit est-il un &eacute;l&eacute;ment est-il cassable ? <span class="text-danger">*</span></label>
+                                <select class="form-control custom-select" style="cursor: pointer" id="elementCassable"
+                                        data-ng-model="jxes.elementCassable">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                    <option data-ng-repeat="obj in qtionNotifstBc" value="{{obj.value}}"> {{obj.value}} </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="destinataire">Destinataire <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" id="destinataire"
+                                       data-ng-minlength="3" placeholder="..."  data-ng-model="jxes.destinataire">
+                            </div>
+                            <div class="form-group">
+                                <label for="contactDestinataire">Contcat Destinataire <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="contactDestinataire"
+                                data-ng-model="jxes.contactDestinataire" ui-mask="99-99-999-999">
+                            </div>
+                            <div class="form-group">
+                                <label for="jxesTypeRecuperation">Type zone de livrasion<span class="text-danger">*</span></label>
+                                <select class="form-control custom-select" style="cursor: pointer" id="jxesTypeRecuperation"
+                                        data-ng-model="jxes.typeZoneLiv" name="typeZoneLiv"
+                                        ng-change="loadPerimetreCreateFiche(jxes.typeZoneLiv, 1)"
+                                        data-ng-options="item as item.typezone for item in typeZoneListBc | orderBy:'typezone' track by item.typezone">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="jxesZoneRecuperation">Zone de livrasion<span class="text-danger">*</span></label>
+                                <select class="form-control custom-select" style="cursor: pointer" id="jxesZoneRecuperation"
+                                        data-ng-model="jxes.zoneLivraison" name="zoneLivraison"
+                                        data-ng-options="item as item.zoneCouverture for item in zoneRecuperationListBc1 | orderBy:'zoneCouverture' track by item.zoneCouverture">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="lieuDeLivraison">Pr&eacute;cision sur zone de livrasion <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" name="lieuDeLivraison" id="lieuDeLivraison"
+                                       data-ng-minlength="3" placeholder="..." data-ng-model="jxes.lieuDeLivraison">
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-10"></div>
+                        <div class="col-md-12 mb-2 mt-2">
+                            <button data-ng-click="addToList()"
+                                    data-ng-if="jxes.contactDestinataire && jxes.prixLivraison && jxes.elementCassable &&
+                                    jxes.destinataire && jxes.montantColis && jxes.natureColis && jxes.nomProduit &&
+                                    jxes.zoneLivraison && jxes.typeZoneLiv && jxes.lieuDeLivraison"
+                                    type="button" class="btn btn-warning btn-rounded pull-right right" style="float: right;">
+                                <i class="fas fa-plus mr-1"></i>
+                                <span>Ajouter au bon de commande</span>
+                            </button>
+
+                            <button data-ng-if="!jxes.contactDestinataire && !jxes.prixLivraison && !jxes.elementCassable &&
+                                !jxes.destinataire && !jxes.montantColis && !jxes.natureColis && !jxes.nomProduit
+                                && !jxes.zoneLivraison && !jxes.typeZoneLiv && !jxes.lieuDeLivraison" disabled
+                                    type="button" class="btn btn-warning btn-rounded pull-right right" style="float: right;">
+                                <i class="fas fa-plus mr-1"></i>
+                                <span>Ajouter au bon de commande</span>
+                            </button>
+                        </div>
+
+                        <div class="col-md-12 mb-2">
+                            <p class="sub-header mb-1">Bon de commande qui sera envoy&eacute; &agrave; la structure de livraison</p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered mb-0">
+                                    <thead>
+                                    <tr class="text-center">
+                                        <th style="width: 80px">#</th>
+                                        <th>Nature</th>
+                                        <th>Nom Produit</th>
+                                        <th>Montant</th>
+                                        <th>Destinataire</th>
+                                        <th>Contact</th>
+                                        <th>Prix Livraison</th>
+                                        <th>Produit cassable</th>
+                                        <th>Lieu de Livraison</th>
+                                        <th style="width: 120px">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-ng-repeat="dx in bonCmde" data-ng-if="bonCmde.length > 0">
+                                            <th scope="row">ID-{{dx.id}}</th>
+                                            <td class="text-left">{{dx.natureColis.typecolis}}</td>
+                                            <td class="text-left text-uppercase">{{dx.nomProduit}}</td>
+                                            <td class="text-center text-uppercase">{{dx.montantColis | formatMillier}}</td>
+                                            <td class="text-left text-uppercase">{{dx.destinataire}}</td>
+                                            <td class="text-center text-uppercase">{{dx.contactDestinataire}}</td>
+                                            <td class="text-center text-uppercase">{{dx.prixLivraison | formatMillier}}</td>
+                                            <td class="text-center text-uppercase">{{dx.elementCassable}}</td>
+                                            <td class="text-center text-uppercase">{{dx.zoneLivraison.zoneCouverture}} - {{dx.lieuDeLivraison}}</td>
+                                            <td class="text-center">
+                                                <button type="button" ng-click="retrierToList(dx)" class="btn btn-pinterest waves-effect waves-light btn-sm"
+                                                        style="padding: 0.1rem 0.9rem;">
+                                                    <i class="fas fa-trash-alt mr-1"></i> Retirer
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr data-ng-if="bonCmde.length === 0">
+                                            <th class="text-center">-</th>
+                                            <td class="text-center">-</td>
+                                            <td class="text-center text-uppercase">-</td>
+                                            <td class="text-center text-uppercase">-</td>
+                                            <td class="text-center text-uppercase">-</td>
+                                            <td class="text-center text-uppercase">-</td>
+                                            <td class="text-center text-uppercase">-</td>
+                                            <td class="text-center text-uppercase">-</td>
+                                            <td class="text-center text-uppercase">-</td>
+                                            <td class="text-center">-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="form-group mb-0 mt-3" data-ng-show="nb.colis > 0">
+                    <div class="center text-center">
+                        <button type="button" class="btn btn-primary btn-rounded waves-effect
+                        text-uppercase width-md waves-light mr-2 pr-4 pl-4 btn-md"
+                                data-ng-disabled="sendForm.$invalid"
+                                data-ng-click="saveBcPartner()">
+                            <span>Enregistrer en Envoyer</span>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-rounded text-uppercase
+                        waves-effect waves-light pr-4 pl-4 btn-md" data-ng-click="goBack('mainpage.dashboard')">
+                            <span>Fermer</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    if(dd<10){
+        dd='0'+dd
+    }
+    if(mm<10){
+        mm='0'+mm
+    }
+
+    today = yyyy+'-'+mm+'-'+dd;
+    document.getElementById("datelivraisonSouhaite").setAttribute("min", today);
+
+</script>

@@ -1,0 +1,157 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >D&eacute;tails sur le courrier envoy&eacute; n° {{ titleFrm }}</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate>
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+
+        <fieldset id="default-wizard-step-4" class="stepy-step">
+            <legend>Information Compagnie</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="compagnie">Compagnie<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control text-uppercase" readonly id="compagnie" placeholder="..." data-ng-model="items.gare.compagnie.compagnie">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="gare">Gare<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control text-uppercase" readonly id="gare" name="gare" placeholder="..." data-ng-model="items.gare.gareRoutiere">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset id="default-wizard-step-0" class="stepy-step">
+            <legend>Information Exp&eacute;diteur</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="nomExpediteur">Nom Exp&eacute;diteur<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control text-uppercase" id="nomExpediteur" readonly
+                               placeholder="..." data-ng-model="items.nomExpediteur" name="nomExpediteur">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="villeExpeditrice">Ville Exp&eacute;ditrice<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control text-uppercase" id="villeExpeditrice" readonly
+                               placeholder="..." data-ng-model="items.villeExpeditrice" name="villeExpeditrice">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="numPhone">N° T&eacute;l&eacute;phone Exp&eacute;diteur<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="numPhone" name="phoneExpedietur" readonly
+                               data-ng-model="items.phoneExpedietur" ui-mask="99-99-999-999">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adresseExpediteur">Adresse Exp&eacute;diteur<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control text-uppercase" id="adresseExpediteur" readonly
+                               placeholder="..." data-ng-model="items.adresseExpediteur" name="adresseExpediteur">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset id="default-wizard-step-1" class="stepy-step">
+            <legend>Information Destinataire</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="nomDestinataire">Nom complet Destinataire<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control text-uppercase" id="nomDestinataire" readonly placeholder="..."
+                               data-ng-model="items.nomDestinataire" name="nomDestinataire">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="villeDestinatrice">Ville Destinatrice<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control text-uppercase" id="villeDestinatrice" readonly placeholder="..."
+                               data-ng-model="items.villeDestinatrice" name="villeDestinatrice">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="numPhone">N° T&eacute;l&eacute;phone Destinataire<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="numPhoneDestinatire" readonly name="phoneDestinatire"
+                               data-ng-model="items.phoneDestinatire" ui-mask="99-99-999-999">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="valeurColis">Valeur globale du colis en Francs CFA<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="valeurColis" name="valeurColis"
+                               maxlength="11" data-ng-model="items.valeurColis" number-input readonly>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset id="default-wizard-step-2" class="stepy-step">
+            <legend>Information Colis</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="frais">Frais d'envoi du colis<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control text-uppercase" id="frais" readonly placeholder="..."
+                               data-ng-model="items.frais" name="frais">
+                    </div>
+                    <div class="form-group">
+                        <label for="monatFrais">Frais d'envoie en Francs CFA<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="monatFrais" readonly
+                               name="monatFrais" data-ng-model="items.monatFrais" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="montantSuiviSMS">Montant suivi SMS en Francs CFA<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="montantSuiviSMS" readonly
+                               name="montantSuiviSMS" data-ng-model="items.montantSuiviSMS" />
+                    </div>
+                    <div class="form-group">
+                        <label for="montantTotalPayer">Total pay&eacute; au d&eacute;p&ocirc;t du s en Francs CFA<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="montantTotalPayer" readonly
+                               name="montantTotalPayer" data-ng-model="items.montantTotalPayer"/>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-2 mt-2" data-ng-if="datas.length > 0">
+                    <label for="montantTotalPayer">Liste colis exp&eacute;di&eacute;<span class="text-danger">*</span></label>
+                    <div class="table-responsive">
+                        <table class="table table-bordered mb-0">
+                            <thead>
+                            <tr class="text-center">
+                                <th style="width: 150px">#</th>
+                                <th style="width: 400px">Nature</th>
+                                <th>D&eacute;signations</th>
+                                <th style="width: 300px">Date d'ajout</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-ng-repeat="dx in datas">
+                                <th scope="row">ID-{{dx.id}}</th>
+                                <td class="text-left">{{dx.natureColis}}</td>
+                                <td class="text-left text-uppercase">{{dx.designationColis}}</td>
+                                <td class="text-center">
+                                    {{ dx.creation | date:"dd/MM/yyyy '-' HH:mm:ss"}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+
+
+
+    </form>
+</div>

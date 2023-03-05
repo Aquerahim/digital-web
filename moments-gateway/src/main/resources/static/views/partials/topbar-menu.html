@@ -1,0 +1,323 @@
+<div class="container-fluid">
+    <div id="navigation" data-ng-controller="TopBarController">
+        <ul class="navigation-menu">
+            <li class="">
+                <a data-ui-sref="mainpage.dashboard"> <i class="fe-airplay"></i>Accueil</a>
+            </li>
+
+            <!--li class="" data-ng-if="viewModule == 'depotBossion'">
+                <a href="javascript:void(0);"> <i class="fe-box"></i>Produit</a>
+            </li -->
+
+            <li class="" data-ng-if="viewModule == 'depotBossion'">
+                <a href="javascript:void(0);"> <i class="fe-save"></i>Vente</a>
+            </li>
+
+            <li class="" data-ng-if="viewModule == 'depotBossion'">
+                <a href="javascript:void(0);"> <i class="fe-users"></i>Client</a>
+            </li>
+
+
+            <li class="has-submenu" data-ng-if="viewModule == 'depotBossion'">
+                <a href="javascript:void(0);"> <i class="fe-tablet"></i>Services</a>
+                <ul class="submenu">
+                    <li><a title="Personnel" href="javascript:void(0);">Personnel</a></li>
+                    <li><a title="Mouvement Compte bancaire" href="javascript:void(0);">Mouvement Compte bancaire</a></li>
+                    <li><a title="R&egrave;gelement forunisseurs" href="javascript:void(0);">R&egrave;gelement forunisseurs</a></li>
+                    <li><a title="Enregistrement d&eacute;penses" href="javascript:void(0);">D&eacute;penses</a></li>
+                    <li><a title="R&eacute;ception facture" data-ui-sref="mainpage.reception-facture" href="javascript:void(0);">R&eacute;ception facture</a></li>
+                    <li><a title="Accompte" href="javascript:void(0);">Accompte</a></li>
+                    <li><a title="Surplus de Caisse" href="javascript:void(0);">Surplus de Caisse</a></li>
+                    <li><a title="Produit" data-ui-sref="mainpage.produit" href="javascript:void(0);">Produit</a></li>
+                    <li><a title="Fournisseur" data-ui-sref="mainpage.fournisseur" href="javascript:void(0);">Fournisseur</a></li>
+                    <li class="has-submenu">
+                        <a href="#">Paie <div class="arrow-down"></div></a>
+                        <ul class="submenu">
+                            <li><a href="javascript:void(0);">Editer une paie</a></li>
+                            <li><a href="javascript:void(0);">G&eacute;n&eacute;rer le bulletin de paie</a></li>
+                            <li><a href="javascript:void(0);">Faire la paie du personnel</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="has-submenu" data-ng-if="viewModule == 'depotBossion'">
+                <a href="javascript:void(0);"> <i class="fe-list"></i>Rapports</a>
+                <ul class="submenu">
+                    <li><a title="Liste des employ&eacute;s" href="javascript:void(0);">Liste des employ&eacute;s</a></li>
+                    <li class="has-submenu">
+                        <a href="#">Liste des ventes <div class="arrow-down"></div></a>
+                        <ul class="submenu">
+                            <li><a href="javascript:void(0);"">En Esp&egrave;ce</a></li>
+                            <li><a href="javascript:void(0);">A Cr&eacute;dit</a></li>
+                        </ul>
+                    </li>
+                    <li><a title="Produit en Rupture" href="javascript:void(0);">Produit en Rupture</a></li>
+                    <li><a title="Messages Trait&eacute;s" href="javascript:void(0);">Produit en Rupture</a></li>
+                    <li><a title="Messages Trait&eacute;s" href="javascript:void(0);">Reception des Produits</a></li>
+                    <li><a title="Messages Trait&eacute;s" href="javascript:void(0);">Liste des D&eacute;penses</a></li>
+                    <li><a title="Messages Trait&eacute;s" href="javascript:void(0);">Liste des Clients</a></li>
+                    <li><a title="Messages Trait&eacute;s" href="javascript:void(0);">Stock</a></li>
+                    <li><a title="Messages Trait&eacute;s" href="javascript:void(0);">Caisiers Vides</a></li>
+                    <li><a title="Messages Trait&eacute;s" href="javascript:void(0);">Situation Financi&egrave;re</a></li>
+                    <li><a title="Messages Trait&eacute;s" href="javascript:void(0);">Graphique des Ventes</a></li>
+                </ul>
+            </li>
+
+            <li class="has-submenu" data-ng-show="viewModule == 'assurance'">
+                <a title="Client" href="javascript:void(0);"> <i class="fe-folder"></i>Porte-Feuille</a>
+                <ul class="submenu">
+                    <li>
+                        <a title="Ajouter un client" data-ui-sref="mainpage.client-assurance" href="javascript:void(0);">Ajouter Client</a>
+                    </li>
+                    <li>
+                        <a title="Ajouter un prospect" data-ui-sref="mainpage.prospect" href="javascript:void(0);">Ajouter Prospect</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="has-submenu" data-ng-show="viewModule == 'assurance'">
+                <a title="Notification" href="javascript:void(0);"> <i class="fe-alert-circle"></i>Notification en Masse</a>
+                <ul class="submenu">
+                    <li>
+                        <a title="Cr&eacute;er un message en masse" data-ui-sref="mainpage.notification-message-en-masse" href="javascript:void(0);">Cr&eacute;er un message en masse</a>
+                    </li>
+                    <li>
+                        <a title="Liste des notifications en masse" data-ui-sref="mainpage.list-notification-message-en-masse" href="javascript:void(0);">Liste des notifications en masse</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="has-submenu" data-ng-show="viewModule == 'colis'">
+                <a href="javascript:void(0);">
+                    <i class="fe-box"></i>Services</a>
+                <ul class="submenu">
+                    <li class="has-submenu">
+                        <a href="javascript:void(0);">Service Billetterie <div class="arrow-down"></div></a>
+                        <ul class="submenu">
+                            <li><a data-ui-sref="mainpage.guichet-voyage" href="javascript:void(0);">Guichet Voyage</a></li>
+                            <li><a href="javascript:void(0);">Tickets demand&eacute;s</a></li>
+                            <li><a href="javascript:void(0);">Tickets en attente de validation</a></li>
+                            <li><a href="javascript:void(0);">Tickets en attente de paiement</a></li>
+                            <li><a href="javascript:void(0);">Tickets non valid&eacute;</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu">
+                        <a href="javascript:void(0);">Service courrier <div class="arrow-down"></div></a>
+                        <ul class="submenu">
+                            <li>
+                                <a data-ui-sref="mainpage.service-courier.service-courier-envoi-add" data-ui-sref-active="active">Envoie de colis</a>
+                            </li>
+                            <li>
+                                <a data-ui-sref="mainpage.service-courier.list-courier-envoi" data-ui-sref-active="active">Liste des colis envoy&eacute;s</a>
+                            </li>
+                            <li>
+                                <a data-ui-sref="mainpage.service-courier.service-courier-retrait">Retrait colis</a>
+                            </li>
+                            <li>
+                                <a data-ui-sref="mainpage.service-courier.list-courier-retrait" data-ui-sref-active="active">Liste des colis retir&eacute;s</a>
+                            </li>
+                            <li>
+                                <a data-ui-sref="mainpage.service-courier.service-courier-retrait" data-ui-sref-active="active">Tracking colis</a>
+                            </li>
+                            <li>
+                                <a data-ui-sref="mainpage.service-courier.update-tracking" data-ui-sref-active="active">Mise à jour du suivi</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="has-submenu" data-ng-show="viewModule == 'colis'">
+                <a href="javascript:void(0);"> <i class="fe-send"></i>Relation client</a>
+                <ul class="submenu">
+                    <li><a href="javascript:void(0);">Envoi sms</a></li>
+                    <li><a href="javascript:void(0);">Enregistrement rdv</a></li>
+                </ul>
+            </li>
+
+            <li class="has-submenu" data-ng-show="viewModule == 'colis'">
+                <a href="javascript:void(0);"> <i class="fe-bar-chart-2"></i>Bordereau</a>
+                <ul class="submenu">
+                    <li><a href="javascript:void(0);">Production</a></li>
+                    <li><a href="javascript:void(0);">Compabilit&eacute;</a></li>
+                </ul>
+            </li>
+
+            <li class="has-submenu" data-ng-if="viewModule == 'livraison' && (profileType === 'CEO'
+                || profileType === 'ADMIN_PART'
+                || profileType === 'ADMIN'
+                || profileType === 'GESTIONNAIRE'
+                || profileType === 'COO'
+                || profileType === 'MANAGER' || profileType === 'EXPERT')">
+                <a  href="javascript:void(0);"> <i class="fe-users"></i>Partenaires d'affaires</a>
+                <ul class="submenu">
+                    <li>
+                        <a data-ui-sref="mainpage.client" href="javascript:void(0);">Cr&eacute;er un nouveau client</a>
+                    </li>
+                    <li>
+                        <a data-ui-sref="mainpage.livreur" href="javascript:void(0);">Cr&eacute;er un nouveau livreur</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="has-submenu" data-ng-if="viewModule == 'livraison' && (profileType === 'COO' || profileType === 'CEO'
+                || profileType === 'GESTIONNAIRE' || profileType === 'MANAGER' || profileType === 'EXPERT')">
+                <a  href="javascript:void(0);"> <i class="fe-file-text"></i>Livraison</a>
+                <ul class="submenu">
+                    <li><a data-ui-sref="mainpage.nouvelle-livraison" href="javascript:void(0);">Cr&eacute;er un bon de Livraison</a></li>
+                    <li><a data-ui-sref="mainpage.livraison-multiple" href="javascript:void(0);">Faire une Livraison multiple</a></li>
+                    <li><a data-ui-sref="mainpage.livraison-en-attente" href="javascript:void(0);">Liste des Livraisons en attente</a></li>
+                    <li><a data-ui-sref="mainpage.livraison-effectue" href="javascript:void(0);">Liste des Livraisons effctu&eacute;es</a></li>
+                </ul>
+            </li>
+
+            <li class="has-submenu" data-ng-if="viewModule == 'livraison' && (profileType === 'COO' || profileType === 'CEO' || profileType === 'ADMIN' || profileType === 'GESTIONNAIRE'
+                || profileType === 'MANAGER' || profileType === 'EXPERT')">
+                <a href="javascript:void(0);"> <i class="fe-bar-chart-line"></i>Acheminement Colis</a>
+                <ul class="submenu">
+                    <li><a data-ui-sref="mainpage.acheminement-colis" href="javascript:void(0);">Liste des colis &agrave; acheminer</a></li>
+                    <li><a data-ui-sref="mainpage.acheminement-colis-suivi" href="javascript:void(0);">Suivi fiche de colis journalier</a></li>
+                    <li><a data-ui-sref="mainpage.acheminement-finaliser" href="javascript:void(0);">Finaliser la livraison</a></li>
+                </ul>
+            </li>
+
+            <li class="has-submenu" data-ng-if="viewModule == 'livraison'">
+                <a href="javascript:void(0);"> <i class="fe-shopping-bag"></i>Colis journalier</a>
+                <ul class="submenu">
+                    <li data-ng-if="profileType === 'PARTENAIRE' || profileType === 'ADMIN' || profileType === 'EXPERT'">
+                        <a data-ui-sref="mainpage.un-colis-journalier" href="javascript:void(0);">Cr&eacute;er un bon de recup&eacute;ration de colis</a>
+                    </li>
+                    <li data-ng-if="profileType === 'PARTENAIRE' || profileType === 'ADMIN' || profileType === 'EXPERT'">
+                        <a data-ui-sref="mainpage.list-colis-journalier" href="javascript:void(0);">Liste des bons de recup&eacute;ration de colis</a>
+                    </li>
+                    <li data-ng-if="profileType === 'PARTENAIRE' || profileType === 'ADMIN' || profileType === 'EXPERT'">
+                        <a data-ui-sref="mainpage.tracking-colis-journalier" href="javascript:void(0);">Tracking bons de recup&eacute;ration</a>
+                    </li>
+                    <li data-ng-if="profileType === 'GESTIONNAIRE' || profileType === 'MANAGER' || profileType === 'ADMIN_PART'
+                        || profileType === 'ADMIN' || profileType === 'EXPERT'">
+                        <a data-ui-sref="mainpage.list-colis-journalier-recu" href="javascript:void(0);">Liste des bons de recup&eacute;ration</a>
+                        <!-- de produit journalier re&ccedil;us-->
+                    </li>
+                </ul>
+            </li>
+
+            <li class="has-submenu" data-ng-if="viewModule == 'livraison' && (profileType === 'ADMIN' || profileType === 'PARTENAIRE' || profileType === 'EXPERT')">
+                <a data-ui-sref="mainpage.acheminement-colis-suivi" href="javascript:void(0);"> <i class="fe-map-pin"></i>Suivi Colis</a>
+            </li>
+
+            <!--li class="has-submenu">
+                <a data-ui-sref="mainpage.paiement-client" href="javascript:void(0);"> <i class="fe-calendar"></i>Rechargement compte sms</a>
+            </li -->
+
+            <li class="has-submenu">
+                <a href="javascript:void(0);"> <i class="fe-target"></i>Nos Offre SMS</a>
+                <ul class="submenu">
+                    <li><a data-ui-sref="mainpage.offre-sms" href="javascript:void(0);">Nos Offre SMS</a></li>
+                    <li><a data-ui-sref="mainpage.recharger-mon-compte-sms" href="javascript:void(0);">Recharger mon compte SMS</a></li>
+                    <li data-ng-if="profileType === 'EXPERT'">
+                        <a data-ui-sref="mainpage.recharger-mon-compte-sms" href="javascript:void(0);">Validation Rechargement compte sms</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="has-submenu" data-ng-if="viewModule == 'assurance'">
+                <a href="javascript:void(0);"> <i class="fe-message-circle"></i>Mes messages</a>
+                <ul class="submenu">
+                    <li><a data-ui-sref="mainpage.message-programme" title="Messages programm&eacute;s" href="javascript:void(0);">Messages programm&eacute;s</a></li>
+                    <li><a data-ui-sref="mainpage.message-traite" title="Messages Trait&eacute;s" href="javascript:void(0);">Messages Trait&eacute;s</a></li>
+                </ul>
+            </li>
+
+            <li class="has-submenu" data-ng-if="viewModule == 'colis' || viewModule == 'livraison' || viewModule == 'assurance' || viewModule == 'depotBossion'">
+                <a href="javascript:void(0);"> <i class="fe-settings"></i>Param&eacute;trage</a>
+                <ul class="submenu">
+                    <li class="has-submenu" data-ng-if="profileType === 'ADMIN' || profileType === 'EXPERT'">
+                        <a href="javascript:void(0);">Param&ecirc;tre de base <div class="arrow-down"></div></a>
+                        <ul class="submenu">
+                            <li><a data-ui-sref="mainpage.parametre.motif" href="javascript:void(0);">Motif suspension collaboration</a></li>
+                            <li><a data-ui-sref="mainpage.parametre.civilite" href="javascript:void(0);">Civilit&eacute;</a></li>
+                            <li><a data-ui-sref="mainpage.parametre.typecontrat" href="javascript:void(0);">Type de Contrat</a></li>
+                            <li><a data-ui-sref="mainpage.parametre.typemessage" href="javascript:void(0);">Type de Message</a></li>
+                            <li><a data-ui-sref="mainpage.parametre.typesouscrivant" href="javascript:void(0);">Type Souscripteur</a></li>
+                            <li><a title="Type Client d'assurance" data-ui-sref="mainpage.type-client" href="javascript:void(0);">Type Client d'assurance</a></li>
+                            <li><a title="Type Message d'Assurance" data-ui-sref="mainpage.type-message" href="javascript:void(0);">Type Message assurance</a></li>
+                            <li><a  data-ui-sref="mainpage.parametre.suividemande" href="javascript:void(0);">Suivi demande</a></li>
+                            <li><a  data-ui-sref="mainpage.parametre.entreprise-offer" href="javascript:void(0);">Offre Entreprise</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu" data-ng-if="profileType === 'ADMIN_PART' || profileType === 'ADMIN' || profileType === 'EXPERT'">
+                        <a href="javascript:void(0);">Entreprise / Soci&eacute;t&eacute;<div class="arrow-down"></div></a>
+                        <ul class="submenu">
+                            <li data-ng-if="profileType === 'ADMIN' || profileType === 'EXPERT'">
+                                <a title="Entreprise souscriptrice" data-ui-sref="mainpage.parametre.compagnie" href="javascript:void(0);">Entreprise souscriptrice</a>
+                            </li>
+                            <li title="Point Services ou Repr&eacute;santant" data-ng-if="profileType === 'ADMIN_PART' || profileType === 'ADMIN' || profileType === 'EXPERT'">
+                                <a  data-ui-sref="mainpage.parametre.gare" href="javascript:void(0);">Point Services ou Agence</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu" data-ng-show="viewModule == 'depotBossion'">
+                        <a href="javascript:void(0);" title="Param&ecirc;tre Module Assurance">Module D&eacute;p&ocirc;t de Boisson <div class="arrow-down"></div></a>
+                        <ul class="submenu">
+                            <li><a title="Poste occup&eacute;" data-ui-sref="mainpage.poste-occupe" href="javascript:void(0);">Poste occup&eacute;</a></li>
+                            <li><a title="Dipl&ocirc;me" data-ui-sref="mainpage.diplome" href="javascript:void(0);">Dipl&ocirc;me</a></li>
+                            <li><a title="Motif avance sur salaire" data-ui-sref="mainpage.motif-avance" href="javascript:void(0);">Motif Avance sur salaire</a></li>
+                            <li><a title="Nature d&eacute;p&ocirc;t" data-ui-sref="mainpage.nature-depot" href="javascript:void(0);">Nature d&eacute;p&ocirc;t bancaire</a></li>
+                            <li><a title="Mode de vente" data-ui-sref="mainpage.mode-de-vente" href="javascript:void(0);">Mode de vente</a></li>
+                            <li><a title="Banque" data-ui-sref="mainpage.banque" href="javascript:void(0);">Banque</a></li>
+                            <li><a title="Compte Bancaire" data-ui-sref="mainpage.compte-bancaire" href="javascript:void(0);">Compte Bancaire</a></li>
+                            <li><a title="Type Paiement" data-ui-sref="mainpage.type-paiement" href="javascript:void(0);">Type Paiement</a></li>
+                            <li><a title="Cat&eacute;gorie Boisson" data-ui-sref="mainpage.categorie-boisson" href="javascript:void(0);">Cat&eacute;gorie de Boisson</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu" data-ng-show="viewModule == 'assurance'">
+                        <a href="javascript:void(0);" title="Param&ecirc;tre Module Assurance">Module Assurance <div class="arrow-down"></div></a>
+                        <ul class="submenu">
+                            <li><a title="Mod&egrave;le message" data-ui-sref="mainpage.modele-message" href="javascript:void(0);">Mod&egrave;le message assurance</a></li>
+                            <li><a title="Slogan entreprise" data-ui-sref="mainpage.slogan-entreprise" href="javascript:void(0);">Slogan Entreprise</a></li>
+                            <li><a title="Produit d'assurance" data-ui-sref="mainpage.produit-assurance" href="javascript:void(0);">Produit d'assurance</a></li>
+                            <li><a title="Date notification" data-ui-sref="mainpage.date-notification" href="javascript:void(0);">Date notification</a></li>
+                            <li><a title="Groupe" data-ui-sref="mainpage.groupe" href="javascript:void(0);">Groupe prospect</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu" data-ng-show="viewModule == 'livraison'">
+                        <a href="javascript:void(0);" title="Param&ecirc;tre Module Livraison">Module Livraison <div class="arrow-down"></div></a>
+                        <ul class="submenu">
+                            <li><a data-ui-sref="mainpage.typeColis" href="javascript:void(0);">Nature Colis</a></li>
+                            <li><a data-ui-sref="mainpage.typeZone" href="javascript:void(0);">Type de Zone</a></li>
+                            <li><a title="Zone de couverture" data-ui-sref="mainpage.zoneCouverture" href="javascript:void(0);">Zone de couverture</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu" data-ng-if="viewModule == 'livraison' && profileType === 'ADMIN_PART' || profileType === 'ADMIN' || profileType === 'EXPERT'">
+                        <a href="javascript:void(0);">Module Service<div class="arrow-down"></div></a>
+                        <ul class="submenu">
+                            <li><a  data-ui-sref="mainpage.parametre.service-courier" href="javascript:void(0);">Service courrier</a></li>
+                            <li><a href="javascript:void(0);">Guichet Voyage</a></li>
+                            <li><a data-ui-sref="mainpage.parametre.service-commercialisable" href="javascript:void(0);">Service commercialisable</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu" data-ng-if="profileType === 'ADMIN' || profileType === 'EXPERT'">
+                        <a href="javascript:void(0);">Param&ecirc;tre applicatif <div class="arrow-down"></div></a>
+                        <ul class="submenu">
+                            <li><a data-ui-sref="mainpage.parametre.smscredential" href="javascript:void(0);">Acc&egrave;s SMS Souscripteur</a></li>
+                            <li><a data-ui-sref="mainpage.parametre.paysautorise" href="javascript:void(0);">Pays Autoris&eacute;</a></li>
+                        </ul>
+                    </li>
+                    <li data-ng-if="profileType === 'ADMIN_PART' || profileType === 'ADMIN' || profileType === 'EXPERT'">
+                        <a data-ui-sref="mainpage.parametre.compte-utilisateur" href="javascript:void(0);">Compte utilisateur</a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+    <!-- end #navigation -->
+</div>

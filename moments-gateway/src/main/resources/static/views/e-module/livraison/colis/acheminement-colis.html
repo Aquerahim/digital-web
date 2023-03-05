@@ -1,0 +1,88 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Module Livraison</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Livraison</a></li>
+                    <li class="breadcrumb-item active">Acheminement du colis</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<!-- Basic Form Wizard -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <div class="form-row p-0">
+                <div  class="col-md-10 p-0">
+                    <h4 class="header-title"><b>Acheminement du colis</b></h4>
+                    <p class="sub-header">
+                        Liste des colis &agrave; acheminer vers le client
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <table id="datatable" data-datatable="ng" data-dt-options="dtOptions" data-dt-column-defs="dtColumnDefs"
+                       class="table table-bordered dt-responsive nowrap"
+                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                    <tr>
+                        <th style="width: 70px">N&deg; Ordre</th>
+                        <th>Nom & Pr&eacute;noms Destinatiare</th>
+                        <th>Contact</th>
+                        <th>Livreur</th>
+                        <th>Montant Colis</th>
+                        <th>Frais de livraison</th>
+                        <th>Lieu de Livraison</th>
+                        <th>Statut</th>
+                        <th style="width: 100px"> Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="item in datas track by $index">
+                        <td class="text-center">N&deg; {{item.ordre}}</td>
+                        <td class="text-left">{{item.nomPrenomsDestinataire}}</td>
+                        <td class="text-center">{{item.contactDestinataire}}</td>
+                        <td class="text-center">{{item.livreur.nomPrenoms}}</td>
+                        <td class="text-center">{{item.montantColis | formatMillier}} F.CFA</td>
+                        <td class="text-center">{{item.prixLivraison | formatMillier}} F.CFA</td>
+                        <td class="text-center">{{item.zoneLivraison.zoneCouverture}}</td>
+                        <td class="text-center">{{item.statutLivraison}}</td>
+                        <td class="text-center">
+                            <a href="javascript:void(0);" data-ng-if="item.statutLivraison === 'EN_ATTENTE'" data-ng-click="notifDestinatairePourLivraison($event, item)"
+                               class="btn btn-outline-warning btn-rounded waves-effect waves-light btn-sm">
+                                <i class="dripicons-bell mr-1"></i> Notifier le client
+                            </a>
+                            <a href="javascript:void(0);" data-ng-if="item.statutLivraison === 'EN_COURS'"
+                               data-ng-click="notififiactionLivraison($event, item)"
+                               class="btn btn-outline-success btn-rounded waves-effect waves-light btn-sm">
+                                <i class="dripicons-bell mr-1"></i> Notifcation
+                            </a>
+                            <a href="javascript:void(0);" data-ng-if="item.statutLivraison === 'LIVRE'"
+                               data-ng-click="notififiactionLivraison($event, item)"
+                               class="btn btn-outline-purple btn-rounded waves-effect waves-light btn-sm">
+                                <i class="dripicons-bell mr-1"></i> Notifcation
+                            </a>
+
+                            <a href="javascript:void(0);"
+                               data-ng-click="nonCaseLivraison($event, item)"
+                               class="btn btn-outline-danger btn-rounded waves-effect waves-light btn-sm ml-2">
+                                <i class="dripicons-flag mr-1"></i> Non-Case
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End row -->

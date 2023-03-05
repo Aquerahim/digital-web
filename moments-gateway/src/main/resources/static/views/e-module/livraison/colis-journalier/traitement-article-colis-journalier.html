@@ -1,0 +1,182 @@
+<style>
+    .modal-dialog {
+        width: 85%;
+    }
+    .table thead th {
+        border-bottom: 1px dashed #dee2e6;
+    }
+    .table-bordered td, .table-bordered th {
+        border: 1px dashed #dee2e6;
+    }
+    .table-bordered thead td, .table-bordered thead th {
+        border-bottom-width: 1px;
+    }
+    .btn-warning.disabled, .btn-warning:disabled {
+        cursor: not-allowed !important;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+</style>
+
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >{{ titleFrm }}</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate
+          action="javascript:void(0);" >
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-tabs tabs-bordered nav-justified">
+                    <li class="nav-item" ng-class="{ active: isSetTraitement(1) }">
+                        <a href="javascript:void(0);" ng-click="setTabTraitement(1)" data-toggle="tab" aria-expanded="false" class="nav-link active text-uppercase">
+                            <span class="d-block d-sm-none"><i class="mdi mdi-home-variant"></i></span>
+                            <span class="d-none d-sm-block">Informations de base</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" ng-class="{ active: isSetTraitement(2) }">
+                        <a href="javascript:void(0);" ng-click="setTabTraitement(2)" data-toggle="tab" aria-expanded="false" class="nav-link text-uppercase">
+                            <span class="d-block d-sm-none"><i class="mdi mdi-account"></i></span>
+                            <span class="d-none d-sm-block">Liste des articles</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane" ng-class="{ active: isSetTraitement(1) }" id="home-b1" ng-show="isSetTraitement(1)">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="refBon">Ref&eacute;rence Bon<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control text-uppercase" readonly name="refBon" id="refBon" placeholder="..." data-ng-model="items.reference">
+                                </div>
+                                <div class="form-group">
+                                    <label for="typeLivraison">Type de livraison <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control text-uppercase" readonly name="typeLivraison" id="typeLivraison" placeholder="..." data-ng-model="items.typeLivraison">
+                                </div>
+                                <div class="form-group">
+                                    <label for="datelivraisonSouhaite">Date de livraison souhait&eacute;e <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control text-uppercase"
+                                           readonly name="datelivraisonSouhaite" id="datelivraisonSouhaite"
+                                           placeholder="..." data-ng-model="datelivraisonSouhaite">
+                                </div>
+                                <div class="form-group form-row">
+                                    <div class="col-md-4">
+                                        <label for="nbreArticle">Nombre d'article <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control text-uppercase" readonly name="nbreArticle" id="nbreArticle"
+                                               placeholder="..." data-ng-model="items.nbreArticle">
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-7">
+                                        <label for="suivi">Statut actuel <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control text-uppercase" name="suivi"
+                                               style="font-weight: bolder;" readonly id="suivi"
+                                               placeholder="..." data-ng-model="items.suiviDemande.suivi">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="montantGlobal">Montant Global Article <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control text-uppercase" readonly name="montantGlobal" id="montantGlobal"
+                                           placeholder="..." data-ng-model="items.montantGlobal" number-input>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="typeRecuperation">Type Zone de Recupr&eacute;ration<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control text-uppercase" readonly name="typeRecuperation" id="typeRecuperation"
+                                           placeholder="..." data-ng-model="items.zoneRecuperation.typeZoneCouverture.typezone">
+                                </div>
+                                <div class="form-group">
+                                    <label for="zoneRecuperation">Zone de Recupr&eacute;ration<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control text-uppercase" readonly name="zoneRecuperation" id="zoneRecuperation" placeholder="..."
+                                           data-ng-model="items.zoneRecuperation.zoneCouverture">
+                                </div>
+                                <div class="form-group">
+                                    <label for="precisionZoneRecup">Pr&eacute;cision sur zone de recupr&eacute;ration <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control text-uppercase" name="precisionZoneRecup" id="precisionZoneRecup"
+                                           data-ng-minlength="3" placeholder="..." readonly data-ng-model="items.precisionZoneRecup">
+                                </div>
+                                <div class="form-group">
+                                    <label for="montantGlobal">Montant Global Livraison <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control text-uppercase" readonly name="montantGlobalLivraison" id="montantGlobalLivraison"
+                                           placeholder="..." data-ng-model="items.montantGlobalLivraison" number-input>
+                                </div>
+                                <div class="form-group">
+                                    <label for="statuTraitement">Statut Traitement <span class="text-danger">*</span></label>
+                                    <select class="form-control custom-select" style="font-weight: bolder;cursor: pointer" id="statuTraitement"
+                                            data-ng-model="items.statuTraitement" name="statuTraitement" required
+                                            data-ng-options="item as item.suivi for item in statutDmdeListe | orderBy:'suivi' track by item.suivi">
+                                        <option value="" selected>- Choisissez une valeur -</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" ng-class="{ active: isSetTraitement(2) }" id="home-b2" ng-show="isSetTraitement(2)">
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0">
+                                <thead>
+                                <tr class="text-center">
+                                    <th style="width: 80px">#</th>
+                                    <th>Nature</th>
+                                    <th>Nom Produit</th>
+                                    <th>Montant</th>
+                                    <th>Destinataire</th>
+                                    <th>Contact</th>
+                                    <th>Prix Livraison</th>
+                                    <th>Produit cassable</th>
+                                    <th>Lieu de Livraison</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="dx in items.bonDeCommandeList track by $index" data-ng-if="items.bonDeCommandeList.length > 0">
+                                        <th scope="row">ID-{{$index}}</th>
+                                        <td class="text-left">{{dx.natureColis.typecolis}}</td>
+                                        <td class="text-left text-uppercase">{{dx.nomProduit}}</td>
+                                        <td class="text-center text-uppercase">{{dx.montantColis | formatMillier}}</td>
+                                        <td class="text-left text-uppercase">{{dx.destinataire}}</td>
+                                        <td class="text-center text-uppercase">{{dx.contactDestinataire}}</td>
+                                        <td class="text-center text-uppercase">{{dx.prixLivraison | formatMillier}}</td>
+                                        <td class="text-center text-uppercase">{{dx.elementCassable}}</td>
+                                        <td class="text-center text-uppercase">{{dx.zoneLivraison.zoneCouverture}} - {{dx.lieuDeLivraison}}</td>
+                                    </tr>
+                                    <tr data-ng-if="items.bonDeCommandeList.length === 0">
+                                        <th class="text-center">-</th>
+                                        <td class="text-center">-</td>
+                                        <td class="text-center text-uppercase">-</td>
+                                        <td class="text-center text-uppercase">-</td>
+                                        <td class="text-center text-uppercase">-</td>
+                                        <td class="text-center text-uppercase">-</td>
+                                        <td class="text-center text-uppercase">-</td>
+                                        <td class="text-center text-uppercase">-</td>
+                                        <td class="text-center text-uppercase">-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-0 mt-3" data-ng-if="items.statuTraitement">
+                    <div class="center text-center">
+                        <button type="button" class="btn {{style}} btn-rounded waves-effect
+                        text-uppercase width-md waves-light mr-2 pr-4 pl-4 btn-md"
+                                data-ng-click="traiterBon()">
+                            <span>Traitement du Bon </span>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-rounded text-uppercase
+                        waves-effect waves-light pr-4 pl-4 btn-md" data-ng-click="fermer()">
+                            <span>Fermer</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,361 @@
+<style>
+    table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child, table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child {
+        padding: 0.85rem;
+    }
+    table.dataTable.dtr-inline.collapsed>tbody>tr[role=row]>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role=row]>th:first-child:before {
+        display: none;
+    }
+</style>
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Module Livraison</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Livraison</a></li>
+                    <li class="breadcrumb-item active">Liste des colis journalier re&ccedil;u</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<!-- Basic Form Wizard -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <div  class="col-md-8 p-0">
+                <h4 class="header-title"><b>Livraison</b></h4>
+                <p class="sub-header">
+                    Liste des colis journalier re&ccedil;us selon le type de traitement
+                </p>
+            </div>
+
+            <ul class="nav nav-tabs tabs-bordered nav-justified">
+                <li class="nav-item" ng-class="{ active: isSetJrRecu(1) }">
+                    <a href="javascript:void(0);" ng-click="setTabJrRecu(1)" data-toggle="tab" aria-expanded="false" class="nav-link active text-uppercase">
+                        <span class="d-block d-sm-none"><i class="mdi mdi-home-variant"></i></span>
+                        <span class="d-none d-sm-block">colis journalier re&ccedil;us en attente
+                            <span data-ng-if="donnees.attente.length > 0" class="badge badge-success noti-icon-badge">{{donnees.attente.length}}</span>
+                            <span data-ng-if="donnees.attente.length === 0" class="badge badge-warning noti-icon-badge">{{donnees.attente.length}}</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item" ng-class="{ active: isSetJrRecu(2) }">
+                    <a href="javascript:void(0);" ng-click="setTabJrRecu(2)" data-toggle="tab" aria-expanded="false" class="nav-link text-uppercase">
+                        <span class="d-block d-sm-none"><i class="mdi mdi-account"></i></span>
+                        <span class="d-none d-sm-block">colis journalier re&ccedil;us valid&eacute;
+                            <span data-ng-if="donnees.valide.length > 0" class="badge badge-success noti-icon-badge">{{donnees.valide.length}}</span>
+                            <span data-ng-if="donnees.valide.length === 0" class="badge badge-warning noti-icon-badge">{{donnees.valide.length}}</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item" ng-class="{ active: isSetJrRecu(3) }">
+                    <a href="javascript:void(0);" ng-click="setTabJrRecu(3)" data-toggle="tab" aria-expanded="false" class="nav-link text-uppercase">
+                        <span class="d-block d-sm-none"><i class="mdi mdi-account"></i></span>
+                        <span class="d-none d-sm-block">colis journalier recup&eacute;r&eacute;
+                            <span data-ng-if="donnees.traite.length > 0" class="badge badge-success noti-icon-badge">{{donnees.traite.length}}</span>
+                            <span data-ng-if="donnees.traite.length === 0" class="badge badge-warning noti-icon-badge">{{donnees.traite.length}}</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item" ng-class="{ active: isSetJrRecu(4) }">
+                    <a href="javascript:void(0);" ng-click="setTabJrRecu(4)" data-toggle="tab" aria-expanded="false" class="nav-link text-uppercase">
+                        <span class="d-block d-sm-none"><i class="mdi mdi-account"></i></span>
+                        <span class="d-none d-sm-block">colis journalier rejet&eacute;
+                            <span data-ng-if="donnees.rejete.length > 0" class="badge badge-success noti-icon-badge">{{donnees.rejete.length}}</span>
+                            <span data-ng-if="donnees.rejete.length === 0" class="badge badge-warning noti-icon-badge">{{donnees.rejete.length}}</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content pt-0">
+                <div class="tab-pane" ng-class="{ active: isSetJrRecu(1) }" id="home-b1" ng-show="isSetJrRecu(1)">
+                    <div class="p-2">
+                        <div class="form-row p-0">
+                            <div  class="col-md-12 text-center p-0 pt-2 mb-2" data-ng-if="donnees.attente">
+                                <button type="button" class="btn btn-outline-danger btn-rounded width-md waves-effect waves-light mr-3"
+                                        data-ng-click="impressionAllDataToFiche(donnees.attente)">
+                                    <i class="fa fa-file-pdf mr-1"></i>
+                                    Exporter la liste en pdf
+                                </button>
+                                <button type="button" class="btn btn-outline-success btn-rounded width-md waves-effect waves-light"
+                                        data-ng-click="getExcelEtat(donnees.attente, 5)">
+                                    <i class="fa fa-file-excel mr-1"></i>
+                                    Exporter la liste en excel
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <table id="datatable" data-datatable="ng" data-dt-options="dtOptions" data-dt-column-defs="dtColumnDefs"
+                                   class="table table-bordered dt-responsive nowrap"
+                                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                <tr>
+                                    <th style="width: 70px">R&eacute;f.</th>
+                                    <th>Type Livraison</th>
+                                    <th>Montant Global</th>
+                                    <th>Date Livraison souhait&eacute;e</th>
+                                    <th>Nombre articles</th>
+                                    <th>Lieu Recup&eacute;ration</th>
+                                    <th>Statut Traitement</th>
+                                    <th>Date Dmde</th>
+                                    <th style="width: 180px"> Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr data-ng-repeat="item in donnees.attente track by $index">
+                                    <td class="text-center">{{item.reference}}</td>
+                                    <td class="text-center">{{item.typeLivraison}}</td>
+                                    <td class="text-center">{{item.montantGlobal | formatMillier}} F.CFA</td>
+                                    <td class="text-center">{{item.datelivraisonSouhaite | date: 'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">{{item.nbreArticle}}</td>
+                                    <td class="text-left">{{item.precisionZoneRecup}}</td>
+                                    <td class="text-center text-uppercase">En Attente</td>
+                                    <td class="text-center">{{item.creation | date: 'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <a href="javascript:void(0);"
+                                           class="btn btn-outline-primary btn-rounded waves-effect waves-light btn-sm mr-2"
+                                           data-ng-click="traiterDemande($event,item, item.suiviDemande.id, 1)">
+                                            <i class="fa fa-edit mr-1"></i> Traiter
+                                        </a>
+
+                                        <!--a href="javascript:void(0);" ng-show="item.active" data-ng-click="actionOneItemFichLivraison($event,item, 1)"
+                                           class="btn btn-outline-danger btn-rounded waves-effect waves-light btn-sm mr-2"
+                                           data-ng-if="item.suiviDemande.id === 5 && item.active">
+                                            <i class="fa fa-trash mr-1"></i> Supprimer
+                                        </a>
+
+                                        <a href="javascript:void(0);" ng-show="!item.active" data-ng-click="actionOneItemFichLivraison($event,item, 2)"
+                                           class="btn btn-outline-info btn-rounded waves-effect waves-light btn-sm mr-2">
+                                            <i class="fa fa-recycle mr-1"></i> Activer
+                                        </a -->
+
+                                        <a href="javascript:void(0);" title="Imprimer le bon de reception" data-ng-click="impressionFicheA(item)"
+                                           class="btn btn-outline-warning btn-rounded waves-effect waves-light btn-sm">
+                                            <i class="fa fa-print mr-1"></i> Imprimer
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" ng-class="{ active: isSetJrRecu(2) }" id="home-b2" ng-show="isSetJrRecu(2)">
+                    <div class="p-2">
+                        <div class="form-row p-0">
+                            <div  class="col-md-12 text-center p-0 pt-2 mb-2" data-ng-if="donnees.valide">
+                                <button type="button" class="btn btn-outline-danger btn-rounded width-md waves-effect waves-light mr-3"
+                                        data-ng-click="impressionAllDataToFiche(donnees.valide)">
+                                    <i class="fa fa-file-pdf mr-1"></i>
+                                    Exporter la liste en pdf
+                                </button>
+                                <button type="button" class="btn btn-outline-success btn-rounded width-md waves-effect waves-light"
+                                        data-ng-click="getExcelEtat(donnees.valide, 6)">
+                                    <i class="fa fa-file-excel mr-1"></i>
+                                    Exporter la liste en excel
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <table id="datatable" data-datatable="ng" data-dt-options="dtOptions" data-dt-column-defs="dtColumnDefs"
+                                   class="table table-bordered dt-responsive nowrap"
+                                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                <tr>
+                                    <th style="width: 70px">R&eacute;f.</th>
+                                    <th>Type Livraison</th>
+                                    <th>Montant Global</th>
+                                    <th>Date Livraison souhait&eacute;e</th>
+                                    <th>Nombre articles</th>
+                                    <th>Lieu Recup&eacute;ration</th>
+                                    <th>Statut Traitement</th>
+                                    <th>Date Traitement</th>
+                                    <th style="width: 180px"> Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr data-ng-repeat="item in donnees.valide track by $index">
+                                    <td class="text-center">{{item.reference}}</td>
+                                    <td class="text-center">{{item.typeLivraison}}</td>
+                                    <td class="text-center">{{item.montantGlobal | formatMillier}} F.CFA</td>
+                                    <td class="text-center">{{item.datelivraisonSouhaite | date: 'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">{{item.nbreArticle}}</td>
+                                    <td class="text-left">{{item.precisionZoneRecup}}</td>
+                                    <td class="text-center">{{item.suiviDemande.suivi}}</td>
+                                    <td class="text-center">{{item.lastUpdate | date: 'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <a href="javascript:void(0);"
+                                           class="btn btn-outline-primary btn-rounded waves-effect waves-light btn-sm mr-2"
+                                           data-ng-click="traiterDemande($event,item, item.suiviDemande.id, 2)">
+                                            <i class="fa fa-edit mr-1"></i> Finaliser
+                                        </a>
+
+                                        <!--<a href="javascript:void(0);" ng-show="item.active" data-ng-click="actionOneItemFichLivraison($event,item, 1)"
+                                           class="btn btn-outline-danger btn-rounded waves-effect waves-light btn-sm mr-2"
+                                           data-ng-if="item.suiviDemande.id === 6 && item.active">
+                                            <i class="fa fa-trash mr-1"></i> Supprimer
+                                        </a>
+
+                                        <a href="javascript:void(0);" ng-show="!item.active" data-ng-click="actionOneItemFichLivraison($event,item, 2)"
+                                           class="btn btn-outline-info btn-rounded waves-effect waves-light btn-sm mr-2">
+                                            <i class="fa fa-recycle mr-1"></i> Activer
+                                        </a>-->
+
+                                        <a href="javascript:void(0);" title="Imprimer le bon de reception" data-ng-click="impressionFicheA(item)"
+                                           class="btn btn-outline-warning btn-rounded waves-effect waves-light btn-sm">
+                                            <i class="fa fa-print mr-1"></i> Imprimer
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" ng-class="{ active: isSetJrRecu(3) }" id="home-b3" ng-show="isSetJrRecu(3)">
+                    <div class="p-2">
+                        <div class="form-row p-0">
+                            <div  class="col-md-12 text-center p-0 pt-2 mb-2" data-ng-if="donnees.traite">
+                                <button type="button" class="btn btn-outline-danger btn-rounded width-md waves-effect waves-light mr-3"
+                                        data-ng-click="impressionAllDataToFiche(donnees.traite)">
+                                    <i class="fa fa-file-pdf mr-1"></i>
+                                    Exporter la liste en pdf
+                                </button>
+                                <button type="button" class="btn btn-outline-success btn-rounded width-md waves-effect waves-light"
+                                        data-ng-click="getExcelEtat(donnees.traite, 7)">
+                                    <i class="fa fa-file-excel mr-1"></i>
+                                    Exporter la liste en excel
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <table id="datatable" data-datatable="ng" data-dt-options="dtOptions" data-dt-column-defs="dtColumnDefs"
+                                   class="table table-bordered dt-responsive nowrap"
+                                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                <tr>
+                                    <th style="width: 70px">R&eacute;f.</th>
+                                    <th>Type Livraison</th>
+                                    <th>Montant Global</th>
+                                    <th>Date Livraison souhait&eacute;e</th>
+                                    <th>Nombre articles</th>
+                                    <th>Lieu Recup&eacute;ration</th>
+                                    <th>Statut Traitement</th>
+                                    <th>Date Recup</th>
+                                    <th style="width: 180px"> Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr data-ng-repeat="item in donnees.traite track by $index">
+                                    <td class="text-center">{{item.reference}}</td>
+                                    <td class="text-center">{{item.typeLivraison}}</td>
+                                    <td class="text-center">{{item.montantGlobal | formatMillier}} F.CFA</td>
+                                    <td class="text-center">{{item.datelivraisonSouhaite | date: 'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">{{item.nbreArticle}}</td>
+                                    <td class="text-left">{{item.precisionZoneRecup}}</td>
+                                    <td class="text-center">{{item.suiviDemande.suivi}}</td>
+                                    <td class="text-center">{{item.lastUpdate | date: 'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <a href="javascript:void(0);" ng-show="item.active" data-ng-click="actionOneItemFichLivraison($event,item, 1)"
+                                           class="btn btn-outline-danger btn-rounded waves-effect waves-light btn-sm mr-2"
+                                           data-ng-if="item.suiviDemande.id === 7 && item.active">
+                                            <i class="fa fa-trash mr-1"></i> Supprimer
+                                        </a>
+
+                                        <a href="javascript:void(0);" ng-show="!item.active" data-ng-click="actionOneItemFichLivraison($event,item, 2)"
+                                           class="btn btn-outline-info btn-rounded waves-effect waves-light btn-sm mr-2">
+                                            <i class="fa fa-recycle mr-1"></i> Activer
+                                        </a>
+
+                                        <a href="javascript:void(0);" title="Imprimer le bon de reception" data-ng-click="impressionFicheA(item)"
+                                           class="btn btn-outline-warning btn-rounded waves-effect waves-light btn-sm">
+                                            <i class="fa fa-print mr-1"></i> Imprimer
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" ng-class="{ active: isSetJrRecu(4) }" id="home-b4" ng-show="isSetJrRecu(4)">
+                    <div class="p-2">
+                        <div class="form-row p-0">
+                            <div  class="col-md-12 text-center p-0 pt-2 mb-2" data-ng-if="donnees.rejete">
+                                <button type="button" class="btn btn-outline-danger btn-rounded width-md waves-effect waves-light mr-3"
+                                        data-ng-click="impressionAllDataToFiche(donnees.rejete)">
+                                    <i class="fa fa-file-pdf mr-1"></i>
+                                    Exporter la liste en pdf
+                                </button>
+                                <button type="button" class="btn btn-outline-success btn-rounded width-md waves-effect waves-light"
+                                        data-ng-click="getExcelEtat(donnees.rejete, 8)">
+                                    <i class="fa fa-file-excel mr-1"></i>
+                                    Exporter la liste en excel
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <table id="datatable" data-datatable="ng" data-dt-options="dtOptions" data-dt-column-defs="dtColumnDefs"
+                                   class="table table-bordered dt-responsive nowrap"
+                                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                <tr>
+                                    <th style="width: 70px">R&eacute;f.</th>
+                                    <th>Type Livraison</th>
+                                    <th>Montant Global</th>
+                                    <th>Date Livraison souhait&eacute;e</th>
+                                    <th>Nombre articles</th>
+                                    <th>Lieu Recup&eacute;ration</th>
+                                    <th>Statut Traitement</th>
+                                    <th>Date Traitement</th>
+                                    <th style="width: 180px"> Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr data-ng-repeat="item in donnees.rejete track by $index">
+                                    <td class="text-center">{{item.reference}}</td>
+                                    <td class="text-center">{{item.typeLivraison}}</td>
+                                    <td class="text-center">{{item.montantGlobal | formatMillier}} F.CFA</td>
+                                    <td class="text-center">{{item.datelivraisonSouhaite | date: 'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">{{item.nbreArticle}}</td>
+                                    <td class="text-left">{{item.precisionZoneRecup}}</td>
+                                    <td class="text-center">{{item.suiviDemande.suivi}}</td>
+                                    <td class="text-center">{{item.lastUpdate | date: 'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <a href="javascript:void(0);" ng-show="item.active" data-ng-click="actionOneItemFichLivraison($event,item, 1)"
+                                           class="btn btn-outline-danger btn-rounded waves-effect waves-light btn-sm mr-2"
+                                           data-ng-if="item.suiviDemande.id === 8 && item.active">
+                                            <i class="fa fa-trash mr-1"></i> Supprimer
+                                        </a>
+
+                                        <a href="javascript:void(0);" ng-show="!item.active" data-ng-click="actionOneItemFichLivraison($event,item, 2)"
+                                           class="btn btn-outline-info btn-rounded waves-effect waves-light btn-sm mr-2">
+                                            <i class="fa fa-recycle mr-1"></i> Activer
+                                        </a>
+
+                                        <a href="javascript:void(0);" title="Imprimer le bon de reception" data-ng-click="impressionFicheA(item)"
+                                           class="btn btn-outline-warning btn-rounded waves-effect waves-light btn-sm">
+                                            <i class="fa fa-print mr-1"></i> Imprimer
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

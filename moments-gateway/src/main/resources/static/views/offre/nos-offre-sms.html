@@ -1,0 +1,313 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Parametrage</a></li>
+                    <li class="breadcrumb-item active">Nos offres sms</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <div class="form-row p-0">
+                <div  class="col-md-12 p-0">
+                    <h4 class="header-title"><b>Extra</b></h4>
+                    <p class="sub-header">
+                        Nos offres sms en fonction du type de personnes
+                    </p>
+
+                    <ul class="nav nav-tabs tabs-bordered nav-justified">
+                        <li class="nav-item" ng-class="{ active: isSet(1) }">
+                            <a href="javascript:void(0);" ng-click="setTab(1)" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                                <span class="d-block d-sm-none"><i class="mdi mdi-home-variant"></i></span>
+                                <span class="d-none d-sm-block text-uppercase">Offre entreprise</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" ng-class="{ active: isSet(2) }">
+                            <a href="javascript:void(0);" ng-click="setTab(2)" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                <span class="d-block d-sm-none"><i class="mdi mdi-account"></i></span>
+                                <span class="d-none d-sm-block text-uppercase">Offre individuelle</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane" ng-class="{ active: isSet(1) }" id="home-b2" ng-show="isSet(1)">
+                            <div class="row row justify-content-center">
+                                <div class="col-lg-12 center-page">
+                                    <div class="text-center">
+                                        <h3 class="mb-3 mt-2">Choisissez votre plan idéal</h3>
+                                        <p>Communiquez efficacement avec vos contacts grâce à l'envoi de SMS professionnels</p>
+                                        <div class="row row justify-content-center">
+                                            <div class="col-lg-8 center-page">
+                                                <div class="row center-page">
+                                                    <div class="col-md-4">
+                                                        <div class="contact-detail text-left mb-0">
+                                                            <i class="mdi mdi-calendar float-left font-20 mr-2"></i>
+                                                            <address class="overflow-hidden">Aucune date limite d’utilisation</address>
+                                                        </div>
+                                                        <div class="contact-detail text-left mb-0">
+                                                            <i class="mdi mdi-lock-clock float-left font-20 mr-2"></i>
+                                                            <address class="overflow-hidden">Envoi s&eacute;curis&eacute;</address>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="contact-box">
+                                                            <div class="contact-detail text-left mb-0">
+                                                                <i class="mdi mdi-desktop-mac-dashboard float-left font-20 mr-2"></i>
+                                                                <address class="overflow-hidden">Accès à l’interface 24/7</address>
+                                                            </div>
+                                                            <div class="contact-detail text-left mb-0">
+                                                                <i class="mdi mdi-desktop-mac-dashboard float-left font-20 mr-2"></i>
+                                                                <address class="overflow-hidden">Service client et support 6j / 7</address>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="contact-detail text-left mb-0">
+                                                            <i class="mdi mdi-stop-circle-outline float-left font-20 mr-2"></i>
+                                                            <address class="overflow-hidden">Gestion des STOP</address>
+                                                        </div>
+                                                        <div class="contact-detail text-left mb-0">
+                                                            <i class="mdi mdi-chart-bar-stacked float-left font-20 mr-2"></i>
+                                                            <address class="overflow-hidden">Statistiques détaillées</address>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row mt-6 pt-3">
+                                        <div  class="col-md-12 text-right">
+                                            <button type="button" class="btn btn-primary btn-rounded width-md waves-effect waves-light pull-right"
+                                                    data-ng-click="openFrmRechargeOffreEntreprise($event,'')">
+                                                <i class="fas fa-plus mr-1"></i>
+                                                Souscrire &agrave; une formule
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-6 pt-3">
+
+                                        <!--Pricing Column-->
+                                        <article class="pricing-column col-md-3">
+                                            <div class="inner-box card-box">
+                                                <div class="plan-header text-white text-center bg-primary p-3 rounded">
+                                                    <h3 class="plan-title text-uppercase text-white font-16">Starter Pack</h3>
+                                                    <h2 class="plan-price text-white"><span style="font-size: .5em;">F.CFA</span> 20.600</h2>
+                                                    <div class="plan-duration">Par Mois</div>
+                                                </div>
+                                                <ul class="plan-stats list-unstyled text-left mb-0">
+                                                    <li><b>1 Exp&eacute;diteur d&eacute;di&eacute;</b></li>
+                                                    <li><b>Envoi sms tous r&eacute;seaux</b></li>
+                                                    <li><b>Statistiques d&eacute;taill&eacute;es</b></li>
+                                                    <li><b>Co&ucirc;t unitaire sms 25f/sms</b></li>
+                                                    <li><b>Jusqu'&agrave; 700 sms par Mois</b></li>
+                                                    <li><b>Validit&eacute; : 12 Mois</b></li>
+                                                    <li><b>Support 7 jours / 7</b></li>
+                                                    <li><b>Planification des campagnes</b></li>
+                                                    <li><b>API disponible</b></li>
+                                                    <li><b>Int&eacute;gration API support</b></li>
+                                                    <li class="mb-0"><b>Envoi s&eacute;curis&eacute;</b></li>
+                                                </ul>
+
+                                                <!--div class="text-center mb-2">
+                                                    <a href="#" class="btn btn-outline-success btn-bordered width-lg btn-md width-md btn-bordred btn-rounded waves-effect waves-light">Souscrire</a>
+                                                </div -->
+                                            </div>
+                                        </article>
+
+
+                                        <!--Pricing Column-->
+                                        <article class="pricing-column col-md-3">
+                                            <div class="inner-box card-box">
+                                                <div class="ribbon-pricing bg-danger rounded font-13 text-white"><b>POPULAR</b></div>
+                                                <div class="plan-header text-white text-center bg-primary p-3 rounded">
+                                                    <h3 class="plan-title text-white text-uppercase font-16">Professional Pack</h3>
+                                                    <h2 class="plan-price text-white"><span style="font-size: .5em;">F.CFA</span> 41.200</h2>
+                                                    <div class="plan-duration">Par Mois</div>
+                                                </div>
+                                                <ul class="plan-stats list-unstyled text-left mb-0">
+                                                    <li><b>2 Exp&eacute;diteur d&eacute;di&eacute;</b></li>
+                                                    <li><b>Envoi sms tous r&eacute;seaux</b></li>
+                                                    <li><b>Statistiques d&eacute;taill&eacute;es</b></li>
+                                                    <li><b>Co&ucirc;t unitaire sms 21f/sms</b></li>
+                                                    <li><b>Jusqu'&agrave; 1700 sms par Mois</b></li>
+                                                    <li><b>Validit&eacute; : 12 Mois</b></li>
+                                                    <li><b>Support 7 jours / 7</b></li>
+                                                    <li><b>Tableau de bord disponible</b></li>
+                                                    <li><b>API et Int&eacute;gration support</b></li>
+                                                    <li><b>Planification des campagnes</b></li>
+                                                    <li class="mb-0"><b>Envoi s&eacute;curis&eacute;</b></li>
+                                                </ul>
+
+                                                <!--div class="text-center mb-2">
+                                                    <a href="#" class="btn btn-success width-lg btn-md width-md btn-bordred btn-rounded waves-effect waves-light">Souscrire</a>
+                                                </div -->
+                                            </div>
+                                        </article>
+
+
+                                        <!--Pricing Column-->
+                                        <article class="pricing-column col-md-3">
+                                            <div class="inner-box card-box">
+                                                <div class="plan-header text-white text-center bg-primary p-3 rounded">
+                                                    <h3 class="plan-title text-white text-uppercase font-16">Business Pack</h3>
+                                                    <h2 class="plan-price text-white"><span style="font-size: .5em;">F.CFA</span> 82.400</h2>
+                                                    <div class="plan-duration">Par Mois</div>
+                                                </div>
+                                                <ul class="plan-stats list-unstyled text-left mb-0">
+                                                    <li><b>4 Exp&eacute;diteur d&eacute;di&eacute;</b></li>
+                                                    <li><b>Envoi sms tous r&eacute;seaux</b></li>
+                                                    <li><b>Statistiques d&eacute;taill&eacute;es</b></li>
+                                                    <li><b>Co&ucirc;t unitaire sms 20f/sms</b></li>
+                                                    <li><b>Jusqu'&agrave; 3700 sms par Mois</b></li>
+                                                    <li><b>Validit&eacute; : 12 Mois</b></li>
+                                                    <li><b>Support 7 jours / 7</b></li>
+                                                    <li><b>Tableau de bord disponible</b></li>
+                                                    <li><b>API et Int&eacute;gration support</b></li>
+                                                    <li><b>Planification des campagnes</b></li>
+                                                    <li class="mb-0"><b>Envoi s&eacute;curis&eacute;</b></li>
+                                                </ul>
+
+                                                <!--div class="text-center mb-2">
+                                                    <a href="#" class="btn btn-outline-success width-lg btn-md width-md btn-bordred btn-rounded waves-effect waves-light">Souscrire</a>
+                                                </div -->
+                                            </div>
+                                        </article>
+
+
+                                        <!--Pricing Column-->
+                                        <article class="pricing-column col-md-3">
+                                            <div class="inner-box card-box">
+                                                <div class="plan-header text-white text-center bg-primary p-3 rounded">
+                                                    <h3 class="plan-title text-white text-uppercase font-16">Pack Premium</h3>
+                                                    <h2 class="plan-price text-white"><span style="font-size: .5em;">F.CFA</span> 123.600</h2>
+                                                    <div class="plan-duration">Par Mois</div>
+                                                </div>
+                                                <ul class="plan-stats list-unstyled text-left mb-0">
+                                                    <li><b>6 Exp&eacute;diteur d&eacute;di&eacute;</b></li>
+                                                    <li><b>Envoi sms tous r&eacute;seaux</b></li>
+                                                    <li><b>Statistiques d&eacute;taill&eacute;es</b></li>
+                                                    <li><b>Co&ucirc;t unitaire sms 16f/sms</b></li>
+                                                    <li><b>Jusqu'&agrave; 10.000 sms par Mois</b></li>
+                                                    <li><b>Validit&eacute; : 12 Mois</b></li>
+                                                    <li><b>Support 7 jours / 7</b></li>
+                                                    <li><b>Tableau de bord disponible</b></li>
+                                                    <li><b>API et Int&eacute;gration support</b></li>
+                                                    <li><b>Planification des campagnes</b></li>
+                                                    <li class="mb-0"><b>Envoi s&eacute;curis&eacute;</b></li>
+                                                </ul>
+
+                                                <!--div class="text-center mb-2">
+                                                    <a href="#" class="btn btn-outline-success width-lg btn-md width-md btn-bordred btn-rounded waves-effect waves-light">Souscrire</a>
+                                                </div -->
+                                            </div>
+                                        </article>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane"  ng-class="{ active: isSet(2) }" id="profile-b2" ng-show="isSet(2)">
+                            <div class="row row justify-content-center">
+                                <div class="col-lg-9 center-page">
+                                    <div class="text-center">
+                                        <h3 class="mb-3 mt-2">Choisissez votre plan idéal</h3>
+                                        <p>Con&ccedil;u pour des communication occasionnel tel que les offres promotionnelles, les invitations pour &eacute;v&egrave;nements, pr&eacute;sentation de voeux....</p>
+                                        <div class="row row justify-content-center">
+                                            <div class="col-lg-8 center-page">
+                                                <div class="row center-page">
+                                                    <div class="col-md-4">
+                                                        <div class="contact-detail text-left mb-0">
+                                                            <i class="mdi mdi-calendar float-left font-20 mr-2"></i>
+                                                            <address class="overflow-hidden">Aucune date limite d’utilisation</address>
+                                                        </div>
+                                                        <div class="contact-detail text-left mb-0">
+                                                            <i class="mdi mdi-lock-clock float-left font-20 mr-2"></i>
+                                                            <address class="overflow-hidden">Envoi s&eacute;curis&eacute;</address>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="contact-box">
+                                                            <div class="contact-detail text-left mb-0">
+                                                                <i class="mdi mdi-desktop-mac-dashboard float-left font-20 mr-2"></i>
+                                                                <address class="overflow-hidden">Accès à l’interface 24/7</address>
+                                                            </div>
+                                                            <div class="contact-detail text-left mb-0">
+                                                                <i class="mdi mdi-desktop-mac-dashboard float-left font-20 mr-2"></i>
+                                                                <address class="overflow-hidden">Service client et support 6j / 7</address>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="contact-detail text-left mb-0">
+                                                            <i class="mdi mdi-stop-circle-outline float-left font-20 mr-2"></i>
+                                                            <address class="overflow-hidden">Gestion des STOP</address>
+                                                        </div>
+                                                        <div class="contact-detail text-left mb-0">
+                                                            <i class="mdi mdi-chart-bar-stacked float-left font-20 mr-2"></i>
+                                                            <address class="overflow-hidden">Statistiques détaillées</address>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-4 pt-3">
+
+                                        <article class="pricing-column col-md-6" style="margin: 0 auto">
+                                            <div class="inner-box card-box">
+                                                <div class="ribbon-pricing bg-danger rounded font-13 text-white"><b>POPULAR</b></div>
+                                                <div class="plan-header text-white text-center bg-primary p-3 rounded">
+                                                    <h3 class="plan-title text-white text-uppercase font-16">Individual Pack</h3>
+                                                    <h2 class="plan-price text-white">25 <span style="font-size: .5em;">F.CFA/SMS</span></h2>
+                                                    <!--<div class="plan-duration">Par SMS</div>-->
+                                                </div>
+                                                <ul class="plan-stats list-unstyled text-left mb-0">
+                                                    <li><b>Envoi sms tous r&eacute;seaux</b></li>
+                                                    <li><b>Statistiques d&eacute;taill&eacute;es</b></li>
+                                                    <li><b>Co&ucirc;t unitaire sms 25 f.cfa /sms</b></li>
+                                                    <li><b>Support 7 jours / 7</b></li>
+                                                    <li><b>Tableau de bord disponible</b></li>
+                                                    <li><b>API et Int&eacute;gration support</b></li>
+                                                    <li><b>Planification des campagnes</b></li>
+                                                    <li class="mb-0"><b>Envoi s&eacute;curis&eacute;</b></li>
+                                                </ul>
+
+                                                <!--div class="text-center mb-2">
+                                                    <a href="#" class="btn btn-success width-lg btn-md width-md btn-bordred btn-rounded waves-effect waves-light">Souscrire</a>
+                                                </div -->
+                                            </div>
+                                        </article>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="sub-header mb-0 mt-2 text-center">
+                            Vous &ecirc;tes interess&eacute;s par une offre ? Contacter nous par mail à support@phoenixacces.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->

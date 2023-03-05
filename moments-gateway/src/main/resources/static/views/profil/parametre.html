@@ -1,0 +1,165 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Di-Gital Web</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">{{datas.profile.module | capitalize}}</a>
+                    </li>
+                    <li class="breadcrumb-item active">Param&ecirc;tre</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Param&ecirc;tre utilisateur</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="profile-user-box mt-0">
+            <div class="row">
+                <div class="col-sm-6">
+                    <span class="float-left mr-3"><img src="assets/images/users/avatar-1.jpg" alt=""
+                                                       class="avatar-xl rounded-circle"></span>
+                    <div class="media-body">
+                        <h4 class="mt-1 mb-1 font-18 ellipsis">{{items.nomPrenoms}}</h4>
+                        <p class="font-13">{{datas.roles}}</p>
+                        <p class="text-muted mb-0">
+                            <small>{{datas.profile.gareRoutiere.compagnie.paysAutorise.paysautorise}}</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-xl-4">
+        <div class="card-box">
+            <h4 class="header-title mt-0 mb-4">Information Personnelle</h4>
+            <div class="panel-body">
+                <p class="text-muted font-13">
+                    Hye, I’m {{datas.profile.nomPrenoms}} residing in this beautiful world. Meet me or Contact me for any queries. One Extra line for filling space. Fill as many you want.
+                </p>
+
+                <hr>
+                <div class="text-left">
+                    <p class="text-muted font-13"><strong>Identifiant :</strong> <span
+                            class="ml-3">{{items.idDigital}}</span></p>
+
+                    <p class="text-muted font-13"><strong>Nom complet :</strong> <span
+                            class="ml-3 text-capitalize">{{items.nomPrenoms}}</span></p>
+
+                    <p class="text-muted font-13"><strong>Mobile :</strong><span
+                            class="ml-3">({{datas.profile.gareRoutiere.compagnie.paysAutorise.indicatif}}) {{items.phone}}</span>
+                    </p>
+
+                    <p class="text-muted font-13"><strong>Email :</strong> <span class="ml-3">{{items.email}}</span></p>
+
+                    <p class="text-muted font-13"><strong>Adresse :</strong> <span
+                            class="ml-3">{{datas.profile.gareRoutiere.compagnie.paysAutorise.paysautorise}}</span></p>
+
+                    <p class="text-muted font-13"><strong>Entreprise :</strong> <span
+                            class="ml-3">{{datas.profile.gareRoutiere.compagnie.compagnie}}</span></p>
+
+                    <p class="text-muted font-13"><strong>R&ocirc;le Digital Web :</strong> <span
+                            class="ml-3">{{datas.roles}}</span></p>
+
+                    <p class="text-muted font-13"><strong>Derni&egrave;re conexion :</strong> <span
+                            class="ml-3">{{datas.lastConnexion | date:'dd-MM-yyyy hh:mm:ss'}}</span></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xl-8">
+        <div class="card-box">
+            <h4 class="header-title mt-0 mb-4">Modification du mot de passe utilisateur</h4>
+            <p class="sub-header">
+                Le mot de passe doit contenir un caract&egrave;re en Majuscule, un chiffre, un caract&egrave;re special et des caract&egrave;res minuscule pour une longueur maximale de 8 et minimale de 06.
+            </p>
+            <div class="panel-body">
+                <div class="row">
+                    <form class="form-horizontal col-md-12" action="javascript:void(0);"
+                          data-ng-submit="submitForm(addItem.$valid)"  name="loginForm">
+
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label for="email" class="col-3 col-form-label">E-mail<span class="text-danger">*</span></label>
+                                <div class="input-group col-8">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="mdi mdi-account-alert"></i></span>
+                                    </div>
+                                    <input type="email" class="form-control text-lowercase" id="email" readonly name="email" data-ng-model="items.email" >
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password" class="col-3 col-form-label">Nouveau mot de Passe<span class="text-danger">*</span></label>
+                                <div class="input-group col-8">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="mdi mdi-face-agent"></i></span>
+                                    </div>
+                                    <input type="password" class="form-control text-uppercase" id="password"
+                                           maxlength="15" minlength="6" disabled="{{required}}"
+                                           name="password" required placeholder="..." data-ng-model="items.password" >
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="confPassword" class="col-3 col-form-label">Confirmer mot de Passe<span class="text-danger">*</span></label>
+                                <div class="input-group col-8">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="mdi mdi-face-agent"></i></span>
+                                    </div>
+                                    <input type="password" class="form-control text-uppercase" id="confPassword" required
+                                           maxlength="15" minlength="6" placeholder="..." disabled="{{required}}"
+                                           name="confPassword" data-ng-model="items.confPassword">
+                                </div>
+                            </div>
+
+                            <div class="form-group row" data-ng-show="items.codeOTP">
+                                <label for="codeOTP" class="col-3 col-form-label">Code One-Time Password (OTP)<span class="text-danger">*</span></label>
+                                <div class="input-group col-8">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                                    </div>
+                                    <input type="text" style="display: none" data-ng-model="items.codeOTP">
+                                    <input class="form-control" type="text" ui-mask="999-999" data-ng-model="codeOTP" id="codeOTP">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-0 mt-3 col-md-12">
+                        <div class="center text-center">
+                            <button type="button" class="btn btn-success btn-rounded waves-effect
+                                text-capitalize width-md waves-light mr-4 pr-4 pl-4 btn-md" data-ng-show="viewBtn"
+                                    data-ng-click="getNewCodeOTP()" data-ng-disabled="loginForm.$invalid">
+                                <span>Demander un Code One-Time Password (OTP)</span>
+                            </button>
+
+                            <button class="btn btn-md btn-block btn-primary waves-effect waves-light"
+                                    data-ng-show="codeOTP && items.confPassword && !viewBtn"
+                                    data-ng-click="updatePassword()"
+                                    type="button">Se Connecter</button>
+
+                            <button type="reset" class="btn btn-outline-secondary btn-rounded text-capitalize waves-effect waves-light pr-4 pl-4 btn-md"
+                                    data-ng-click="backTo()">
+                                <span>Fermer</span>
+                            </button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

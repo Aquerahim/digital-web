@@ -1,0 +1,89 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >{{ titleFrm }} envoy&eacute; n&deg; {{items.ordre}}</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  novalidate>
+        <!--p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p -->
+
+        <fieldset id="default-wizard-step-0" class="stepy-step">
+            <legend>Information</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="nomCampagne">Nom Campagne<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="nomCampagne" name="nomCampagne"
+                                   readonly placeholder="..."  data-ng-model="items.nomCampagne">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="typeMessage">Type Message<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="typeMessage" name="typeMessage"
+                                   data-ng-minlength="3" required placeholder="..."  data-ng-model="items.typeMessage">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="sourceData">Source de provenance des contacts<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="sourceData" name="sourceData"
+                                   readonly placeholder="..."  data-ng-model="items.sourceData">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="dateEnvoi">Date d'envoi<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-calendar-outline"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="dateEnvoi" name="dateEnvoi"
+                                   readonly placeholder="..."  data-ng-model="items.dateEnvoi">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="example-textarea">Mod&egrave;le message<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-message"></i></span>
+                            </div>
+                            <textarea class="form-control" rows="5" name="message" data-ng-model="items.message" readonly
+                                      style="resize: none;text-transform: none;" disabled id="example-textarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

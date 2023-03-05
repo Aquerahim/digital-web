@@ -1,0 +1,119 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform labelview f-16" >{{ titleFrm }}</h5>
+</div>
+<div class="modal-body card-box mb-0">
+    <div class="clearfix">
+        <div class="float-left mb-2">
+            <img src="assets/images/logo-dark.png" alt="" height="28">
+        </div>
+        <div class="float-right">
+            <h3 class="m-0 d-print-none">Fiche de retrait</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mt-3">
+                <p><b>Bonjour, {{nomPrenoms}}</b></p>
+                <p class="text-muted">
+                    Nous vous remercions parce que vous continuez &agrave; utiliser notre plate-forme pour vos produits.
+                    Nous nous engageons &agrave; vous fournir des services de haute qualit&eacute; ainsi qu'un service client,
+                    exceptionnel pour chaque op&eacute;ration.
+                </p>
+            </div>
+        </div><!-- end col -->
+        
+        <div class="col-md-6">
+            <div class="mt-3 text-md-right">
+                <p style="margin-bottom: 0.4rem;"><strong>Date d'envoi : </strong> {{items.creation | date:"dd/MM/yyyy '-' HH:mm:ss"}}</p>
+                <p style="margin-bottom: 0.4rem;"><strong>Frais colis : </strong>
+                    <span class="badge badge-success" style="padding: 0.4em 0.7em;border-radius: 0;" data-ng-show="items.montantFrais !== 0">{{items.frais}}</span>
+                    <span class="badge badge-red" style="padding: 0.4em 0.7em;border-radius: 0;" data-ng-show="items.montantFrais === 0">{{items.frais}}</span>
+                </p>
+                <p style="margin-bottom: 0.4rem;"><strong>Colis ID: </strong> #{{items.ordre}}</p>
+                <p><strong>SMS Notificatif: </strong> Envoyé</p>
+            </div>
+        </div><!-- end col -->
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <h5>Information Exp&eacute;diteur</h5>
+            <address class="line-h-24 mb-0">
+                {{items.nomExpediteur}}<br>
+                {{items.adresseExpediteur === null ? "N/D" : items.villeExpeditrice+", "+items.adresseExpediteur}}<br>
+                <abbr title="Phone">Tel.:</abbr> (225) {{items.phoneExpedietur | formatMillier}}
+            </address>
+        </div>
+
+        <div class="col-md-6">
+            <div class="text-md-right">
+                <h5>Information Destinataire</h5>
+                <address class="line-h-24 mb-0">
+                    {{items.nomDestinataire}}<br>
+                    {{items.villeDestinatrice}}<br>
+                    <abbr title="Phone">Tel.:</abbr> (225) {{items.phoneDestinatire | formatMillier}}
+                </address>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p class="mt-2 text-uppercase mb0 mb-0"><b>liste des colis</b></p>
+            <div class="table-responsive">
+                <table class="table table-centered table-bordered mb-2">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#Code</th>
+                            <th>D&eacute;signations</th>
+                            <th class="text-center">Nature</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="obj in items.colisList track by $index">
+                            <td class="text-center">ID-{{obj.id}}</td>
+                            <td>{{obj.designationColis}}</td>
+                            <td class="text-center">{{obj.natureColis}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="clearfix pt-2">
+                        <h6 class="text-muted">Notes:</h6>
+                        <small>
+                            Aucun frais suppl&eacute;mentaire ne doit être appliqu&eacute; au client lors du retrait d'un colis.
+                            Une notification sera adress&eacute; à l'&eacute;xp&eacute;diteur pour confirmation du retrait du colis.
+                        </small>
+                    </div>
+                    <h3 class="pt-1">Code Validateur : {{items.valideur}}</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-md-right">
+                        <p><b>Valeur :</b> F.CFA {{items.valeurColis | formatMillier}}</p>
+                        <p><b>Frais d'envoi:</b> F.CFA  {{items.valeurColis * 0.1 | formatMillier}}</p>
+                        <p><b>Frais de suivi sms:</b> F.CFA  {{items.suiviSms | formatMillier}}</p>
+                        <h3>F.CFA  {{totalPayer | formatMillier}}</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+            <div class="hidden-print mt-2">
+                <div class="text-right d-print-none">
+                    <a href="javascript:window.print()"
+                       class="btn btn-blue waves-effect waves-light mr-2">
+                        <i class="fa fa-print mr-1"></i> Imprimer D&eacute;charge
+                    </a>
+                    <a href="javascript:void(0);" data-ng-click="validerRetrait()" class="btn btn-info waves-effect waves-light">Valider Retrait</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

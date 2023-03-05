@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >{{ titleFrm }} routi&egrave;re</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate>
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+
+        <fieldset id="default-wizard-step-0" class="stepy-step">
+            <legend>Information Compagnie</legend>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="typecontrat">Type de contrat<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="typecontrat" name="typecontrat"
+                                   data-ng-minlength="3" required placeholder="..."  data-ng-model="items.typecontrat">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group mb-0 mt-3">
+            <div class="center text-center">
+                <button type="button" class="btn {{style}} btn-rounded waves-effect text-uppercase
+                width-md waves-light mr-2 pr-4 pl-4 btn-md" data-ng-disabled="addItem.$invalid"
+                        data-ng-click="save()">
+                    <span>{{nomBtn}}</span>
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                        data-ng-click="fermer()">
+                    <span>Fermer</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

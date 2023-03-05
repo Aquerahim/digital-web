@@ -1,0 +1,125 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Notification en Masse</a></li>
+                    <li class="breadcrumb-item active">Cr&eacute;er un message en masse</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+
+<!-- Basic Form Wizard -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <div class="form-row p-0">
+                <div  class="col-md-12 p-0">
+                    <h4 class="header-title"><b>Notification en Masse</b></h4>
+                    <p class="sub-header">
+                        Formulaire de cr&eacute;ation d'une notification en masse de message
+                    </p>
+                </div>
+
+                <div class="col-12">
+                    <form role="form" novalidate class="form-horizontal" action="javascript:void(0);"
+                          name="formulaire" data-ng-submit="submitForm(formulaire.$valid)">
+                        <div class="form-row">
+
+                            <div class="form-group col-md-6">
+                                <label for="dateEnvoi" class="col-form-label">Nom Campagne <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" id="nomCampagne" name="nomCampagne"
+                                       data-ng-model="datas.nomCampagne" required placeholder="..."
+                                >
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="typeMessage" class="col-form-label">Type de message <span class="text-danger">*</span></label>
+                                <select id="typeMessage" class="form-control custom-select" style="cursor: pointer" required
+                                        data-ng-model="datas.typeMessage" name="typeMessage" >
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                    <option value="NOUVEL-AN">NOUVEL AN</option>
+                                    <option value="NOUVEAU-PRODUIT">NOUVEAU PRODUIT</option>
+                                    <option value="OPERATION-COMMERCIALE">OP&Eacute;RATION COMMERCIALE</option>
+                                    <option value="OPERATION-MARKETING">OP&Eacute;RATION MARKETING</option>
+                                    <option value="FETE-RELIGIEUSE">F&Ecirc;TE R&Eacute;LIGIEUSE</option>
+                                    <option value="FETE-MERE">F&Ecirc;TE M&Egrave;RE</option>
+                                    <option value="FETE-PERE">F&Ecirc;TE P&Egrave;RE</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="sourceData" class="col-form-label">Source de provenance des contacts <span class="text-danger">*</span></label>
+                                <select id="sourceData" class="form-control custom-select text-uppercase" style="cursor: pointer" required
+                                        data-ng-model="datas.sourceData" name="sourceData" data-ng-change="loadData(datas.sourceData, '0')">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                    <option value="PORTE-FEUILLE">Mon Porte-feuille Client</option>
+                                    <option value="PROSPECT">Groupe Prospect</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="groupeProspect" class="col-form-label">Liste groupe prospect</label>
+                                <select id="groupeProspect" class="form-control custom-select" style="cursor: pointer"
+                                        data-ng-model="datas.groupeProspect" name="groupeProspect"
+                                        data-ng-options="item as item.nomGroupe for item in loadProspectGrpe | orderBy:'nomGroupe' track by item.nomGroupe"
+                                        ng-disabled="datas.sourceData == 'PORTE-FEUILLE' || datas.sourceData == null"
+                                        disabled="{{datas.sourceData == 'PORTE-FEUILLE' || datas.sourceData == null}}" >
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inspirationModele" class="col-form-label">S'inspirer du mod&egrave;le message <span class="text-danger">*</span></label>
+                                <select id="inspirationModele" class="form-control custom-select" style="cursor: pointer" required
+                                        data-ng-model="datas.inspirationModele" name="inspirationModele"  data-ng-change="loadData(datas.inspirationModele, '1')">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                    <option value="OUI">OUI</option>
+                                    <option value="NON">NON</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="dateEnvoi" class="col-form-label">Date d'envoi du message <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control text-uppercase" id="dateEnvoi" name="dateEnvoi"
+                                       data-ng-model="datas.dateEnvoi" min="{{date | date:'yyyy-MM-dd'}}" required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="example-textarea" class="col-form-label">Mod&egrave;le message <span class="text-danger">*</span></label>
+                                <textarea class="form-control" rows="5" name="message" data-ng-model="datas.message" style="resize: none;text-transform: none;" id="example-textarea"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-0 mt-3">
+                            <div class="center text-center">
+                                <button type="button" class="btn btn-primary btn-rounded waves-effect text-uppercase
+                                        width-md waves-light mr-2 pr-4 pl-4 btn-md" data-ng-disabled="formulaire.$invalid"
+                                        data-ng-click="saveCampagneNewYear()">
+                                    <span>Enregistrer</span>
+                                </button>
+                                <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                                        data-ng-click="goToBack()">
+                                    <span>Fermer</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

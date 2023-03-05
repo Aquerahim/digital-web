@@ -1,0 +1,144 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >{{ titleFrm }}</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate>
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+
+        <fieldset id="default-wizard-step-0" class="stepy-step">
+            <legend>Information</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="typeProspect">Type Prospect<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                            </div>
+                            <select id="typeProspect" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.typeProspect" name="typeProspect"
+                                    data-ng-options="item as item.type for item in findAllTypeProspect | orderBy:'type' track by item.type">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nomPrenoms">Nom & Pr&eacute;noms ou raison sociale du Prospect<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="nomPrenoms" name="nomPrenoms"
+                                   data-ng-minlength="3" required placeholder="..."  data-ng-model="items.nomPrenoms">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adresse">Adresse du Prospect<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="adresse" name="adresse"
+                                   data-ng-minlength="3" required placeholder="..."  data-ng-model="items.adresse">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="dateNaissance">Date de naissance (JJ/MM)</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                            </div>
+                            <input type="date" class="form-control text-uppercase" id="dateNaissance" name="dateNaissance"
+                                   data-ng-model="items.dateNaissance" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact Mobile<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="contact"
+                                   data-ng-model="items.contact" required ui-mask="99-99-999-999" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="produit">Produit prospect&eacute;</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-group"></i></span>
+                            </div>
+                            <select id="produit" class="form-control custom-select" style="cursor: pointer"
+                                    data-ng-model="items.produit" name="produit"
+                                    data-ng-options="item as item.produit for item in findAllProduits | orderBy:'produit' track by item.produit">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset id="default-wizard-step-1" class="stepy-step">
+            <legend>Information Groupe</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="groupe">Groupe prospect<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-group"></i></span>
+                            </div>
+                            <select id="groupe" class="form-control custom-select" style="cursor: pointer"
+                                    data-ng-model="items.groupe" name="groupe" required
+                                    data-ng-options="item as item.nomGroupe for item in findAllGrps | orderBy:'nomGroupe' track by item.nomGroupe">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="ordre">Num&eacute;ro d'ordre Groupe<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="ordre" name="ordre"
+                                   disabled placeholder="..."  data-ng-model="items.groupe.ordre">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group mb-0 mt-3">
+            <div class="center text-center">
+                <button type="button" class="btn {{style}} btn-rounded waves-effect text-uppercase
+                width-md waves-light mr-2 pr-4 pl-4 btn-md" data-ng-disabled="addItem.$invalid"
+                        data-ng-click="saveProspect()">
+                    <span>{{nomBtn}}</span>
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                        data-ng-click="fermer()">
+                    <span>Fermer</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

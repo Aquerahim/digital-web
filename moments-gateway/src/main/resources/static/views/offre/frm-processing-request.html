@@ -1,0 +1,181 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >Traitement de la demande de rechargement d'un compte</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate>
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+
+        <fieldset id="default-wizard-step-0" class="stepy-step">
+            <legend>Information</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="montantRechargement">Montant de votre rechargement<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="montantRechargement" name="montantRechargement"
+                                   data-ng-minlength="4" required placeholder="..."
+                                   data-ng-model="items.montantRechargement" number-input
+                                   readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="nbreSms">Nombre SMS &eacute;quivalent<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="nbreSms" name="nbreSms"
+                                   placeholder="..."  data-ng-model="items.nbreSms" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="refPaiement">R&eacute;f&eacute;rence paiement<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="refPaiement" name="refPaiement"
+                                   data-ng-minlength="3" required placeholder="..."  data-ng-model="items.refPaiement"
+                                   maxlength="30" ng-maxlength="30" minlength="5" ng-minlength="5" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="numPayeur">Numéro marchand<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="numPayeur" name="numPayeur"
+                                   required data-ng-model="items.numPayeur" ui-mask="99-99-999-999" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="typePaiement">Type ou canal de paiement<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="typePaiement" name="typePaiement"
+                                   readonly placeholder="..."  data-ng-model="items.typePaiement.typepaiement" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="totalPayer">Total &agrave; payer<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="totalPayer" name="totalPayer"
+                                   readonly  placeholder="..."  data-ng-model="items.totalPayer" number-input />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Volume SMS Compte VavaSms<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" name="nombreSms"
+                                   readonly  placeholder="..."  data-ng-model="items.entreprises.smsCredential.nombreSms" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Volume SMS Compte LeTexto<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" name="nombreSmsLeTexto"
+                                   readonly  placeholder="..."  data-ng-model="items.entreprises.smsCredential.nombreSmsLeTexto" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="status">Statut de la demande<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <select id="status" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.statut" name="status">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option value="PENDING">EN ATTENTE DE VALIDATION</option>
+                                <option value="TRAITE">VALIDER LA DEMANDE</option>
+                                <option value="REJETER">REJETER LA DEMANDE</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="entreprises">Entreprise demandeuse<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="entreprises" name="entreprises"
+                                   readonly  placeholder="..."  data-ng-model="items.entreprises.compagnie" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group mb-0 mt-3">
+            <div class="center text-center">
+                <button type="button" class="btn btn-success btn-rounded waves-effect text-uppercase
+                width-md waves-light mr-2 pr-4 pl-4 btn-md" data-ng-disabled="addItem.$invalid"
+                        data-ng-click="processingRequest()">
+                    <span>{{nomBtn}}</span>
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                        data-ng-click="fermer()">
+                    <span>Fermer</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

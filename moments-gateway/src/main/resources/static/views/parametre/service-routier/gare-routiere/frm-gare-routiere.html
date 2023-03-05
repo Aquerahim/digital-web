@@ -1,0 +1,156 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >{{ titleFrm }} routi&egrave;re</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate>
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+
+        <fieldset id="default-wizard-step-0" class="stepy-step">
+            <legend>Information Compagnie</legend>
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <label for="compagnie">Entreprise<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account-group"></i></span>
+                            </div>
+                            <select id="compagnie" class="form-control" style="cursor: pointer" required
+                                    data-ng-model="items.compagnie" name="compagnie"
+                                    data-ng-options="item as item.compagnie for item in findAllCompagnie | orderBy:'compagnie' track by item.compagnie">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="situationGeo">Situation G&eacute;ographique</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-marker"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="situationGeo" readonly placeholder="..." data-ng-model="items.compagnie.adresse">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="responsable">Nom Responsable</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="responsable" readonly placeholder="..." data-ng-model="items.compagnie.responsable">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactResponsable">Contact Responsable</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="contactResponsable" readonly data-ng-model="items.compagnie.contactResponsable" ui-mask="99-99-999-999" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset id="default-wizard-step-1" class="stepy-step">
+            <legend>Information Point de Vente ou Point relais</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="gareRoutiere">Point de Vente ou Point relais<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-bus"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" required id="gareRoutiere"
+                                   placeholder="..." data-ng-model="items.gareRoutiere">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact">Contact ou Infoline<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" name="contact" required id="contact"
+                                   data-ng-model="items.contact" ui-mask="99-99-999-999">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="siteGeoGareRoutiere">Situation G&eacute;ographique<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-marker"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" required id="siteGeoGareRoutiere"
+                                   name="siteGeoGareRoutiere" placeholder="..." data-ng-model="items.siteGeoGareRoutiere">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="fax">Fax ou Contcat 2</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-marker"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" name="fax" id="fax" placeholder="..." data-ng-model="items.fax">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nomresponsable">Nom Responsable<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" required id="nomresponsable"
+                                   placeholder="..." data-ng-model="items.nomresponsable" name="nomresponsable">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactResponsableGareRoutiere">Contact Responsable<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" required id="contactResponsableGareRoutiere"
+                                   data-ng-model="items.contactResponsableGareRoutiere" name="contactResponsableGareRoutiere" ui-mask="99-99-999-999" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group mb-0 mt-3">
+            <div class="center text-center">
+                <button type="button" class="btn {{style}} btn-rounded waves-effect
+                    text-uppercase width-md waves-light mr-2 pr-4 pl-4 btn-md" data-ng-disabled="addItem.$invalid"
+                        data-ng-click="saveGareRoutiere()">
+                    <span>{{nomBtn}}</span>
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                        data-ng-click="fermer()">
+                    <span>Fermer</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

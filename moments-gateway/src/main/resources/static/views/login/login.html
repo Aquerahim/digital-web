@@ -1,0 +1,158 @@
+<style>
+    ::placeholder {
+        text-transform: initial;
+    }
+</style>
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+<div class="authentication-bg bg-primary authentication-bg-pattern d-flex align-items-center pb-0 vh-100">
+
+    <!--<div class="home-btn d-none d-sm-block">
+        <a data-ui-sref="mainpage.dashboard"><i class="fas fa-home h2 text-white"></i></a>
+    </div>-->
+
+    <div class="account-pages w-100 mt-5 mb-5">
+        <div class="container">
+
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card mb-0">
+
+                        <div class="card-body p-4">
+
+                            <div class="account-box">
+                                <div class="account-logo-box">
+                                    <div class="text-center">
+                                        <a href="javascript:void(0);">
+                                            <img src="assets/images/logo-dark.png" alt="" height="30">
+                                        </a>
+                                    </div>
+                                    <h5 class="text-uppercase mb-1 mt-4">S'identifier</h5>
+                                    <p class="mb-0">Connectez-vous à votre compte Di-Gital</p>
+                                </div>
+
+                                <div class="alert alert-icon alert-warning bg-transparent text-warning alert-dismissible fade show mt-3" role="alert" data-ng-show="firstCnx">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                    <i class="mdi mdi-block-helper mr-2"></i>
+                                    <strong>NB :</strong> Le mot de passe doit contenir un caract&egrave;re en Majuscule, un chiffre, un caract&egrave;re special et des caract&egrave;res minuscule pour une longueur maximale de 20 et minimale de 06.
+                                </div>
+
+                                <div class="account-content mt-3">
+
+                                    <form class="form-horizontal" action="javascript:void(0);"
+                                          data-ng-submit="submitForm(addItem.$valid)"  name="loginForm">
+
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label for="emailaddress">Nom utilisateur <span class="text-danger">*</span></label>
+                                                <input class="form-control text-uppercase" type="text" id="emailaddress" required data-ng-model="items.username"
+                                                       placeholder="Entrez votre nom utilisateur" data-ng-show="!items.codeOTP" maxlength="14" minlength="6">
+
+                                                <input class="form-control text-uppercase" type="text" disabled data-ng-model="items.username"
+                                                       placeholder="Entrez votre nom utilisateur" data-ng-show="items.codeOTP">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <a data-ui-sref="recoverpw" class="text-muted float-right" data-ng-show="!forgetPwd"><small>Mot de passe oubli&eacute;?</small></a>
+                                                <label for="password">Mot de passe <span class="text-danger">*</span></label>
+                                                <input class="form-control text-uppercase" type="password" required data-ng-model="items.password"
+                                                       id="password" placeholder="Entrez votre mot de passe"
+                                                       data-ng-show="!items.codeOTP" maxlength="20" minlength="6">
+
+                                                <input class="form-control" type="password" required data-ng-model="items.password"
+                                                       disabled placeholder="Entrez votre mot de passe"
+                                                       data-ng-show="items.codeOTP">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row" data-ng-show="firstCnx">
+                                            <div class="col-12">
+                                                <label for="nouveauMotDePasse">Nouveau mot de passe <span class="text-danger">*</span></label>
+                                                <input class="form-control text-uppercase" type="password" data-ng-model="items.nouveauMotDePasse"
+                                                       id="nouveauMotDePasse" name="nouveauMotDePasse" placeholder="Entrez votre mot de passe"
+                                                       maxlength="20" minlength="6">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row" data-ng-show="items.codeOTP">
+                                            <div class="col-12">
+                                                <label for="codeOTP">Code One-Time Password (OTP) <span class="text-danger">*</span></label>
+                                                <input type="text" style="display: none" data-ng-model="items.codeOTP">
+                                                <input class="form-control" type="text" ui-mask="999-999" data-ng-model="codeOTP" id="codeOTP">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <div class="checkbox checkbox-success">
+                                                    <input id="remember" type="checkbox" checked="" readonly disabled>
+                                                    <label for="remember" readonly disabled="">
+                                                        Se souvenir de Moi
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row text-center mt-2">
+                                            <div class="col-12">
+                                                <button class="btn btn-md btn-block btn-primary waves-effect waves-light"
+                                                        data-ng-disabled="loginForm.$invalid"
+                                                        data-ng-show="viewBtn"
+                                                        type="button" data-ng-click="getCodeOTP()">Demander un code OTP</button>
+
+                                                <button class="btn btn-md btn-block btn-primary waves-effect waves-light"
+                                                        data-ng-show="firstCnx && codeOTP && items.nouveauMotDePasse"
+                                                        data-ng-click="updatePassword()"
+                                                        type="button">Se Connecter</button>
+
+                                                <button class="btn btn-md btn-block btn-primary waves-effect waves-light"
+                                                        type="button"
+                                                        data-ng-show="!firstCnx && codeOTP && items.password"
+                                                        data-ng-click="toLoginAccount()">
+                                                    Se Connecter</button>
+
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+                                    <!--div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="text-center">
+                                                <button type="button" class="btn mr-1 btn-facebook waves-effect waves-light">
+                                                    <i class="fab fa-facebook-f"></i>
+                                                </button>
+                                                <button type="button" class="btn mr-1 btn-googleplus waves-effect waves-light">
+                                                    <i class="fab fa-google"></i>
+                                                </button>
+                                                <button type="button" class="btn mr-1 btn-twitter waves-effect waves-light">
+                                                    <i class="fab fa-twitter"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-4 pt-2">
+                                        <div class="col-sm-12 text-center">
+                                            <p class="text-muted mb-0">Don't have an account? <a href="page-register.html" class="text-dark ml-1"><b>Sign Up</b></a></p>
+                                        </div>
+                                    </div>-->
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- end card-body -->
+                </div>
+                <!-- end card -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+</div>

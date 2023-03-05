@@ -1,0 +1,74 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Service</a></li>
+                    <li class="breadcrumb-item"><a data-ui-sref="mainpage.service-courier" href="javascript: void(0);">Service courrier</a></li>
+                    <li class="breadcrumb-item active">Liste des colis r&eacute;tir&eacute;s</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<!-- Basic Form Wizard -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <h4 class="header-title"><b>Liste des colis r&eacute;tir&eacute;s</b></h4>
+            <p class="sub-header">
+                Liste globale des colis ri&eacute;tir&eacute;s
+            </p>
+
+            <div class="row">
+                <table id="datatable" data-datatable="ng" data-dt-options="dtOptions"
+                       data-dt-column-defs="dtColumnDefs"
+                       class="table table-bordered dt-responsive nowrap"
+                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Exp&eacute;diteur</th>
+                        <th>Contact</th>
+                        <th>Ville Exp.</th>
+                        <th>Statut Colis</th>
+                        <th>Frais</th>
+                        <th>Destinataire</th>
+                        <th>Ville Dest.</th>
+                        <th>Contact Dest.</th>
+                        <th>Date retrait</th>
+                        <!--<th></th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="item in datas track by $index">
+                        <td>{{item.colisNumber}}</td>
+                        <td>{{item.nomExpediteur}}</td>
+                        <td>{{item.phoneExpedietur | tel}}</td>
+                        <td>{{item.villeExpeditrice}}</td>
+                        <td>{{item.suiviDemande.suivi}}</td>
+                        <td>{{item.monatFrais | formatMillier}} F.CFA</td>
+                        <td>{{item.nomDestinataire}}</td>
+                        <td>{{item.villeDestinatrice}}</td>
+                        <td>{{item.phoneDestinatire | tel}}</td>
+                        <td>{{ item.last_update | date:"dd/MM/yyyy '-' HH:mm:ss"}}</td>
+                        <!--<td>
+                            <a href="javascript:void(0);" data-ng-click="openFrmDetails($event, item)"
+                               class="btn btn-outline-primary btn-rounded waves-effect waves-light btn-sm">
+                                <i class="fas fa-desktop mr-1"></i> D&eacute;tails
+                            </a>
+                        </td>-->
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End row -->

@@ -1,0 +1,369 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >{{ titleFrm }}</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate>
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+        <fieldset id="default-wizard-step-1" class="stepy-step">
+            <legend>Information</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="civilite">Type Personne<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                            </div>
+                            <select id="type" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.typeClient" name="typeClient"
+                                    data-ng-options="item as item.type for item in findAllTypeClientListe | orderBy:'type' track by item.type">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="civilite">Civilit&eacute;<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                            </div>
+                            <select id="civilite" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.civilite" name="civilite"
+                                    data-ng-options="item as item.civilite for item in findAllCiviliteListe | orderBy:'civilite' track by item.civilite">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nomClient">Nom & Pr&eacute;noms ou raison sociale du Client<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="nomClient" name="nomClient"
+                                   data-ng-minlength="5" required placeholder="..."  data-ng-model="items.nomClient">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date de naissance (JJ/MM)</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                            </div>
+                            <input type="date" class="form-control text-uppercase" id="dateNaissance" name="dateNaissance"
+                                   data-ng-model="items.dateNaissance" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact Mobile<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="contact"
+                                   data-ng-model="items.contact" required ui-mask="99-99-999-999" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact 2<span class="text-danger"></span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="contact2"
+                                   data-ng-model="items.contact2" name="contact2" ui-mask="99-99-999-999" >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="notifs">Le client doit-il notifier lors des f&ecirc;tes des m&egrave;res/p&egrave;res ?<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-home-city-outline"></i></span>
+                            </div>
+                            <select id="notifs" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.notifs" name="notifs">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option value="OUI">OUI</option>
+                                <option value="NON">NON</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fete">F&ecirc;te R&eacute;ligieuse</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                            </div>
+                            <select id="fete" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.fete" name="fete">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option value="CATHOLIQUE">F&Ecirc;TE CATHOLIQUE</option>
+                                <option value="MUSULMANE">F&Ecirc;TE MUSULMANE</option>
+                                <option value="AUCUNE">AUCUNE F&Ecirc;TE</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="souscritPrdt">Le client a-t-il souscrit &agrave; un produit ?<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-home-city-outline"></i></span>
+                            </div>
+                            <select id="souscritPrdt" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.souscritPrdt" name="souscritPrdt">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option value="OUI">OUI</option>
+                                <option value="NON">NON</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="numeroContrat">Num&eacute;ro contrat</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="numeroContrat"
+                                   name="numeroContrat" placeholder="..."
+                                   data-ng-model="items.numeroContrat"
+                                   ng-disabled="items.souscritPrdt == 'NON' || items.souscritPrdt == null"
+                                   disabled="{{items.souscritPrdt == 'NON' || items.souscritPrdt == null}}"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="civilite">Produit souscrit<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-group"></i></span>
+                            </div>
+                            <select id="produit" class="form-control custom-select" style="cursor: pointer"
+                                    ng-disabled="items.souscritPrdt == 'NON' || items.souscritPrdt == null"
+                                    disabled="{{items.souscritPrdt == 'NON' || items.souscritPrdt == null}}"
+                                    data-ng-model="items.produit" name="produit"
+                                    data-ng-options="item as item.produit for item in findAllProduitListe | orderBy:'produit' track by item.produit">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date expiration contrat</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                            </div>
+                            <input type="date" class="form-control text-uppercase" id="expirationContrat" name="expirationContrat"
+                                   data-ng-model="items.expirationContrat"
+                                   ng-disabled="items.souscritPrdt == 'NON' || items.souscritPrdt == null"
+                                   disabled="{{items.souscritPrdt == 'NON' || items.souscritPrdt == null}}"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset id="default-wizard-step-3" class="stepy-step">
+            <legend>Rappel visite technique</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="notifRappelVisiteTechnique">Souhaitez-vous rappeler le client lors de l'expiration de sa visite technique ?<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-car"></i></span>
+                            </div>
+                            <select id="notifRappelVisiteTechnique" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.notifRappelVisiteTechnique" name="notifRappelVisiteTechnique"
+                                    ng-disabled="items.produit.id != 5"
+                                    disabled="{{items.produit.id != 5}}">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option value="OUI">OUI</option>
+                                <option value="NON">NON</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="typeVehicule">Type V&eacute;hicule<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-car"></i></span>
+                            </div>
+                            <select id="typeVehicule" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.typeVehicule" name="typeVehicule"
+                                    ng-disabled="items.notifRappelVisiteTechnique == 'NON' || items.notifRappelVisiteTechnique == null"
+                                    disabled="{{items.notifRappelVisiteTechnique == 'NON' || items.notifRappelVisiteTechnique == null}}"
+                            >
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option value="BERLINE">BERLINE</option>
+                                <option value="4x4">4x4</option>
+                                <option value="SUV">SUV</option>
+                                <option value="PETITE VOITURE">PETITE VOITURE</option>
+                                <option value="FAMILIALE">FAMILIALE</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="dateExpirationVisite">Date expiration visite technique</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                            </div>
+                            <input type="date" class="form-control text-uppercase" id="dateExpirationVisite"
+                                   name="dateExpirationVisite"
+                                   data-ng-model="items.dateExpirationVisite"
+                                   ng-disabled="items.notifRappelVisiteTechnique == 'NON' || items.notifRappelVisiteTechnique == null"
+                                   disabled="{{items.notifRappelVisiteTechnique == 'NON' || items.notifRappelVisiteTechnique == null}}"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="immatriculation">Immatriculation V&eacute;hicule</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="immatriculation"
+                                   name="immatriculation"
+                                   data-ng-model="items.immatriculation" placeholder="..."
+                                   ng-disabled="items.notifRappelVisiteTechnique == 'NON' || items.notifRappelVisiteTechnique == null"
+                                   disabled="{{items.notifRappelVisiteTechnique == 'NON' || items.notifRappelVisiteTechnique == null}}"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset id="default-wizard-step-2" class="stepy-step">
+            <legend>Notifications [ Cocher les options pour lesquelles le client devrait recevoir les notifications ou messages ]</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="notifMsgBienvenu">Un Message de Bienvenu lors de son enregistrement<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account-question-outline"></i></span>
+                            </div>
+                            <select id="notifMsgBienvenu" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.notifMsgBienvenu" name="notifMsgBienvenu">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option value="OUI">OUI</option>
+                                <option value="NON">NON</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notifSouscription">Un Message de Souscription en plus du message de bienvenu lors de son enregistrement<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account-question-outline"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="notifSouscription"
+                                   name="notifSouscription"
+                                   data-ng-model="items.souscritPrdt" placeholder="..." readonly
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notifFeteNationale">Une notification lors des f&ecirc;tes nationales<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account-question-outline"></i></span>
+                            </div>
+                            <select id="notifFeteNationale" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.notifFeteNationale" name="notifFeteNationale">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option value="OUI">OUI</option>
+                                <option value="NON">NON</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="notifAnniv">Un Message d'anniversaire lors de sa date d'anniversaire<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account-question-outline"></i></span>
+                            </div>
+                            <select id="notifAnniv" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.notifAnniv" name="notifAnniv">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option value="OUI">OUI</option>
+                                <option value="NON">NON</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="notifRappelEcheJ45">Un Avis d’&eacute;ch&eacute;ance &agrave; J -45 de son contrat<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account-question-outline"></i></span>
+                            </div>
+                            <select id="notifRappelEcheJ45" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.notifRappelEcheJ45" name="notifRappelEcheJ45">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option value="OUI">OUI</option>
+                                <option value="NON">NON</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="notifRappelEcheJ15">Un Avis d’&eacute;ch&eacute;ance &agrave; J -15 de son contrat<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account-question-outline"></i></span>
+                            </div>
+                            <select id="notifRappelEcheJ15" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.notifRappelEcheJ15" name="notifRappelEcheJ15">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option value="OUI">OUI</option>
+                                <option value="NON">NON</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group mb-0 mt-3">
+            <div class="center text-center">
+                <button type="button" class="btn {{style}} btn-rounded waves-effect text-uppercase
+                width-md waves-light mr-2 pr-4 pl-4 btn-md" data-ng-disabled="addItem.$invalid"
+                        data-ng-click="savePorteFeuille()">
+                    <span>{{nomBtn}}</span>
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                        data-ng-click="fermer()">
+                    <span>Fermer</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

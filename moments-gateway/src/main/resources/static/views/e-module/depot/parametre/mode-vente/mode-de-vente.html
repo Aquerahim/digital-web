@@ -1,0 +1,82 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Param&eacute;trage</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Module D&eacute;p&ocirc;t de Boisson</a></li>
+                    <li class="breadcrumb-item active">Mode de vente</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<!-- Basic Form Wizard -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <div class="form-row p-0">
+                <div  class="col-md-9 p-0">
+                    <h4 class="header-title"><b>Mode de vente</b></h4>
+                    <p class="sub-header">
+                        Liste des modes de vente enregistr&eacute;s
+                    </p>
+                </div>
+                <div  class="col-md-3 text-right p-0">
+                    <button type="button" class="btn btn-primary btn-rounded width-md waves-effect waves-light"
+                            data-ng-click="openFrmModeVente($event,'')">
+                        <i class="fas fa-plus mr-1"></i>
+                        Ajouter un mode de vente
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <table id="datatable" data-datatable="ng" data-dt-options="dtOptions" data-dt-column-defs="dtColumnDefs"
+                       class="table table-bordered dt-responsive nowrap"
+                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                    <tr>
+                        <th style="width: 70px">Code</th>
+                        <th>Mode de vente</th>
+                        <th>Statut</th>
+                        <th>Timing</th>
+                        <th style="width: 100px"> Actions possibles</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="item in datas track by $index">
+                        <td>{{item.ordre}}</td>
+                        <td class="text-left">{{item.modeVente}}</td>
+                        <td>{{item.active === true ? "Actif" : "Désactivé"}}</td>
+                        <td><i class="mdi mdi-clock-outline text-success"></i></td>
+                        <td>
+                            <a href="javascript:void(0);" data-ng-click="openFrmModeVente($event, item)"
+                               class="btn btn-outline-primary btn-rounded waves-effect waves-light btn-sm mr-3">
+                                <i class="fa fa-edit mr-1"></i> Modifier
+                            </a>
+
+                            <a href="javascript:void(0);" ng-show="item.active" data-ng-click="actionOneItemModeVente($event,item, 1)"
+                               class="btn btn-outline-danger btn-rounded waves-effect waves-light btn-sm">
+                                <i class="fa fa-trash mr-1"></i> Supprimer
+                            </a>
+
+                            <a href="javascript:void(0);" ng-show="!item.active" data-ng-click="actionOneItemModeVente($event,item, 2)"
+                               class="btn btn-outline-info btn-rounded waves-effect waves-light btn-sm">
+                                <i class="fa fa-recycle mr-1"></i> Activer
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End row -->

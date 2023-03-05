@@ -1,0 +1,235 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Service</a></li>
+                    <li class="breadcrumb-item"><a  data-ui-sref="mainpage.un-colis-journalier" href="javascript: void(0);">Module Livraison</a></li>
+                    <li class="breadcrumb-item"><a data-ui-sref="mainpage.acheminement-colis" href="javascript: void(0);">Liste des colis &agrave; acheminer</a></li>
+                    <li class="breadcrumb-item active">Suivi fiche de colis journalier</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box" data-ng-if="!historique">
+            <h4 class="header-title"><b>Suivi colis journalier</b></h4>
+            <p class="sub-header">
+                Suivi de la fiche de colis journalier.
+            </p>
+
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="pt-3 pb-2">
+                        <form role="form" novalidate class="parsley-examples"
+                              action="javascript:void(0);" name="trackingForm"
+                              data-ng-submit="submitForm(trackingForm.$valid)">
+                            <div class="form-row align-items-center">
+                                <div class="form-group col-md-5">
+                                    <label for="nomDest" class="col-form-label">N&deg;ordre <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control text-uppercase" id="nomDest" data-ng-model="colis.ordre"
+                                           name="ordre"  ui-mask="99-999-999">
+                                </div>
+
+                                <div class="form-group col-md-5">
+                                    <label for="refColis" class="col-form-label">R&eacute;f&eacute;rence <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="refColis" data-ng-model="colis.refColis" name="refColis"
+                                           ui-mask="AA-999999-AAA" />
+                                </div>
+
+                                <div class="form-group col-md-2 mt-1 pt-2 mb-0">
+                                    <button type="button" class="btn waves-effect waves-light btn-primary w-100" style="padding: 0.6rem 0.9rem;"
+                                            data-ng-click="getSearchColis()" data-ng-disabled="!colis.ordre && !colis.refColis ? true : false" >
+                                        <i class="fa fa-search mr-1"></i>
+                                        <span>Rechercher</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <span class="font-13 text-muted">NB : Les champs sont ind&eacute;pendant</span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-box" data-ng-if="historique">
+            <h4 class="header-title"><b>D&eacute;tails du colis à acheminer à la r&eacute;f&eacute;rence {{result.reference}} est</b></h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="m-0 p-0 mt-2 font-24 p-3 text-center"
+                       style="border: 2px #007ab3 dashed;font-size: 40px !important;background: #2c93c3;color: #fff; font-weight: bolder">
+                        <span class="text-center" style="font-size: .7em; color: #FFFFFF">Le statut actuel du colis</span><br>
+                        {{result.action}}
+                    </p>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset id="default-wizard-livraison" style="width: 100%;" class="stepy-step">
+                        <legend>Information sur colis</legend>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>R&eacute;f&eacute;rence colis / N&deg;Ordre <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase"
+                                               data-ng-minlength="3"  placeholder="..."  readonly data-ng-model="result.reference +' / '+result.ordre">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Partenaire d'affaire <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase"
+                                               data-ng-minlength="3"  placeholder="..."  readonly data-ng-model="result.client.nomComplet">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Montant du colis (F.CFA) <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase"
+                                               data-ng-minlength="3"  placeholder="..."  readonly number-input data-ng-model="result.montantColis">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Zone de recupr&eacute;ration <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase"
+                                               data-ng-minlength="3"  placeholder="..."  readonly data-ng-model="result.zoneRecuperation.zoneCouverture+' - '+result.precisionZoneRecup">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Nature colis <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase"
+                                               data-ng-minlength="3" placeholder="..."  readonly data-ng-model="result.natureColis.typecolis">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Pr&eacute;cision sur colis <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-archive"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase"
+                                               data-ng-minlength="3" placeholder="..." readonly data-ng-model="result.descriptionColis">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset id="default-wizard-livraison1" style="width: 100%;" class="stepy-step">
+                        <legend>Information sur Livraison</legend>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Zone de livraison <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-archive"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase"
+                                               data-ng-minlength="3" placeholder="..." readonly data-ng-model="result.zoneLivraison.zoneCouverture+ ' - '+result.precisonLieuLivraison">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Date de livraison <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-archive"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase"
+                                               data-ng-minlength="3" placeholder="..." readonly data-ng-model="result.datelivraison | date :'dd-MM-yyyy'">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Prix de la livraison <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-archive"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase"
+                                               data-ng-minlength="3" readonly number-input data-ng-model="result.prixLivraison">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nom & Pr&eacute;noms Destinataire <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-archive"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase"
+                                               data-ng-minlength="3" readonly placeholder="..."  data-ng-model="result.nomPrenomsDestinataire">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>T&eacute;l&eacute;phone Destinataire <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-archive"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase"
+                                               readonly  ui-mask="99-99-999-999"  data-ng-model="result.contactDestinataire">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Livreur <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-archive"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase"
+                                               data-ng-minlength="3" readonly placeholder="..."  data-ng-model="result.livreur.nomPrenoms +' - Tel.: '+ result.livreur.contact">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="form-group mb-0 mt-3" style="width: 100%">
+                    <div class="center text-center">
+                        <button type="reset" class="btn btn-warning btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                                data-ng-click="goBackTo()">
+                            <span>Nouvelle Recherche</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

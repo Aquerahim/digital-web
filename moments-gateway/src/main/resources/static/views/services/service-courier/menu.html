@@ -1,0 +1,367 @@
+<style>
+    .pull-left{
+        float: left !important;
+    }
+    .flexbox {
+        width: 100%;
+    }
+    .feature_box .blandes-icon {
+        margin-right: 0!important;
+    }
+    .blandes-icon{
+        color: #64c5b1;
+    }
+    .feature_boxes.box-style3 .blandes-icon {
+        width: 85px;
+        height: 85px;
+        line-height: 80px;
+        font-size: 36px;
+        text-align: center;
+        clear: both;
+    }
+    .feature_boxes.iconbox-style2 .feature_box .blandes-icon {
+        border: 1px dashed #64c5b1;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        display: inline-block;
+        text-align: center;
+    }
+    .feature_box {
+        margin: 0 auto 0;
+        max-width: 570px;
+        position: relative;
+    }
+    .feature_boxes.box-style3 .feature_box {
+        text-align: center;
+    }
+    .feature_box h3 {
+        vertical-align: middle;
+        margin: 0;
+        line-height: 21px;
+        font-size: 17px;
+    }
+    .feature_boxes.box-style3 h3 {
+        margin-top: 30px;
+    }
+    .feature_box h3 + p {
+        margin-top: 15px;
+        margin-bottom: 0;
+    }
+    .cursor{
+        cursor: pointer;
+    }
+    .row-fluid {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    .row-fluid:before, .row-fluid:after {
+        display: table;
+        line-height: 0;
+        content: "";
+    }
+    .row-fluid.style2 {
+        margin: 0 -2px 0;
+    }
+    .row-fluid.style2 [class*="span"] {
+        padding: 0;
+        position: relative;
+    }
+    .row-fluid.style2 [class*="span"] .inner-content { padding: 30px }
+    .row-fluid.style2 [class*="span"] .inner-content.vertical-padding-small {
+        padding-top: 5px;
+        padding-bottom: 5px
+    }
+    .row-fluid.style2 [class*="span"] .inner-content.vertical-padding-large {
+        padding-top: 40px;
+        padding-bottom: 40px
+    }
+    .row-fluid.style2 [class*="span"]:not(.border-right):after {
+        content: "";
+        position: absolute;
+        display: inline-block;
+        height: 90%;
+        width: 1px;
+        right: -1px;
+        top: 5%;
+        background: #dddddd;
+    }
+    .row-fluid.style2 [class*="span"]:not(.border-right).top-row:after {
+        height: 95%;
+        top: 0;
+        background: -webkit-linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 70px);
+        background: -moz-linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 70px);
+        background: -o-linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 70px);
+        -pie-background: linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 70px);
+        background: linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 70px)
+    }
+    .row-fluid.style2 [class*="span"]:not(.border-right):not(.top-row).bottom-row:after {
+        height: 95%;
+        top: auto;
+        bottom: 0;
+        background: -webkit-linear-gradient(bottom, rgba(248,248,248,0) 0%, #dddddd 70px);
+    }
+    .row-fluid.style2 [class*="span"].top-row.bottom-row:after {
+        height: 90%;
+        top: 10%;
+    }
+    .row-fluid.style2 [class*="span"]:not(.bottom-row):before {
+        content: "";
+        position: absolute;
+        display: inline-block;
+        width: 90%;
+        height: 1px;
+        left: 5%;
+        bottom: -1px;
+        background: #ddd;
+    }
+    .row-fluid.style2 [class*="span"]:not(.bottom-row).border-left:before {
+        width: 95%;
+        left: 0;
+        background: -webkit-linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 70px);
+        background: -moz-linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 70px);
+        background: -o-linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 70px);
+        -pie-background: linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 70px);
+        background: linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 70px)
+    }
+    .row-fluid.style2 [class*="span"]:not(.bottom-row).border-right:before {
+        width: 95%;
+        left: auto;
+        right: 0;
+        background: -webkit-linear-gradient(right, rgba(248,248,248,0) 0%, #dddddd 70px );
+    }
+    .row-fluid.style3 {
+        margin: 10px 0 10px;
+        position: relative;
+    }
+    .row-fluid.style3.bottom-margin-yes { margin-bottom:60px }
+
+    .row-fluid.style3.filled-backgrounds [class*="span"] {
+        background-color: #fff;
+        background-color: rgba(255,255,255,0.98);
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+        -webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+    }
+    .row-fluid.style3.semi-filled-backgrounds [class*="span"] {
+        background-color: #fafafa;
+        background-color: rgba(255,255,255,0.9);
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+        -webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+    }
+    .row-fluid.style3 [class*="span"] {
+        position: relative;
+        border: 1px solid #dddddd;
+        border-left: 0;
+        border-top: 0;
+        padding: 0!important
+    }
+    .row-fluid.style3 [class*="span"] .inner-content { padding: 30px; }
+    .row-fluid.style3 [class*="span"].border-left { border-left: 1px solid #dddddd }
+    .row-fluid.style3 [class*="span"].top-row { border-top: 1px solid #dddddd }
+    .row-fluid.style3 [class*="span"].top-row:before {
+        content: "";
+        position: absolute;
+        right: -1px;
+        top: -50px;
+        height: 50px;
+        width: 1px;
+        background: -webkit-linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 50px);
+        background: -moz-linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 50px);
+        background: -o-linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 50px);
+        -pie-background: linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 50px);
+        background: linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 50px)
+    }
+    .row-fluid.style3 [class*="span"].bottom-row:after {
+        content: "";
+        position: absolute;
+        right: -1px;
+        bottom: -50px;
+        height: 50px;
+        top: auto;
+        width: 1px;
+        background: -webkit-linear-gradient(top, #dddddd 0%, rgba(248,248,248,0) 50px);
+        background: -moz-linear-gradient(top, #dddddd 0%, rgba(248,248,248,0) 50px);
+        background: -o-linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 50px);
+        -pie-background: linear-gradient(top, #dddddd 0%, rgba(248,248,248,0) 50px);
+        background: linear-gradient(top, #dddddd 0%, rgba(248,248,248,0) 50px)
+    }
+    .row-fluid.style3 .border-bottom-extra {
+        position: absolute;
+        left: 0px;
+        bottom: -50px;
+        height: 50px;
+        width: 1px;
+        background: -webkit-linear-gradient(top, #dddddd 0%, rgba(248,248,248,0) 50px);
+        background: -moz-linear-gradient(top, #dddddd 0%, rgba(248,248,248,0) 50px);
+        background: -o-linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 50px);
+        -pie-background: linear-gradient(top, #dddddd 0%, rgba(248,248,248,0) 50px);
+        background: linear-gradient(top, #dddddd 0%, rgba(248,248,248,0) 50px)
+    }
+    .row-fluid.style3 .border-top-extra {
+        position: absolute;
+        left: 0px;
+        top: -50px;
+        height: 50px;
+        width: 1px;
+        background: -webkit-linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 50px);
+        background: -moz-linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 50px);
+        background: -o-linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 50px);
+        -pie-background: linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 50px);
+        background: linear-gradient(top, rgba(248,248,248,0) 0%, #dddddd 50px)
+    }
+    .row-fluid.style3 .border-bottom-left-extra {
+        position: absolute;
+        left: -50px;
+        bottom: 0px;
+        width: 50px;
+        height: 1px;
+        background: -webkit-linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 50px);
+        background: -moz-linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 50px);
+        background: -o-linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 50px);
+        -pie-background: linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 50px);
+        background: linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 50px)
+    }
+    .row-fluid.style3 .border-top-right-extra {
+        position: absolute;
+        right: -50px;
+        top: 0px;
+        width: 50px;
+        height: 1px;
+        background: -webkit-linear-gradient(left, #dddddd 0%, rgba(248,248,248,0) 50px );
+        background: -moz-linear-gradient(left, #dddddd 0%, rgba(248,248,248,0) 50px );
+        background: -o-linear-gradient(left, #dddddd 0%, rgba(248,248,248,0) 50px );
+        -pie-background: linear-gradient(left, #dddddd 0%, rgba(248,248,248,0) 50px );
+        background: linear-gradient(left, #dddddd 0%, rgba(248,248,248,0) 50px )
+    }
+    .row-fluid.style3 .border-top-left-extra {
+        content: "";
+        position: absolute;
+        left: -50px;
+        top: 0px;
+        width: 50px;
+        height: 1px;
+        background: -webkit-linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 50px);
+        background: -moz-linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 50px);
+        background: -o-linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 50px);
+        -pie-background: linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 50px);
+        background: linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 50px)
+    }
+    .row-fluid.style3 [class*="span"].border-left:not(.bottom-row):after {
+        content: "";
+        position: absolute;
+        left: -50px;
+        bottom: -1px;
+        width: 50px;
+        height: 1px;
+        background: -webkit-linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 50px);
+        background: -moz-linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 50px);
+        background: -o-linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 50px);
+        -pie-background: linear-gradient(left, rgba(248,248,248,0) 0%, #dddddd 50px);
+    }
+    .row-fluid.style3 .border-bottom-right-extra {
+        content: "";
+        position: absolute;
+        right: -50px;
+        bottom: -1px;
+        width: 50px;
+        height: 1px;
+        background: -webkit-linear-gradient(left, #dddddd 0%, rgba(248,248,248,0) 50px );
+        background: -moz-linear-gradient(left, #dddddd 0%, rgba(248,248,248,0) 50px );
+        background: -o-linear-gradient(left, #dddddd 0%, rgba(248,248,248,0) 50px );
+        background: linear-gradient(left, #dddddd 0%, rgba(248,248,248,0) 50px );
+    }
+    .row-fluid.style3 [class*="span"].border-right:not(.bottom-row):after {
+        content: "";
+        position: absolute;
+        right: -50px;
+        bottom: -1px;
+        width: 50px;
+        height: 1px;
+        background: -webkit-linear-gradient(left, #dddddd 0%, rgba(248,248,248,0) 50px );
+        background: -moz-linear-gradient(left, #dddddd 0%, rgba(248,248,248,0) 50px );
+        background: -o-linear-gradient(left, #dddddd 0%, rgba(248,248,248,0) 50px );
+        background: linear-gradient(left, #dddddd 0%, rgba(248,248,248,0) 50px );
+    }
+    .span3, .row-fluid.columns-4 .span {
+        width: 25%;
+    }
+    .row-fluid [class*="span"], .one_fifth {
+        float: left;
+    }
+</style>
+
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Service</a></li>
+                    <li class="breadcrumb-item active">Menu Service courrier</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box pull-left w-100" data-ng-show="viewMenu">
+            <div class="flexbox ">
+                <div class="row-fluid">
+                    <div class="row-fluid feature_boxes style2 filled-backgrounds box-style3 large-size iconbox-style2 columns-4 bottom-margin-yes">
+
+                        <div class="span cursor" data-ui-sref="mainpage.service-courier.service-courier-envoi-add">
+                            <div class="inner-content">
+                                <div class="feature_box animated-box"><span class="blandes-icon animated-icon">
+                                    <i class="icon-blandes-display mdi mdi-folder-edit-outline"></i></span>
+                                    <h3><strong style="font-weight: 400">Envoie de colis</strong></h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span cursor" data-ui-sref="mainpage.service-courier.list-courier-envoi">
+                            <div class="inner-content">
+                                <div class="feature_box animated-box"><span class="blandes-icon animated-icon">
+                                    <i class="icon-blandes-display mdi mdi-format-list-bulleted"></i></span>
+                                    <h3><strong style="font-weight: 400">Liste des colis envoy&eacute;s</strong></h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span cursor" data-ui-sref="mainpage.service-courier.service-courier-retrait">
+                            <div class="inner-content">
+                                <div class="feature_box animated-box"><span class="blandes-icon animated-icon">
+                                    <i class="icon-blandes-display mdi mdi-file-eye-outline"></i></span>
+                                    <h3><strong style="font-weight: 400">Retrait colis</strong></h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span cursor" data-ui-sref="mainpage.service-courier.service-courier-retrait">
+                            <div class="inner-content">
+                                <div class="feature_box animated-box"><span class="blandes-icon animated-icon">
+                                    <i class="icon-blandes-display mdi mdi-format-list-checkbox"></i></span>
+                                    <h3><strong style="font-weight: 400">Liste des colis retir&eacute;s</strong></h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span cursor" data-ui-sref="mainpage.service-courier.service-courier-retrait">
+                            <div class="inner-content">
+                                <div class="feature_box animated-box"><span class="blandes-icon animated-icon">
+                                    <i class="icon-blandes-display mdi mdi-map-check-outline"></i></span>
+                                    <h3><strong style="font-weight: 400">Suivi colis</strong></h3>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

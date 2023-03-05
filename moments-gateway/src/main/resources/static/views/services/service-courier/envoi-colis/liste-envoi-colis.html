@@ -1,0 +1,89 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Service</a></li>
+                    <li class="breadcrumb-item"><a data-ui-sref="mainpage.service-courier" href="javascript: void(0);">Service courrier</a></li>
+                    <li class="breadcrumb-item active">Liste des colis exp&eacute;di&eacute;s</li>
+                </ol>
+            </div>
+            <!--<h4 class="page-title">Liste des colis expédiés</h4>-->
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<!-- Basic Form Wizard -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <h4 class="header-title"><b>Liste des colis exp&eacute;di&eacute;s</b></h4>
+            <p class="sub-header">
+                Liste globale des colis exp&eacute;di&eacute;s ou envoy&eacute;s.
+            </p>
+
+            <div class="row">
+                <table id="datatable" data-datatable="ng" data-dt-options="dtOptions"
+                       data-dt-column-defs="dtColumnDefs"
+                       class="table table-bordered dt-responsive nowrap"
+                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Ref.</th>
+                        <th>Exp&eacute;diteur</th>
+                        <th>Contact</th>
+                        <th>Ville Exp.</th>
+                        <th>Statut Colis</th>
+                        <th>Frais</th>
+                        <th>Destinataire</th>
+                        <th>Ville Dest.</th>
+                        <th>Contact Dest.</th>
+                        <th></th>
+                        <!--<th>Suivi SMS</th>
+                        <th>Net Payer</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="item in datas track by $index">
+                        <td>{{item.ordre}}</td>
+                        <td>{{item.colisNumber}}</td>
+                        <td>{{item.nomExpediteur}}</td>
+                        <td>{{item.phoneExpedietur | tel}}</td>
+                        <td>{{item.villeExpeditrice}}</td>
+                        <td>
+                            <span title="{{item.suiviDemande.suivi}}" data-ng-show="item.suiviDemande.id === 1"><i class="far fa-save"></i></span>
+                            <span title="{{item.suiviDemande.suivi}}" data-ng-show="item.suiviDemande.id === 2"><i class="fas fa-bus-alt"></i></span>
+                            <span title="{{item.suiviDemande.suivi}}" data-ng-show="item.suiviDemande.id === 3"><i class="far fa-clock"></i></span>
+                            <span title="{{item.suiviDemande.suivi}}" data-ng-show="item.suiviDemande.id === 4"><i class="fas fa-flag-checkered"></i></span>
+                        </td>
+                        <td>{{item.monatFrais | formatMillier}} F.CFA</td>
+                        <td>{{item.nomDestinataire}}</td>
+                        <td>{{item.villeDestinatrice}}</td>
+                        <td>{{item.phoneDestinatire | tel}}</td>
+                        <td>
+                            <a href="javascript:void(0);" data-ng-click="openFrmDetails($event, item)"
+                               class="btn btn-outline-primary btn-rounded waves-effect waves-light btn-sm mr-2">
+                                <i class="fas fa-desktop mr-1"></i> D&eacute;tails
+                            </a>
+                            <a href="javascript:void(0);" data-ng-click="printReceipt(item)"
+                               title="Imprimer le re&ccedil;u"
+                               class="btn btn-outline-warning btn-rounded waves-effect waves-light btn-sm">
+                                <i class="fas fa-print mr-1"></i> Imprimer
+                            </a>
+                        </td>
+                        <!--<td>{{item.montantSuiviSMS | formatMillier}} F.CFA</td>
+                        <td>{{item.montantTotalPayer | formatMillier}} F.CFA</td>-->
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End row -->

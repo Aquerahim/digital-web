@@ -1,0 +1,78 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >{{ titleFrm }}</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate>
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+
+        <fieldset id="default-wizard-step-0" class="stepy-step">
+            <legend>Information</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="dateDeb">Date Debut notification<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="dateDeb" name="dateDeb"
+                                   data-ng-minlength="5" required placeholder="..."  data-ng-model="items.dateDeb">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="typeDateDeb">Type Date Debut notification<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <select id="typeDateDeb" class="form-control text-uppercase custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.typeDateDeb" name="typeDateDeb">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option value="date.fete.nationnal">F&Ecirc;TE NATIONNALE</option>
+                                <option value="date.fete.paix">F&Ecirc;TE DE LA PAIX</option>
+                                <option value="date.fete.paques">F&Ecirc;TE DE LA P&Acirc;QUE</option>
+                                <option value="date.fete.assomption">F&Ecirc;TE DE L'ASSOMPTION</option>
+                                <option value="date.fete.ascension">F&Ecirc;TE DE L'ASCENSION</option>
+                                <option value="date.fete.travail">F&Ecirc;TE DU TRAVAIL</option>
+                                <option value="date.fete.noel">F&Ecirc;TE DE LA NO&Euml;L</option>
+                                <option value="date.fete.destin">F&Ecirc;TE DE LA NUIT DU DESTIN</option>
+                                <option value="date.fete.fitr">F&Ecirc;TE DE L'A&iuml;D AL-FITR</option>
+                                <option value="date.fete.tabaski">F&Ecirc;TE DE LA TABASKI</option>
+                                <option value="date.fete.mahomet">F&Ecirc;TE DE LA NAISSANCE DU PROPH&Egrave;TE MAHOMET</option>
+                                <option value="date.fete.toussaint">F&Ecirc;TE DE LA TOUSSAINT</option>
+                                <option value="date.fete.pentecote">F&Ecirc;TE DE LA PENTEC&Ocirc;TE</option>
+                                <option value="date.nouvel.an">F&Ecirc;TE DU NOUVEL AN</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group mb-0 mt-3">
+            <div class="center text-center">
+                <button type="button" class="btn {{style}} btn-rounded waves-effect text-uppercase
+                width-md waves-light mr-2 pr-4 pl-4 btn-md" data-ng-disabled="addItem.$invalid"
+                        data-ng-click="createdDateNotification()">
+                    <span>{{nomBtn}}</span>
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                        data-ng-click="fermer()">
+                    <span>Fermer</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+

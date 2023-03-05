@@ -1,0 +1,230 @@
+<style>
+    .table thead th {
+        border-bottom: 1px dashed #dee2e6;
+    }
+    .table-bordered td, .table-bordered th {
+        border: 1px dashed #dee2e6;
+    }
+    .table-bordered thead td, .table-bordered thead th {
+        border-bottom-width: 1px;
+    }
+    .btn-warning.disabled, .btn-warning:disabled {
+        cursor: not-allowed !important;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+</style>
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Module Livraison</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Livraison</a></li>
+                    <li class="breadcrumb-item"><a data-ui-sref="mainpage.list-colis-journalier" href="javascript: void(0);">Liste colis journalier</a></li>
+                    <li class="breadcrumb-item active">D&eacute;tails du colis journalier - {{reference}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+
+<!-- Basic Form Wizard -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <h4 class="header-title"><b>Exp&eacute;dition d'un colis</b></h4>
+            <p class="sub-header">
+                Apport de modification du bon de commande de colis journalier.
+            </p>
+
+            <ul class="nav nav-tabs tabs-bordered nav-justified">
+                <li class="nav-item" ng-class="{ active: isSetBc(1) }">
+                    <a href="javascript:void(0);" ng-click="setTabBc(1)" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                        <span class="d-block d-sm-none"><i class="mdi mdi-home-variant"></i></span>
+                        <span class="d-none d-sm-block">Zone de recup&eacute;rations colis</span>
+                    </a>
+                </li>
+                <li class="nav-item" ng-class="{ active: isSetBc(2) }">
+                    <a href="javascript:void(0);" ng-click="setTabBc(2)" data-toggle="tab" aria-expanded="false" class="nav-link">
+                        <span class="d-block d-sm-none"><i class="mdi mdi-account"></i></span>
+                        <span class="d-none d-sm-block">Bon de Commande</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane" ng-class="{ active: isSetBc(1) }" id="home-b1" ng-show="isSetBc(1)">
+                    <form role="form" novalidate class="parsley-examples"
+                          action="javascript:void(0);" name="sendForm" data-ng-submit="submitForm(sendForm.$valid)">
+                        <fieldset id="default-wizard-step-0" class="stepy-step">
+                            <legend>Informations Zone de recup&eacute;rations colis</legend>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="refBon">Ref&eacute;rence Bon<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control text-uppercase" readonly name="refBon" id="refBon" placeholder="..." data-ng-model="items.reference">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="typeLivraison">Type de livraison <span class="text-danger">*</span></label>
+                                        <select class="form-control custom-select" required style="cursor: pointer" id="typeLivraison"
+                                                data-ng-model="items.typeLivraison" name="typeLivraison">
+                                            <option value="" selected>- Choisissez une valeur -</option>
+                                            <option data-ng-repeat="val in typeEnvoiListBc" value="{{val.key}}"> {{val.value}} </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="datelivraisonSouhaite">Date de livraison souhait&eacute;e <span class="text-danger">*</span></label>
+                                        <input data-ng-if="items.suiviDemande.id === 5" type="date" class="form-control text-uppercase" name="dateliv"
+                                               id="datelivraisonSouhaite" data-date="" data-date-format="YYYY-MM-DD"
+                                               required data-ng-model="items.datelivraisonSouhaite">
+
+                                        <input data-ng-if="items.suiviDemande.id !== 5" type="text" class="form-control text-uppercase" name="datelivraisonSouhaite"
+                                               readonly data-ng-model="datelivraisonSouhaite">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="typeRecuperation">Type Zone de Recupr&eacute;ration<span class="text-danger">*</span></label>
+                                        <select class="form-control custom-select" style="cursor: pointer" required id="typeRecuperation"
+                                                data-ng-model="items.zoneRecuperation.typeZoneCouverture" name="typeRecuperation"
+                                                ng-change="loadPerimetre(items.zoneRecuperation.typeZoneCouverture)"
+                                                data-ng-options="item as item.typezone for item in typeZoneListBc | orderBy:'typezone' track by item.typezone">
+                                            <option value="" selected>- Choisissez une valeur -</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="zoneRecuperation">Zone de Recupr&eacute;ration<span class="text-danger">*</span></label>
+                                        <select class="form-control custom-select" style="cursor: pointer" required id="zoneRecuperation"
+                                                data-ng-model="items.zoneRecuperation" name="zoneRecuperation"
+                                                data-ng-options="item as item.zoneCouverture for item in zoneRecuperationListBc | orderBy:'zoneCouverture' track by item.zoneCouverture">
+                                            <option value="" selected>- Choisissez une valeur -</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="precisionZoneRecup">Pr&eacute;cision sur zone de recupr&eacute;ration <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control text-uppercase" name="precisionZoneRecup" id="precisionZoneRecup"
+                                               data-ng-minlength="3" placeholder="..." required data-ng-model="items.precisionZoneRecup">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset id="default-wizard-step-1" class="stepy-step">
+                            <legend>Informations le montant colis</legend>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="montantGlobal">Montant Global (F.CFA) <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="montantGlobal" maxlength="9"
+                                               data-ng-model="items.montantGlobal" number-input name="montantGlobal" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="montantGlobalLivraison">Montant Global de la livraison (F.CFA) <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="montantGlobalLivraison" maxlength="9"
+                                               data-ng-model="items.montantGlobalLivraison" number-input name="montantGlobalLivraison" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-group mb-0 mt-3">
+                            <div class="center text-center">
+                                <button type="button" class="btn btn-outline-success btn-rounded waves-effect text-uppercase width-md waves-light mr-2 pr-4 pl-4 btn-md"
+                                        data-ng-disabled="sendForm.$invalid"
+                                        data-ng-click="saveBasicInfo()" data-ng-if="items.suiviDemande.id === 5">
+                                    <span>Appliquer modification</span>
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                                        data-ng-click="goBack1('mainpage.list-colis-journalier')">
+                                    <span>Fermer</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="tab-pane" ng-class="{ active: isSetBc(2) }" id="home-b2" ng-show="isSetBc(2)">
+                    <div class="table-responsive">
+                        <table class="table table-bordered mb-0">
+                            <thead>
+                            <tr class="text-center">
+                                <th style="width: 80px">#</th>
+                                <th>Nature</th>
+                                <th>Nom Produit</th>
+                                <th>Montant</th>
+                                <th>Destinataire</th>
+                                <th>Contact</th>
+                                <th>Prix Livraison</th>
+                                <th>Produit cassable</th>
+                                <th style="width: 120px">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-ng-repeat="dx in items.bonDeCommandeList" data-ng-if="items.bonDeCommandeList.length > 0">
+                                <th scope="row">ID-{{dx.id}}</th>
+                                <td class="text-left">{{dx.natureColis.typecolis}}</td>
+                                <td class="text-left text-uppercase">{{dx.nomProduit}}</td>
+                                <td class="text-center text-uppercase">{{dx.montantColis | formatMillier}}</td>
+                                <td class="text-left text-uppercase">{{dx.destinataire}}</td>
+                                <td class="text-center text-uppercase">{{dx.contactDestinataire}}</td>
+                                <td class="text-center text-uppercase">{{dx.prixLivraison | formatMillier}}</td>
+                                <td class="text-center text-uppercase">{{dx.elementCassable}}</td>
+                                <td class="text-center">
+                                    <button type="button" data-ng-if="items.suiviDemande.id === 5" style="min-width: 50px;"
+                                            data-ng-click="modifierArticle($event, dx, items.suiviDemande.id)"
+                                            class="btn btn-outline-success waves-effect width-md waves-light btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button type="button" data-ng-if="items.suiviDemande.id !== 5" style="min-width: 50px;"
+                                            data-ng-click="modifierArticle($event, dx, items.suiviDemande.id)"
+                                            class="btn btn-outline-danger waves-effect width-md waves-light btn-sm">
+                                        <i class="fas fa-hands"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr data-ng-if="items.bonDeCommandeList.length === 0">
+                                <th class="text-center">-</th>
+                                <td class="text-center">-</td>
+                                <td class="text-center text-uppercase">-</td>
+                                <td class="text-center text-uppercase">-</td>
+                                <td class="text-center text-uppercase">-</td>
+                                <td class="text-center text-uppercase">-</td>
+                                <td class="text-center text-uppercase">-</td>
+                                <td class="text-center text-uppercase">-</td>
+                                <td class="text-center">-</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    if(dd<10){
+        dd='0'+dd
+    }
+    if(mm<10){
+        mm='0'+mm
+    }
+
+    today = yyyy+'-'+mm+'-'+dd;
+    document.getElementById("datelivraisonSouhaite").setAttribute("min", today);
+
+</script>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr"  data-ng-app="DiGital">
+<head>
+    <meta charset="utf-8" />
+    <title>Di-Gital Web | Vos B&eacute;soins...Notre priorit&eacute;</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="DI-GITAL WEB suite d'applications couvrant tous les besoins de votre entreprise de service en valeur ajoutée" name="description" />
+    <meta content="Coderthemes" name="Phoenix Acces Limited" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <link href="di-gital/angular-sanitize/alertify.css" rel="stylesheet" type="text/css" />
+
+    <link href="assets/libs/c3/c3.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- third party css -->
+    <link href="assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/select2/select2.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="assets/css/main-modal-dialog.css" rel="stylesheet" type="text/css"  id="app-modal-dialog" />
+    <link href="assets/css/datatables.css" rel="stylesheet" type="text/css"  id="app-datatables" />
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css"  id="app-stylesheet" />
+    <link href="assets/css/di-gital.css" rel="stylesheet" type="text/css"  id="di-gital" />
+
+    <style type="text/css">
+        .ok{
+            background: #007ab3 !important;
+            color: #fff !important;
+            padding: 3px 45px !important;
+            min-width: 100px !important;
+        }
+        .cancel{
+            font-size: 12px !important;
+            background-color: rgba(0,0,0,.05) !important;
+            line-height: 40px !important;
+            min-height: 40px !important;
+            padding: 0px 36px !important;
+        }
+        .alertify .alert .msg, .alertify .dialog .msg {
+            padding: 12px;
+            margin: 0;
+            text-align: left;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .alertify .alert>*, .alertify .dialog>* {
+            border: 3px solid #007ab3;
+            border-radius: 0;
+            width: 30%;
+            webkit-transition: -webkit-transform .3s ease-out;
+            transition: -webkit-transform .3s ease-out;
+            transition: transform .3s ease-out;
+            transition: transform .3s ease-out,-webkit-transform .3s ease-out;
+            -webkit-transform: translate(0,-50px);
+            transform: translate(0,-50px);
+        }
+        .alertify .alert nav button, .alertify .dialog nav button {
+            border-radius:.1em !important;
+        }
+        .alertify .alert input, .alertify .dialog input {
+            font-size: 120%;
+            border: 1px solid #ddd;
+            text-align: center;
+            text-transform: uppercase;
+            width: 80%;
+            padding: 10px;
+        }
+    </style>
+
+</head>
+
+<body data-layout="horizontal">
+
+    <div ui-view> </div>
+
+
+    <!-- Vendor js -->
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular/angular.min.js"></script>
+
+    <script type="text/javascript" src="di-gital/bower_components/datatables/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/datatables/extensions/dataTables.bootstrap.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-datatables/dist/plugins/bootstrap/angular-datatables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/datatables/Pagination/input.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/datatables/ColumnFilter/jquery.dataTables.columnFilter.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/datatables/ColReorder/js/dataTables.colReorder.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/datatables/Responsive/dataTables.responsive.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/datatables/ColVis/js/dataTables.colVis.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/datatables/TableTools/js/dataTables.tableTools.js"></script>
+    <script type="text/javascript" src="assets/js/vendor.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-animate/angular-animate.min.js"></script>
+
+
+    <script type="text/javascript" src="di-gital/bower_components/angular-bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-file-upload/dist/ng-file-upload-all.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-alertify/ngAlertify.min.js"></script>
+    <script type="text/javascript" src="di-gital/angular-sanitize/alertify.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-ui-router/angular-ui-router.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-translate/angular-translate.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-moment-picker/dist/moment-with-locales.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-datatables/dist/plugins/colreorder/angular-datatables.colreorder.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-datatables/dist/plugins/columnfilter/angular-datatables.columnfilter.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-datatables/dist/plugins/colvis/angular-datatables.colvis.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-datatables/dist/plugins/fixedcolumns/angular-datatables.fixedcolumns.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-datatables/dist/plugins/fixedheader/angular-datatables.fixedheader.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-datatables/dist/plugins/scroller/angular-datatables.scroller.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-datatables/dist/plugins/tabletools/angular-datatables.tabletools.min.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-moment-picker/dist/angular-moment-picker.min.js"></script>
+
+    <script type="text/javascript" src="di-gital/bower_components/underscore/1.7.0/underscore-min.js"></script>
+
+
+
+    <!--C3 Chart-->
+    <script type="text/javascript" src="assets/libs/d3/d3.min.js"></script>
+    <script type="text/javascript" src="assets/libs/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="assets/libs/c3/c3.min.js"></script>
+
+    <!-- KNOB JS -->
+    <script src="assets/libs/jquery-knob/jquery.knob.min.js"></script>
+
+
+    <!-- Datatables init -->
+    <script type="text/javascript" src="assets/js/pages/dashboard.init.js"></script>
+    <script type="text/javascript" src="assets/libs/select2/select2.min.js"></script>
+    <script type="text/javascript" src="assets/js/pages/scrollbar.init.js"></script>
+    <script type="text/javascript" src="assets/js/app.min.js"></script>
+
+
+    <!-- App js -->
+    <script type="text/javascript" src="assets/js/module/digital.module.js"></script>
+    <script type="text/javascript" src="assets/js/tools/digital-apps.settings.min.js"></script>
+    <script type="text/javascript" src="assets/js/tools/digital-apps.language.min.js"></script>
+    <script type="text/javascript" src="assets/js/tools/digital-apps.roots.min.js"></script>
+    <script type="text/javascript" src="assets/js/tools/digital-apps.filters.min.js"></script>
+    <script type="text/javascript" src="assets/js/service/digital.services.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/angular-ui-mask/mask.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/crypto/crypto.js"></script>
+    <script type="text/javascript" src="di-gital/bower_components/crypto/angular-crypto.js"></script>
+    <script type="text/javascript" src="assets/js/tools/digital-apps.number-phone-format.js"></script>
+    <script type="text/javascript" src="assets/js/tools/digital-apps.amount-format.js"></script>
+    <script type="text/javascript" src="assets/js/controller/maintenance/maintenance.controller.js"></script>
+    <script type="text/javascript" src="assets/js/controller/login/login.controller.js"></script>
+    <script type="text/javascript" src="assets/js/controller/forget/forget.controller.js"></script>
+    <script type="text/javascript" src="assets/js/controller/dashboard/dashboard.controller.js"></script>
+    <script type="text/javascript" src="assets/js/controller/header/header.controller.js"></script>
+    <script type="text/javascript" src="assets/js/controller/version/version.controller.js"></script>
+    <script type="text/javascript" src="assets/js/controller/service/service-courier.controller.js"></script>
+    <script type="text/javascript" src="assets/js/controller/service/service-guichet.controller.js"></script>
+    <script type="text/javascript" src="assets/js/controller/parametre/parametre.controller.js"></script>
+    <script type="text/javascript" src="assets/js/controller/e-module/tracking.controller.js"></script>
+    <script type="text/javascript" src="assets/js/controller/e-module/livraison/module.livraison.controller.js"></script>
+    <script type="text/javascript" src="assets/js/controller/auto-complete/auto-complete.controller.js"></script>
+    <script type="text/javascript" src="assets/js/controller/e-module/assurance/assurance.controller.js"></script>
+    <script type="text/javascript" src="assets/js/controller/e-module/depot-boisson/depot-boisson.controller.js"></script>
+
+    <!-- Script pour bloquer le menu contextuel -->
+    <script>
+        $(document).bind("contextmenu",function()
+        {
+            alertify.alert('Di-Gital web', 'Merci de respecter le travail du webmaster en ne copiant pas le contenu sans autorisation !!!',function(event){
+                if(event) {
+                    $('.ajs-movable').hide();
+                }
+            });
+            return false;
+        });
+    </script>
+</body>
+</html>

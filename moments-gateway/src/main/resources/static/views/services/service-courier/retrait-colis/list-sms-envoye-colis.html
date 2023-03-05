@@ -1,0 +1,70 @@
+<style>
+    .msg{
+        margin-bottom: 0 !important;
+        padding-left: 0 !important;;
+        padding-right: 0 !important;;
+    }
+    .dialog div p{
+        text-align: justify !important;;
+        font-size: 15px !important;
+    }
+</style>
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform labelview f-16" >Liste des sms envoy&eacute;s par rapport au colis {{ titleFrm }}</h5>
+</div>
+<div class="modal-body card-box mb-0">
+    <div class="clearfix">
+        <div class="float-left mb-2">
+            <img src="assets/images/logo-dark.png" alt="" height="28">
+        </div>
+        <div class="float-right">
+            <h3 class="m-0 d-print-none">Liste sms envoy&eacute;s</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-centered table-bordered mb-2">
+                    <thead>
+                    <tr>
+                        <th class="text-center">#Code</th>
+                        <th class="text-center">Expéditeur SMS</th>
+                        <th class="text-center">Destinataire SMS</th>
+                        <th class="text-center">Type SMS</th>
+                        <th class="text-center">Etat</th>
+                        <th class="text-center"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="item in listSms track by $index">
+                        <td class="text-center">ID - {{item.id}}</td>
+                        <td class="text-center">{{item.expediteur}}</td>
+                        <td class="text-center">{{item.numeroDestinataire}}</td>
+                        <td class="text-left">{{item.typeMessage.typemessgae}}</td>
+                        <td class="text-center">{{item.responseCode === 200 ? "D&eacute;livr&eacute;" : "Non-D&eacute;livr&eacute;"}}</td>
+                        <td class="text-center">
+                            <a href="javascript:void(0);" data-ng-click="voirMessage(item)"
+                               class="btn btn-outline-secondary btn-rounded waves-effect waves-light btn-sm">
+                                <i class="fa fa-eye mr-1"></i> Voir l'sms
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="hidden-print mt-2">
+                <div class="text-right d-print-none">
+                    <a href="javascript:window.print()"
+                       class="btn btn-blue waves-effect waves-light">
+                        <i class="fa fa-print mr-1"></i> Imprimer la liste
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

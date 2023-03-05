@@ -1,0 +1,85 @@
+<style>
+    ::placeholder {
+        text-transform: initial;
+    }
+</style>
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+<div class="authentication-bg bg-primary authentication-bg-pattern d-flex align-items-center pb-0 vh-100">
+
+    <!--<div class="home-btn d-none d-sm-block">
+        <a data-ui-sref="mainpage.dashboard"><i class="fas fa-home h2 text-white"></i></a>
+    </div>-->
+
+    <div class="account-pages w-100 mt-5 mb-5">
+        <div class="container">
+
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card mb-0">
+
+                        <div class="card-body p-4">
+
+                            <div class="account-box">
+                                <div class="account-logo-box">
+                                    <div class="text-center">
+                                        <a href="index.html">
+                                            <img src="assets/images/logo-dark.png" alt="" height="30">
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="account-content mt-4">
+                                    <div class="text-center mb-3">
+                                        <div class="mb-3">
+                                            <img src="assets/images/users/avatar-5.jpg" class="rounded-circle img-thumbnail avatar-lg" alt="thumbnail">
+                                        </div>
+
+                                        <p class="text-muted mb-0 font-13">Entrez votre mot de passe pour accéder à l'application. </p>
+                                    </div>
+
+                                    <form class="form-horizontal" action="javascript:void(0);"
+                                          data-ng-submit="submitForm(sessionForm.$valid)"  name="sessionForm">
+
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label for="passwordSession">Mot de passe <span class="text-danger">*</span></label>
+                                                <input class="form-control" type="password" required
+                                                       data-ng-model="items.passwordSession" name="passwordSession"
+                                                       id="passwordSession" placeholder="Entrez votre mot de passe"
+                                                       maxlength="20" minlength="6">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row text-center mt-2">
+                                            <div class="col-12">
+                                                <button class="btn btn-md btn-block btn-primary waves-effect waves-light"
+                                                        type="button" data-ng-click="toUnlock()"
+                                                        data-ng-disabled="sessionForm.$invalid">Ouvrir la session</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+                                    <div class="clearfix"></div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-sm-12 text-center">
+                                            <p class="text-muted mb-0">Pas Vous? retournez<a data-ui-sref="login" href="javascript:void(0);" class="text-dark ml-1"><b>&agrave; la page de connexion</b></a></p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- end card-body -->
+                </div>
+                <!-- end card -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+</div>

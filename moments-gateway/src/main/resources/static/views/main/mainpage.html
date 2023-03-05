@@ -1,0 +1,26 @@
+<!-- Begin page -->
+<div id="wrapper">
+    <header data-ng-include="'views/partials/header.html'" id="topnav"></header>
+
+    <div class="content-page">
+        <div class="content">
+            <div class="container-fluid">
+
+                <div ui-view="overview">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12" ng-controller="VersionController">
+                    {{ version }} &copy; Di-Gital theme by <a href="">Phoenix Acces Group</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<!-- END wrapper -->

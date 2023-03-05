@@ -1,0 +1,249 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Service</a></li>
+                    <li class="breadcrumb-item"><a  data-ui-sref="mainpage.service-courier" href="javascript: void(0);">Service courrier</a></li>
+                    <li class="breadcrumb-item active">Mise &agrave; jour du suivi de colis</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box" data-ng-show="!historique">
+            <h4 class="header-title"><b>Mise &agrave; jour du suivi de colis</b></h4>
+            <p class="sub-header">
+                Processus de mise &agrave; jour du suivi de colis.
+            </p>
+
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="pt-3 pb-2">
+                        <form role="form" novalidate class="parsley-examples"
+                              action="javascript:void(0);" name="trackingForm"
+                              data-ng-submit="submitForm(trackingForm.$valid)">
+                            <div class="input-group">
+                                <input type="text" class="form-control" data-ng-model="retrait.reference"
+                                       name="reference" required  ui-mask="99/9-9999">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn waves-effect waves-light btn-primary"
+                                            data-ng-disabled="trackingForm.$invalid" data-ng-click="search()"
+                                    ><i class="fa fa-search mr-1"></i> Rechercher</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-box" data-ng-show="historique">
+            <h4 class="header-title"><b>Colis {{items.refColis}}</b></h4>
+            <p class="sub-header">
+                Processus de mise &agrave; jour du suivi de colis ::: n° ordre : {{items.ordre}}
+            </p>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <form role="form" novalidate class="parsley-examples"
+                          action="javascript:void(0);" name="sendForm"
+                          data-ng-submit="submitForm(sendForm.$valid)">
+                        <fieldset id="default-wizard-step-4" class="stepy-step">
+                            <legend>Information Colis</legend>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nomExpediteur">Nom Exp&eacute;diteur<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control text-uppercase" id="nomExpediteur"
+                                               placeholder="..." data-ng-model="items.nomExpediteur" name="nomExpediteur"
+                                               readonly>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="villeExpeditrice">Ville Exp&eacute;ditrice<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control text-uppercase" id="villeExpeditrice"
+                                               placeholder="..." readonly data-ng-model="items.villeExpeditrice" name="villeExpeditrice">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="adresseExpediteur">Adresse Exp&eacute;diteur<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control text-uppercase" id="adresseExpediteur"
+                                               placeholder="..." readonly data-ng-model="items.adresseExpediteur" name="adresseExpediteur">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="numPhone">N° T&eacute;l&eacute;phone Exp&eacute;diteur<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="numPhone" name="phoneExpedietur"
+                                               data-ng-model="items.phoneExpedietur" readonly ui-mask="99-99-999-999">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nomDestinataire">Nom complet Destinataire<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control text-uppercase" id="nomDestinataire" placeholder="..."
+                                               data-ng-model="items.nomDestinataire" readonly name="nomDestinataire">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="villeDestinatrice">Ville Destinatrice<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control text-uppercase" id="villeDestinatrice" placeholder="..."
+                                               data-ng-model="items.villeDestinatrice" readonly name="villeDestinatrice">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="phoneDestinatire">N° T&eacute;l&eacute;phone Destinataire<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="phoneDestinatire" name="phoneDestinatire"
+                                               data-ng-model="items.phoneDestinatire" readonly ui-mask="99-99-999-999">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="valeurColis">Valeur globale du colis en Francs CFA<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control text-uppercase" id="valeurColis" placeholder="..."
+                                               data-ng-model="items.valeurColis" readonly name="valeurColis">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset id="default-wizard-step-3" class="stepy-step">
+                            <legend>Information Tracking</legend>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nomDestinataire">Tracking actuel<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control text-uppercase" id="trackingNow" placeholder="..."
+                                               data-ng-model="items.suivi.suivi" readonly name="trackingNow">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="qtionFrais">Tracking Suivant<span class="text-danger">*</span></label>
+                                        <select data-ng-show="items.suivi.id !== 4" id="qtionFrais" class="form-control" style="cursor: pointer" required name="tarckingSuivant"
+                                                data-ng-model="items.tarckingSuivant">
+                                            <option value="" selected>- Choisissez une valeur -</option>
+                                            <option data-ng-repeat="obj in listeSuivi" value="{{obj.id}}"> {{obj.suivi}} </option>
+                                        </select>
+                                        <input type="text" data-ng-show="items.suivi.id === 4" class="form-control text-uppercase" id="tarckingSuivant" placeholder="..."
+                                               data-ng-model="items.suivi.suivi" readonly name="trackingNow">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-group mb-0 mt-3" data-ng-show="items.suivi.id !== 4">
+                            <div class="center text-center">
+                                <button type="button" class="btn btn-warning btn-rounded waves-effect
+                                    text-uppercase width-md waves-light mr-2 pr-4 pl-4 btn-md pt-2 pb-2"
+                                        data-ng-disabled="sendForm.$invalid"
+                                        data-ng-click="saveAction(items)">
+                                    <span>Mettre &agrave; jour du tracking</span>
+                                </button>
+                                <!--<button type="button" class="btn btn-outline-secondary btn-rounded text-uppercase
+                                    waves-effect waves-light pr-4 pl-4 btn-md"
+                                        data-ng-click="goBack('mainpage.service-courier.update-tracking')">
+                                    <span>Nouvelle recherche</span>
+                                </button>-->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-box" data-ng-show="historique">
+            <div class="timeline timeline-left ml-0 mb-0">
+                <article class="timeline-item alt">
+                    <div class="text-left">
+                        <div class="time-show first mt-0">
+                            <a href="#" class="btn btn-primary width-lg">Parcours du colis &agrave; la date du {{date | date:"dd/MM/yyyy à HH:mm:ss"}}</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="timeline-item" data-ng-repeat="item in items.smsEnvoyes">
+                    <div class="timeline-desk">
+                        <div class="panel">
+                            <div class="timeline-box">
+                                <span class="arrow"></span>
+                                <span class="timeline-icon bg-warning" data-ng-show="item.typeMessage.id === 8" ><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+                                <span class="timeline-icon bg-purple" data-ng-show="item.typeMessage.id === 9" ><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+                                <span class="timeline-icon bg-success" data-ng-show="item.typeMessage.id === 7" ><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+                                <span class="timeline-icon" data-ng-show="item.typeMessage.id === 4" ><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+                                <h4 class="text-warning" data-ng-show="item.typeMessage.id === 8">{{item.creation | date:"dd/MM/yyyy"}}</h4>
+                                <h4 class="text-purple" data-ng-show="item.typeMessage.id === 9">{{item.creation | date:"dd/MM/yyyy"}}</h4>
+                                <h4 class="text-success" data-ng-show="item.typeMessage.id === 7">{{item.creation | date:"dd/MM/yyyy"}}</h4>
+                                <h4 class="" data-ng-show="item.typeMessage.id === 4" >{{item.creation | date:"dd/MM/yyyy"}}</h4>
+                                <p class="timeline-date text-muted"><small>{{item.creation.slice(0, -1) | split:'T':1}}</small> | <small>{{item.typeMessage.typemessgae}}</small></p>
+                                <p>{{item.corpsMessage}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!--article class="timeline-item ">
+                    <div class="timeline-desk">
+                        <div class="panel">
+                            <div class="timeline-box">
+                                <span class="arrow"></span>
+                                <span class="timeline-icon bg-success"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+                                <h4 class="text-success">23/02/2010</h4>
+                                <p class="timeline-date text-muted"><small>08:25 am</small></p>
+                                <p>consectetur adipisicing elit. Iusto, optio, dolorum <a href="#">John deon</a> provident rerum aut hic quasi placeat iure tempora laudantium </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="timeline-item">
+                    <div class="timeline-desk">
+                        <div class="panel">
+                            <div class="timeline-box">
+                                <span class="arrow"></span>
+                                <span class="timeline-icon bg-primary"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+                                <h4 class="text-primary">23/02/2010</h4>
+                                <p class="timeline-date text-muted"><small>08:25 am</small></p>
+                                <p>3 new photo Uploaded on facebook fan page</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="timeline-item">
+                    <div class="timeline-desk">
+                        <div class="panel">
+                            <div class="timeline-box">
+                                <span class="arrow"></span>
+                                <span class="timeline-icon bg-purple"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+                                <h4 class="text-purple">23/02/2010</h4>
+                                <p class="timeline-date text-muted"><small>08:25 am</small></p>
+                                <p>Outdoor visit at California State Route 85 with John Boltana &amp;
+                                    Harry Piterson regarding to setup a new show room.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="timeline-item">
+                    <div class="timeline-desk">
+                        <div class="panel">
+                            <div class="timeline-box">
+                                <span class="arrow"></span>
+                                <span class="timeline-icon"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+                                <h4 class="text-muted">23/02/2010</h4>
+                                <p class="timeline-date text-muted"><small>08:25 am</small></p>
+                                <p>Jonatha Smith added new milestone <span><a href="#">Pathek</a></span>
+                                    Lorem ipsum dolor sit amet consiquest dio</p>
+                            </div>
+                        </div>
+                    </div>
+                </article -->
+
+            </div>
+        </div>
+    </div>
+</div>

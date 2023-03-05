@@ -1,0 +1,79 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Parametrage</a></li>
+                    <li class="breadcrumb-item"><a data-ui-sref="mainpage.offre-sms">Nos offres sms</a></li>
+                    <li class="breadcrumb-item active">Recharger mon compte SMS</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<!-- Basic Form Wizard -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <div class="form-row p-0">
+                <div  class="col-md-8 p-0">
+                    <h4 class="header-title"><b>Recharger mon compte SMS</b></h4>
+                    <p class="sub-header">
+                        Formulaire de charge de compte indivuduel
+                    </p>
+                </div>
+
+                <div  class="col-md-4 text-right p-0">
+                    <button type="button" data-ng-click="openFrmRecharge($event,'')"
+                            class="btn btn-primary btn-rounded width-md waves-effect waves-light">
+                        <i class="fas fa-plus mr-1"></i>
+                        Recharger mon compte
+                    </button>
+                </div>
+
+                <div class="row">
+                    <table id="datatable" data-datatable="ng" data-dt-options="dtOptions" data-dt-column-defs="dtColumnDefs"
+                           class="table table-bordered dt-responsive nowrap"
+                           style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                        <tr>
+                            <th style="width: 70px">Code</th>
+                            <th>Montant en F.CFA</th>
+                            <th>Nombre SMS</th>
+                            <th>Id Paiement</th>
+                            <th>Contact</th>
+                            <th>Statut</th>
+                            <th style="width: 100px"> Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="item in objets track by $index">
+                                <td>ID-{{item.id}}</td>
+                                <td class="text-center">{{item.montantRechargement | formatMillier}} F.CFA</td>
+                                <td class="text-center">{{item.nbreSms}}</td>
+                                <td class="text-left">{{item.refPaiement}}</td>
+                                <td class="text-center">{{item.profile.phone}}</td>
+                                <td class="text-center">{{item.statut == "PENDING" ? "EN ATTENTE" : item.statut}}</td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0);" data-ng-if="item.statut == 'PENDING'" data-ng-click="openFrmRecharge($event, item)"
+                                       class="btn btn-outline-primary btn-rounded waves-effect waves-light btn-sm">
+                                        <i class="fa fa-edit mr-1"></i> Modifier
+                                    </a>
+                                    <a href="javascript:void(0);" data-ng-if="item.statut != 'PENDING'" style="cursor: not-allowed"
+                                       class="btn btn-outline-success btn-rounded waves-effect waves-light btn-sm">
+                                        <i class="fa fa-edit mr-1"></i> Modifier
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

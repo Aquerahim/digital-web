@@ -1,0 +1,507 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >{{ titleFrm }}</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate>
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+
+        <div ng-show="!modification">
+
+            <fieldset id="default-wizard-step-0" class="stepy-step">
+                <legend>Information Compagnie</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="compagnie">Compagnie<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account-group"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" id="compagnie" required placeholder="..."
+                                       data-ng-model="items.compagnie" name="compagnie" minlength="4">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="abbrev">Abbréviation nom Compagnie<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account-group"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" id="abbrev" required name="abbrev"
+                                       minlength="2" placeholder="..." data-ng-model="items.abbrev">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rccm">N° Registre de commerce</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-file-account"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" minlength="4" id="rccm" placeholder="..."
+                                       data-ng-model="items.rccm" name="rccm">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="adresse">Situation G&eacute;ographique<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-marker"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" id="adresse" placeholder="..."
+                                       data-ng-model="items.adresse" required name="adresse" minlength="4">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="logo">Logo compagnie<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-picture-in-picture-bottom-right-outline"></i></span>
+                                </div>
+                                <input type="file" class="form-control" id="logo" placeholder="..." data-ng-model="logo"
+                                       data-ngf-select accept=".jpeg,.png,.jpg" required data-ngf-max-size="2MB" name="logo">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="smsCredential">Pays autoris&eacute;<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-globe-model"></i></span>
+                                </div>
+                                <select id="paysAutorise" class="form-control" style="cursor: pointer" required
+                                        data-ng-model="items.paysAutorise" name="paysAutorise"
+                                        data-ng-options="item as item.paysautorise.toUpperCase() for item in findAllPaysAutorise | orderBy:'paysautorise' track by item.paysautorise">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="smsCredential">Nom Exp&eacute;diteur<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                </div>
+                                <select id="smsCredential" class="form-control" style="cursor: pointer" required
+                                        data-ng-model="items.smsCredential" name="smsCredential"
+                                        data-ng-options="item as item.senderId.toUpperCase() for item in findAllSms | orderBy:'senderId'">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bp">Bo&icirc;te Postale</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-marker"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" name="bp" id="bp" placeholder="..." data-ng-model="items.bp">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact">Contact<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" id="contact" name="contact" required
+                                       data-ng-model="items.contact" ui-mask="99-99-999-999" >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-email"></i></span>
+                                </div>
+                                <input type="email" class="form-control text-lowercase" id="email" placeholder="..."
+                                       data-ng-model="items.email" name="email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="web">Site web</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-mouse"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="web" placeholder="..." data-ng-model="items.web">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="smsCredential">Type d'entreprise<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-globe-model"></i></span>
+                                </div>
+                                <select id="typeSouscrivant" class="form-control" style="cursor: pointer" required
+                                        data-ng-model="items.typeSouscrivant" name="typeSouscrivant"
+                                        data-ng-options="item as item.typesouscrivant.toUpperCase() for
+                                            item in findAllTypeSouscrivant | orderBy:'typesouscrivant'
+                                            track by item.typesouscrivant">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset id="default-wizard-step-1" class="stepy-step">
+                <legend>Information Responsable</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="responsable">Nom Responsable<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" id="responsable" required minlength="4"
+                                       placeholder="..." data-ng-model="items.responsable" name="responsable">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="contactResponsable">Contact Responsable<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" id="contactResponsable"
+                                       data-ng-model="items.contactResponsable" ui-mask="99-99-999-999" required
+                                       name="contactResponsable">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset id="default-wizard-step-2" class="stepy-step">
+                <legend>Information Contrat</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="typeContrat">Type contrat<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                </div>
+                                <select id="typeContrat" class="form-control" style="cursor: pointer" required name="typeContrat"
+                                        data-ng-model="items.typeContrat"
+                                        data-ng-options="item as item.typecontrat.toUpperCase() for item in findAllTypeContrat | orderBy:'typecontrat'">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dureeContrat">Dur&eacute;e Contrat<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                </div>
+                                <select id="dureeContrat" class="form-control" style="cursor: pointer" required name="dureeContrat"
+                                        data-ng-model="items.dureeContrat"
+                                        data-ng-options="item as item.dureeContrat.toUpperCase() for item in findAllDureeContrat | orderBy:'duree'">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="taciteReconduit">Contrat tacite reconduit ?<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                </div>
+                                <select id="taciteReconduit" class="form-control" style="cursor: pointer" required name="taciteReconduit"
+                                        data-ng-model="items.taciteReconduit">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                    <option value="true">OUI</option>
+                                    <option value="false">NON</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="dateEffetContrat">Date d'effet<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                </div>
+                                <input class="form-control" id="dateEffetContrat" required type="date"
+                                       min="{{minDate | date:'yyyy-MM-dd'}}" defaultValue="{{minDate}}"
+                                       name="dateEffetContrat"
+                                       data-ng-model="items.dateEffetContrat">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tauxCommLivreur">Taux commission livreur en % <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                </div>
+                                <input type="number" class="form-control text-uppercase" id="tauxCommLivreur"
+                                       placeholder="..." data-ng-model="items.tauxCommLivreur" name="tauxCommLivreur" min="0">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="slogan">Slogan de la structure <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-capitalize" id="slogan"
+                                       placeholder="..." data-ng-model="items.slogan" name="slogan">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="form-group mb-0 mt-3" data-ng-if="items.contactResponsable && items.slogan && items.dateEffetContrat
+                && items.taciteReconduit && items.dureeContrat && items.typeContrat && items.contactResponsable && items.responsable
+                && items.typeSouscrivant && items.email && items.contact && items.smsCredential && items.paysAutorise && logo
+                && items.adresse && items.abbrev && items.compagnie">
+                <div class="center text-center">
+                    <button type="button" class="btn {{style}} btn-rounded waves-effect
+                text-uppercase width-md waves-light mr-2 pr-4 pl-4 btn-md"
+                            data-ng-click="saveCompagnie()">
+                        <span>{{nomBtn}}</span>
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                            data-ng-click="fermer()">
+                        <span>Fermer</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="modification">
+            <ul class="nav nav-tabs tabs-bordered nav-justified">
+                <li class="nav-item" ng-class="{ active: isSet(1) }">
+                    <a href="javascript:void(0);" ng-click="setTab(1)" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                        <span class="d-block d-sm-none"><i class="mdi mdi-home-variant"></i></span>
+                        <span class="d-none d-sm-block">Information Compagnie</span>
+                    </a>
+                </li>
+                <li class="nav-item" ng-class="{ active: isSet(2) }">
+                    <a href="javascript:void(0);" ng-click="setTab(2)" data-toggle="tab" aria-expanded="false" class="nav-link">
+                        <span class="d-block d-sm-none"><i class="mdi mdi-account"></i></span>
+                        <span class="d-none d-sm-block">Information Responsable</span>
+                    </a>
+                </li>
+                <li class="nav-item" ng-class="{ active: isSet(3) }">
+                    <a href="javascript:void(0);" ng-click="setTab(3)" data-toggle="tab" aria-expanded="false" class="nav-link">
+                        <span class="d-block d-sm-none"><i class="mdi mdi-television"></i></span>
+                        <span class="d-none d-sm-block">Nom Exp&eacute;diteur</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane" ng-class="{ active: isSet(1) }" id="home-b2" ng-show="isSet(1)">
+                    <fieldset id="default-wizard-step-10" class="stepy-step">
+                        <legend>Information Compagnie</legend>
+                        <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="compagnie1">Compagnie<span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="mdi mdi-account-group"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control text-uppercase" id="compagnie1" required placeholder="..."
+                                           data-ng-model="items.compagnie" name="compagnie" minlength="4">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="abbrev1">Abbréviation nom Compagnie<span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="mdi mdi-account-group"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control text-uppercase" id="abbrev1" required name="abbrev"
+                                           minlength="2" placeholder="..." data-ng-model="items.abbrev">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="rccm1">N° Registre de commerce<span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="mdi mdi-file-account"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control text-uppercase" minlength="4" id="rccm1" placeholder="..."
+                                           required data-ng-model="items.rccm" name="rccm">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="adresse1">Situation G&eacute;ographique<span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="mdi mdi-marker"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control text-uppercase" id="adresse1" placeholder="..."
+                                           data-ng-model="items.adresse" required name="adresse" minlength="4">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="bp1">Bo&icirc;te Postale</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="mdi mdi-marker"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control text-uppercase" id="bp1" placeholder="..."
+                                           data-ng-model="items.bp" name="bp">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact1">Contact<span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control text-uppercase" id="contact1" name="contact" required
+                                           data-ng-model="items.contact" ui-mask="99-99-999-999" >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email1">Email<span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="mdi mdi-email"></i></span>
+                                    </div>
+                                    <input type="email" class="form-control text-lowercase" id="email1" placeholder="..."
+                                           data-ng-model="items.email" name="email" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="web1">Site web</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="mdi mdi-mouse"></i></span>
+                                    </div>
+                                    <input type="email" class="form-control" id="web1" placeholder="..."
+                                           data-ng-model="items.web" name="web">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </fieldset>
+                </div>
+
+                <div class="tab-pane"  ng-class="{ active: isSet(2) }" id="profile-b2" ng-show="isSet(2)">
+                    <fieldset id="default-wizard-step-11" class="stepy-step">
+                        <legend>Information Responsable</legend>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="responsable1">Nom Responsable<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="responsable1" required minlength="4"
+                                               placeholder="..." data-ng-model="items.responsable" name="responsable">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="contactResponsable1">Contact Responsable<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="contactResponsable1"
+                                               data-ng-model="items.contactResponsable" ui-mask="99-99-999-999" required
+                                               name="contactResponsable">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="tab-pane"  ng-class="{ active: isSet(3) }" id="profile-b3" ng-show="isSet(3)">
+                    <fieldset id="default-wizard-step-12" class="stepy-step">
+                        <legend>Information Contrat et Exp&eacute;diteur</legend>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Type Contrat<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" readonly
+                                               placeholder="..." data-ng-model="items.typeContrat.typecontrat">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Exp&eacute;diteur SMS<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase"
+                                               data-ng-model="items.smsCredential.senderId" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="form-group mb-0 mt-3">
+                <div class="center text-center">
+                    <button type="button" class="btn {{style}} btn-rounded waves-effect
+                text-uppercase width-md waves-light mr-2 pr-4 pl-4 btn-md"
+                            data-ng-click="updateCompagnie()">
+                        <span>{{nomBtn}}</span>
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary btn-rounded
+                        text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                            data-ng-click="fermer()">
+                        <span>Fermer</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,420 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >{{ titleFrm }}</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate
+          action="javascript:void(0);" >
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+
+        <div data-ng-if="!modif">
+            <fieldset id="default-wizard-step-4" class="stepy-step">
+                <legend>Information Entreprise</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="compagnie">Entreprise Gestionnaire<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control text-uppercase" readonly id="compagnie" placeholder="..." data-ng-model="compagnie">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="gare">Surcusal ou Point relais<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control text-uppercase" readonly id="gare" name="gare" placeholder="..." data-ng-model="gare">
+                            <input type="text" class="form-control text-uppercase" hidden  data-ng-model="items.gare">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset id="default-wizard-step-0" class="stepy-step">
+                <legend>Information de base</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="typeClient">Type client <span class="text-danger">*</span></label>
+                            <select id="typeClient" required class="form-control" style="cursor: pointer" name="typeClient" data-ng-model="items.typeClient">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option data-ng-repeat="obj in typeClientList" value="{{obj.key}}"> {{obj.value}} </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nomComplet">Nom complet ou Raison sociale <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" id="nomComplet" name="nomComplet"
+                                       data-ng-minlength="3" required placeholder="..."  data-ng-model="items.nomComplet">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact">T&eacute;l&eacute;phone <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="contact" name="contact" required
+                                       data-ng-model="items.contact" ui-mask="99-99-999-999">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">@</span>
+                                </div>
+                                <input type="email" class="form-control text-lowercase" id="email" name="email"
+                                       data-ng-minlength="3" required placeholder="..."  data-ng-model="items.email">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="activites">Activit&eacute; <span class="text-danger">*</span></label>
+                            <autocomplete choices="activiteListe" required enteredtext="text" minlength="1"
+                                          selected="selected" id="activites" class="text-uppercase"></autocomplete>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="situationGeo">Situation G&eacute;ographique <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" id="situationGeo" name="situationGeo"
+                                       data-ng-minlength="3" required placeholder="..."  data-ng-model="items.situationGeo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="notifAnniv">Notification anniversaire ? <span class="text-danger">*</span></label>
+                            <select id="notifAnniv" required class="form-control" style="cursor: pointer" name="notifAnniv"
+                                    data-ng-model="items.notifAnniv"
+                                    ng-change="checkField(items.notifAnniv)" >
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option data-ng-repeat="obj in qtionNotifsList" value="{{obj.key}}"> {{obj.value}} </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Relation client (JJ/MM) de naissance</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                </div>
+                                <input type="date" class="form-control text-uppercase" id="birthdate" name="birthdate"
+                                       ng-disabled="actived" disabled="{{actived}}" data-ng-model="items.birthdate" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset id="default-wizard-step-3" class="stepy-step">
+                <legend>Information de Responsable</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="nomResponsable">Nom responsable<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" required id="nomResponsable" name="nomResponsable" placeholder="..." data-ng-model="items.nomResponsable">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="contactResponsable">Contact responsable<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" required id="contactResponsable"
+                                       ui-mask="99-99-999-999"
+                                       data-ng-model="items.contactResponsable">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset id="default-wizard-step-2" class="stepy-step">
+                <legend>Couverture du Partenaire d'affaire</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="typeZoneCouverture">Type de zone<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                </div>
+                                <select id="typeZoneCouverture" class="form-control custom-select" style="cursor: pointer" required
+                                        data-ng-model="items.typeZoneCouverture" name="typeZoneCouverture"
+                                        ng-change="loadSelecBox(items.typeZoneCouverture, 'T')"
+                                        data-ng-options="item as item.typezone for item in typeZoneList | orderBy:'typezone' track by item.typezone">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="zoneCouverture">Zone de couverture<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                </div>
+                                <select id="zoneCouverture" class="form-control custom-select" style="cursor: pointer" required
+                                        data-ng-model="items.zoneCouverture" name="zoneCouverture"
+                                        data-ng-options="item as item.zoneCouverture for item in zoneCouvertureList | orderBy:'zoneCouverture' track by item.zoneCouverture">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="precisonZone">Pr&eacute;cision sur zone<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" id="precisonZone" name="precisonZone"
+                                       data-ng-minlength="3" required placeholder="..."  data-ng-model="items.precisonZone">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset id="default-wizard-step-1" class="stepy-step">
+                <legend>Information Compte</legend>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="connected">Souhaitez-vous que le partenaire ait acc&egrave;s &agrave; la plate forme ?<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                </div>
+                                <select id="connected" required class="form-control" style="cursor: pointer" name="connected"
+                                        data-ng-model="items.connected">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                    <option data-ng-repeat="obj in qtionNotifsList" value="{{obj.key}}"> {{obj.value}} </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" data-ng-if="items.connected == '1'">
+                        <div class="form-group">
+                            <label for="profileType">TYpe profile partenaire<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                </div>
+                                <select id="profileType"  class="form-control custom-select" style="cursor: pointer" required
+                                        data-ng-change="userNameGet(items.profileType)"
+                                        data-ng-model="items.profileType" name="profileType"
+                                        data-ng-options="item.key as item.value for item in profileTypeList | orderBy:'value' track by item.value">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" data-ng-if="items.connected =='1'">
+                        <div class="form-group">
+                            <label for="username">Nom Utilisateur / Login<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon2">@</span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" id="username" name="username"
+                                       placeholder="..." readonly data-ng-model="items.username" >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-2 mt-0" data-ng-if="items.connected =='1' && items.profileType">
+                        <div class="ribbon-pricing bg-warning font-14 p-1 text-white">
+                            Un e-mail sera adressé à l'utilsiateur comportant son mot de passe par défaut.
+                            La durée du mot après changement à la prémière connexion est de {{timeoutPwd}}
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <div data-ng-if="modif">
+            <fieldset id="default-wizard-step-10" class="stepy-step">
+                <legend>Information de base</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="typeClient">Type client <span class="text-danger">*</span></label>
+                            <select id="typeClient" required class="form-control" style="cursor: pointer" name="typeClient" data-ng-model="items.typeClient">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option data-ng-repeat="obj in typeClientList" value="{{obj.key}}"> {{obj.value}} </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nomComplet">Nom complet ou Raison sociale <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" id="nomComplet" name="nomComplet"
+                                       data-ng-minlength="3" required placeholder="..."  data-ng-model="items.nomComplet">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact">T&eacute;l&eacute;phone <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="contact" name="contact" required
+                                       data-ng-model="items.contact" ui-mask="99-99-999-999">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="activite">Activit&eacute; <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="activite" name="activite" required
+                                       data-ng-model="items.activite" >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="situationGeo">Situation G&eacute;ographique <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" name="situationGeo"
+                                       data-ng-minlength="3" required placeholder="..."  data-ng-model="items.situationGeo">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">E-mail <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon01">@</span>
+                                </div>
+                                <input type="email" class="form-control text-lowercase" name="email"
+                                       data-ng-minlength="3" required placeholder="..."  data-ng-model="items.email">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset id="default-wizard-step-13" class="stepy-step">
+                <legend>Information de Responsable</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="nomResponsable">Nom responsable<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" required id="nomResponsable" name="nomResponsable" placeholder="..." data-ng-model="items.nomResponsable">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="contactResponsable">Contact responsable<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" required id="contactResponsable"
+                                       ui-mask="99-99-999-999"
+                                       data-ng-model="items.contactResponsable">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset id="default-wizard-step-12" class="stepy-step">
+                <legend>Couverture du Partenaire d'affaire</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="typeZoneCouverture">Type de zone<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                </div>
+                                <select id="typeZoneCouverture" class="form-control custom-select" style="cursor: pointer" required
+                                        data-ng-model="items.typeZoneCouverture" name="typeZoneCouverture"
+                                        ng-change="loadSelecBox(items.typeZoneCouverture, 'T')"
+                                        data-ng-options="item as item.typezone for item in typeZoneList | orderBy:'typezone' track by item.typezone">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="zoneCouverture">Zone de couverture<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                </div>
+                                <select id="zoneCouverture" class="form-control custom-select" style="cursor: pointer" required
+                                        data-ng-model="items.zoneCouverture" name="zoneCouverture"
+                                        data-ng-options="item as item.zoneCouverture for item in zoneCouvertureList | orderBy:'zoneCouverture' track by item.zoneCouverture">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="precisonZone">Pr&eacute;cision sur zone<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" id="precisonZone" name="precisonZone"
+                                       data-ng-minlength="3" required placeholder="..."  data-ng-model="items.precisonZone">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="form-group mb-0 mt-3">
+            <div class="center text-center">
+                <button type="button" class="btn {{style}} btn-rounded waves-effect text-uppercase
+                width-md waves-light mr-2 pr-4 pl-4 btn-md" data-ng-disabled="addItem.$invalid"
+                        data-ng-click="saveClient()">
+                    <span>{{nomBtn}}</span>
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                        data-ng-click="fermer()">
+                    <span>Fermer</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,56 @@
+<style>
+    .modal-content {
+        width: 80% !important;
+    }
+</style>
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="OUI"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >Ajout en masse de vos clients dans votre porte-feuille</h5>
+</div>
+
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate>
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+
+
+        <fieldset id="default-wizard-step-1" class="stepy-step">
+            <legend>Importer le fichier excel mis au format</legend>
+            <div class="form-group mb-0">
+                <label for="file">Joindre le fichier</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="mdi mdi-download-outline"></i></span>
+                    </div>
+                    <input type="file" class="form-control text-lowercase" id="file" data-ng-model="file" required
+                           data-ngf-select accept=".xls,.xlsx" data-ngf-max-size="3MB"  placeholder="..." />
+                </div>
+            </div>
+            <p class="sub-header p-0 m-0 text-left mb-1">
+                <code>NB:</code> Le quota minimum d'sms requis est de 30 pour un chargement par fichier excel.
+            </p>
+        </fieldset>
+
+        <div class="form-group mb-0 mt-3">
+            <div class="center text-center">
+                <button type="button" class="btn btn-primary btn-rounded waves-effect text-uppercase
+                width-md waves-light mr-2 pr-4 pl-4 btn-md" data-ng-disabled="addItem.$invalid"
+                        data-ng-click="donwloadFile()">
+                    <span>T&eacute;l&eacute;charger le fichier</span>
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-rounded
+                text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                        data-ng-click="fermer()">
+                    <span>Fermer</span>
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>

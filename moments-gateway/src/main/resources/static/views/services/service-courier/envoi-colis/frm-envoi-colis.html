@@ -1,0 +1,290 @@
+<style>
+    .table thead th {
+        border-bottom: 1px dashed #dee2e6;
+    }
+    .table-bordered td, .table-bordered th {
+        border: 1px dashed #dee2e6;
+    }
+    .table-bordered thead td, .table-bordered thead th {
+        border-bottom-width: 1px;
+    }
+</style>
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Service</a></li>
+                    <li class="breadcrumb-item"><a  data-ui-sref="mainpage.service-courier" href="javascript: void(0);">Service courrier</a></li>
+                    <li class="breadcrumb-item active">Envoie de colis</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<!-- Basic Form Wizard -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <h4 class="header-title"><b>Exp&eacute;dition d'un colis</b></h4>
+            <p class="sub-header">
+                Enregistrement d'un colis pour exp&eacute;dition dans la localit&eacute; de votre choix.
+            </p>
+
+            <form role="form" novalidate class="parsley-examples"
+                  action="javascript:void(0);" name="sendForm"
+                  data-ng-submit="submitForm(sendForm.$valid)">
+
+                <fieldset id="default-wizard-step-4" class="stepy-step">
+                    <legend>Information Compagnie</legend>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="compagnie">Compagnie<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly id="compagnie" placeholder="..." data-ng-model="compagnie">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="gare">Gare<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly id="gare" name="gare" placeholder="..." data-ng-model="gare">
+                                <input type="text" class="form-control text-uppercase" hidden  data-ng-model="items.gare">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset id="default-wizard-step-0" class="stepy-step">
+                    <legend>Information Exp&eacute;diteur</legend>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nomExpediteur">Nom Exp&eacute;diteur<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" id="nomExpediteur" required
+                                       placeholder="..." data-ng-model="items.nomExpediteur" name="nomExpediteur">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="expediteurVille">Ville Exp&eacute;ditrice<span class="text-danger">*</span></label>
+                                <autocomplete choices="villes" required enteredtext="text" minlength="1"
+                                              selected="selected" id="expediteurVille" class="text-uppercase"></autocomplete>
+                                <input type="hidden" class="form-control text-uppercase" data-ng-model="selected.label">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="adresseExpediteur">Adresse Exp&eacute;diteur<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" id="adresseExpediteur" required
+                                       placeholder="..." data-ng-model="items.adresseExpediteur" name="adresseExpediteur">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="numPhone">N° T&eacute;l&eacute;phone Exp&eacute;diteur<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="numPhone" name="phoneExpedietur" required
+                                       data-ng-model="items.phoneExpedietur" ui-mask="99-99-999-999">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="typeEnvoi">Type d'envoi<span class="text-danger">*</span></label>
+                                <select id="typeEnvoi" required class="form-control" style="cursor: pointer" name="typeEnvoi" data-ng-model="items.typeEnvoi">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                    <option data-ng-repeat="obj in typeEnvoiList" value="{{obj.key}}"> {{obj.value}} </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Relation client (JJ/MM) de naissance</label>
+                                <div class="form-row align-items-center">
+                                    <div class="col-auto col-md-6">
+                                        <input class="form-control" id="example-number" type="number" min="1"  max="31" name="jourNaissance" data-ng-model="items.jourNaissance">
+                                    </div>
+                                    <div class="col-auto col-md-6">
+                                        <select id="moisNaissance" class="form-control" style="cursor: pointer" name="moisNaissance" data-ng-model="items.moisNaissance">
+                                            <option value="" selected>- Choisissez une valeur -</option>
+                                            <option data-ng-repeat="obj in moisList" value="{{obj.key}}"> {{obj.value}} </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset id="default-wizard-step-2" class="stepy-step">
+                    <legend>Destinataire Information</legend>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nomDestinataire">Nom complet Destinataire<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" id="nomDestinataire" required placeholder="..."
+                                       data-ng-model="items.nomDestinataire" name="nomDestinataire">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="destination">Ville Destinatrice<span class="text-danger">*</span></label>
+                                <autocomplete choices="villes" enteredtext="text2" minlength="1"
+                                              selected="selected2" id="destination" class="text-uppercase"></autocomplete>
+                                <input type="hidden" class="form-control text-uppercase" data-ng-model="selected2.label">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="qtionFrais">Souhaitez-vous payer les frais d'envoi ?<span class="text-danger">*</span></label>
+                                <select id="qtionFrais" class="form-control" style="cursor: pointer" required name="qtionFrais"
+                                        data-ng-model="items.qtionFrais"
+                                    ng-change="checkingField(items.qtionFrais)">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                    <option data-ng-repeat="obj in qtionFraisList" value="{{obj.key}}"> {{obj.value}} </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="numPhone">N° T&eacute;l&eacute;phone Destinataire<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="numPhoneDestinatire" required name="phoneDestinatire"
+                                       data-ng-model="items.phoneDestinatire" ui-mask="99-99-999-999">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="valeurColis">Valeur globale du colis en Francs CFA<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="valeurColis" name="valeurColis"
+                                       maxlength="11" data-ng-model="items.valeurColis" number-input required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fraisEnvoi">Frais d'envoie en Francs CFA<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="fraisEnvoi" maxlength="6"
+                                       ng-disabled="actived" disabled="{{actived}}" name="fraisEnvoi"
+                                       data-ng-model="items.fraisEnvoi" number-input>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset id="default-wizard-step-3" class="stepy-step">
+                    <legend>Colis &agrave; exp&eacute;dier</legend>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="natureColis">Nature<span class="text-danger">*</span></label>
+                                <select id="natureColis" class="form-control" style="cursor: pointer" name="natureColis"
+                                        data-ng-model="jx.natureColis">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                    <option data-ng-repeat="obj in natureColisList" value="{{obj.value}}"> {{obj.value}} </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="designation">D&eacute;signation<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" id="designation" placeholder="..."
+                                       name="designationColis" data-ng-model="jx.designationColis" minlength="5">
+                            </div>
+                        </div>
+
+                        <div class="col-md-10"></div>
+                        <div class="col-md-12 mb-2" data-ng-show="jx.natureColis && jx.designationColis">
+                            <button data-ng-click="addColis()" type="button" class="btn btn-warning btn-rounded pull-right right" style="float: right;">
+                                <i class="fas fa-plus mr-1"></i>
+                                <span>Ajouter &agrave; la liste colis</span>
+                            </button>
+                        </div>
+
+                        <div class="col-md-12 mb-2" data-ng-if="nb.colis > 0">
+                            <div class="table-responsive">
+                                <table class="table table-bordered mb-0">
+                                    <thead>
+                                    <tr class="text-center">
+                                        <th style="width: 150px">#</th>
+                                        <th style="width: 400px">Nature</th>
+                                        <th>D&eacute;signations</th>
+                                        <th style="width: 200px">Statut</th>
+                                        <th style="width: 200px">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-ng-repeat="dx in colis">
+                                            <th scope="row">ID-{{dx.id}}</th>
+                                            <td class="text-left">{{dx.natureColis}}</td>
+                                            <td class="text-left text-uppercase">{{dx.designationColis}}</td>
+                                            <td class="text-center">
+                                                <img class="icon-colored" src="assets/images/icons/inspection.svg" style="width: 20px; height: 20px; margin: 0" title="inspection.svg">
+                                            </td>
+                                            <td class="text-center">
+                                                <button type="button" ng-click="suppression(dx)" class="btn btn-pinterest waves-effect waves-light btn-sm"
+                                                style="padding: 0.1rem 0.9rem;">
+                                                    <i class="fas fa-trash-alt mr-1"></i> Retirer
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="form-group mb-0 mt-3" data-ng-show="nb.colis > 0">
+                    <div class="center text-center">
+                        <button type="button" class="btn btn-primary btn-rounded waves-effect
+                        text-uppercase width-md waves-light mr-2 pr-4 pl-4 btn-md"
+                                data-ng-disabled="sendForm.$invalid"
+                                data-ng-click="save()">
+                            <span>Enregistrer</span>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-rounded text-uppercase
+                        waves-effect waves-light pr-4 pl-4 btn-md" data-ng-click="goBack('mainpage.dashboard')">
+                            <span>Fermer</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- End row -->
+
+
+
+
+
+<!--<imhere-wizard>
+    <div class="row">
+        <div class="col-md-12">
+            <imhere-steps-nav>
+                <imhere-step-btn ng-repeat="step in [1,2,3] track by $index" step-index="$index"></imhere-step-btn>
+            </imhere-steps-nav>
+        </div>
+        <div class="col-md-12">
+            <imhere-step title="Default step button">
+                <h1>Default step button</h1>
+                <p>You have continued here!</p>
+                <imhere-next>NEXT </imhere-next>
+            </imhere-step>
+            <imhere-step title="Step1">
+                <h1>Step1</h1>
+                <p>You have continued here!</p>
+                <imhere-pre>BACK</imhere-pre>
+                <imhere-next>NEXT</imhere-next>
+            </imhere-step>
+            <imhere-step title="Step2">
+                <h1>Step2</h1>
+                <p>Click Complete will trigger onFinsh function</p>
+                <imhere-pre>BACK</imhere-pre>
+                <imhere-complete>Complete</imhere-complete>
+            </imhere-step>
+            <imhere-step-complete>
+                <h1>Complete!</h1>
+                <p>display what you want</p>
+                <imhere-reset>RESET</imhere-reset>
+            </imhere-step-complete>
+        </div>
+    </div>
+</imhere-wizard>-->

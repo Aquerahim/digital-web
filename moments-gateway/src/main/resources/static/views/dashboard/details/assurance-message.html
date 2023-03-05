@@ -1,0 +1,120 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >D&eacute;tails du message n° {{items.code}}</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form" novalidate>
+
+        <fieldset id="default-wizard-step-0" class="stepy-step">
+            <legend>Information Message</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="nomPrenoms">Nom Client<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="nomPrenoms" name="nomPrenoms"
+                                   readonly data-ng-model="items.nomPrenoms">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="contact">Num&eacute;ro client<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="contact" name="contact"
+                                   readonly placeholder="..."  data-ng-model="items.contact">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="typeMessage">Type message<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="typeMessage" name="typeMessage"
+                                   readonly data-ng-model="items.auteur">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="statut">Statut message<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="statut" name="statut"
+                                   readonly placeholder="..."  data-ng-model="items.statut">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="message">Num&eacute;ro client<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <textarea type="text" class="form-control" id="message" name="message"
+                                   readonly style="min-height:1px !important; max-height: 100% !important; resize: none;text-transform: none;">{{items.message}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset id="default-wizard-step-1" class="stepy-step">
+            <legend>Information {{items.entreprise}}</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="auteur">Auteur<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="auteur" name="auteur"
+                                   readonly data-ng-model="items.auteur">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="dateEnvoi">Date d'envoi<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="dateEnvoi" name="dateEnvoi"
+                                   readonly placeholder="..."  data-ng-model="items.dateEnvoi">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group mb-0 mt-3">
+            <div class="center text-center">
+                <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                        data-ng-click="fermer()">
+                    <span>Fermer</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

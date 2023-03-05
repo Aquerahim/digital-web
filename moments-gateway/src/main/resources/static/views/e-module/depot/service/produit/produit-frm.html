@@ -1,0 +1,181 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >{{ titleFrm }}</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate>
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+
+        <fieldset id="default-wizard-step-0" class="stepy-step">
+            <legend>Information</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="nomBoisson">D&eacute;signation <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <input type="text" class="form-control" autocomplete="on" id="nomBoisson" name="nomBoisson"
+                                   data-ng-minlength="3" required placeholder="..."  data-ng-model="items.nomBoisson">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="peremption">Date de p&eacute;remption <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <input type="date" class="form-control" id="peremption" name="peremption"
+                                   required min="{{date | date:'yyyy-MM-dd'}}"  data-ng-model="items.peremption">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="nomBoisson">Cat&eacute;gorie <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <select id="categorie" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.categorie" name="categorie"
+                                    data-ng-options="item as item.categorieBoisson for item in categorieList | orderBy:'categorieBoisson' track by item.categorieBoisson">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="prixAchat">Prix ou Montant d'achat</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="prixAchat" name="prixAchat" maxlength="10" required
+                                   data-ng-model="items.prixAchat" number-input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="qteEnStock">Quantit&eacute; &agrave; mettre stock</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="qteEnStock" name="qteEnStock" required
+                                   data-ng-model="items.qteEnStock" number-input />
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="seuilAlerte">Seuil d'alert</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="seuilAlerte"
+                                   name="seuilAlerte" data-ng-model="items.seuilAlerte" number-input />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset id="default-wizard-step-1" class="stepy-step">
+            <legend>Tarification</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="prixVente">Prix de vente unitaire</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="prixVente" name="prixVente" maxlength="10" required
+                                   data-ng-model="items.prixVente" number-input ng-keyup="calcule(items.prixVente)">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="prixVteDemiGros">Prix de vente demi-gros</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="prixVteDemiGros" name="prixVteDemiGros" maxlength="10" required
+                                   data-ng-model="items.prixVteDemiGros" number-input>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="prixVteEnGros">Prix de vente en Gros</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="prixVteEnGros" name="prixVteEnGros" maxlength="10" required
+                                   data-ng-model="items.prixVteEnGros" number-input>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="montantVenduEspere">Montant ou gain souhait&eacute;</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="montantVenduEspere" name="montantVenduEspere" readonly
+                                   data-ng-model="items.montantVenduEspere" number-input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+
+        <div class="form-group mb-0 mt-3">
+            <div class="center text-center">
+                <button type="button" class="btn {{style}} btn-rounded waves-effect text-uppercase
+                width-md waves-light mr-2 pr-4 pl-4 btn-md" data-ng-disabled="addItem.$invalid"
+                        data-ng-click="saveProduit()">
+                    <span>{{nomBtn}}</span>
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                        data-ng-click="fermer()">
+                    <span>Fermer</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

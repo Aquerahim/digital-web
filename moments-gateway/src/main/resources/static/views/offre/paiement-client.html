@@ -1,0 +1,109 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Service</a></li>
+                    <li class="breadcrumb-item"><a data-ui-sref="mainpage.offre-sms">Module Assurance</a></li>
+                    <li class="breadcrumb-item active">Paiements clients</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box" data-ng-if="!searchFrm">
+            <h4 class="header-title"><b>Paiements clients</b></h4>
+            <p class="sub-header">
+                Traitement des demandes de rechargement des comptes sms des clients.
+            </p>
+
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="pt-3 pb-2">
+                        <form role="form" novalidate class="parsley-examples"
+                              action="javascript:void(0);" name="trackingForm"
+                              data-ng-submit="submitForm(trackingForm.$valid)">
+                            <div class="form-row align-items-center">
+                                <div class="form-group col-md-4">
+                                    <label for="refPaiement" class="col-form-label">R&eacute;f&eacute;rence Paiement<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control text-uppercase" id="refPaiement" data-ng-model="request.refPaiement"
+                                           name="refPaiement" placeholder="...">
+                                </div>
+
+                                <div class="form-group col-md-2 text-center mb-0 pt-3">
+                                    <label class="col-form-label"><strong>O&ugrave;</strong></label>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="numPayeur" class="col-form-label">Num&eacute;ro demandeur<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="numPayeur" data-ng-model="request.numPayeur" name="numPayeur"
+                                           ui-mask="99-999-999-99" />
+                                </div>
+
+                                <div class="form-group col-md-2 mt-1 pt-2 mb-0">
+                                    <button type="button" class="btn waves-effect waves-light btn-primary w-100" style="padding: 0.6rem 0.9rem;"
+                                            data-ng-click="getRequestCustomer()" data-ng-disabled="request.refPaiement || request.numPayeur ? false : true" >
+                                        <i class="fa fa-search mr-1"></i>
+                                        <span>Rechercher</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <span class="font-13 text-muted">NB : Les champs sont ind&eacute;pendant</span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-box" data-ng-if="searchFrm"> <!---->
+            <h4 class="header-title"><b>D&eacute;tails de la demande de rechargement de compte sms à la r&eacute;f&eacute;rence {{result.reference}} est</b></h4>
+            <div class="row">
+                <table id="datatable" data-datatable="ng" data-dt-options="dtOptions" data-dt-column-defs="dtColumnDefs"
+                       class="table table-bordered dt-responsive nowrap"
+                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                    <tr>
+                        <th style="width: 80px">Code</th>
+                        <th>Numéro payeur</th>
+                        <th>Référence</th>
+                        <th>Nombre Sms</th>
+                        <th style="width: 200px">Montant Rechargement</th>
+                        <th>Demandeur</th>
+                        <th>Statut</th>
+                        <th>Type Offre</th>
+                        <th style="width: 100px"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="item in result track by $index">
+                        <td>ID-{{item.ordre}}</td>
+                        <td class="text-center">{{item.numPayeur}}</td>
+                        <td class="text-center">{{item.refPaiement}}</td>
+                        <td class="text-center">{{item.nbreSms}} sms</td>
+                        <td class="text-center">{{item.montantRechargement | formatMillier}} F.CFA</td>
+                        <td class="text-center">{{item.entreprises.compagnie}}</td>
+                        <td>
+                            <span data-ng-if="item.statut === 'PENDING'" style="padding: .4em .6em;border-radius: 0;" class="badge label-table badge-warning">En attente</span>
+                            <span data-ng-if="item.statut === 'TRAITE'"  style="padding: .4em .6em;border-radius: 0;" class="badge label-table badge-success">Trait&eacute;</span>
+                            <span data-ng-if="item.statut === 'REJETER'" style="padding: .4em .6em;border-radius: 0;" class="badge label-table badge-danger">Rejet&eacute;</span>
+                        </td>
+                        <td class="text-center">{{item.typeFormule}}</td>
+                        <td>
+                            <a href="javascript:void(0);" data-ng-click="openFrmProcessing($event, item)"
+                               class="btn btn-outline-primary btn-rounded waves-effect waves-light btn-sm">
+                                <i class="fa fa-edit mr-1"></i> Traiter
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Di-Gital Web</a></li>
+                    <li class="breadcrumb-item active">Notification</li>
+                </ol>
+            </div>
+            <!--<h4 class="page-title">Liste des Notifications</h4>-->
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="header-title">Notifications</h4>
+            <p class="sub-header">
+                Liste des Notifications syst&egrave;me.
+            </p>
+            <div class="table-responsive">
+                <table class="table m-0 table-hover">
+                    <thead class="bg-light">
+                    <tr>
+                        <th>Profile Id</th>
+                        <th>Ref</th>
+                        <th>type</th>
+                        <th>notification</th>
+                        <th>Start date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="item in datas track by $index">
+                            <td>{{item.profile.idDigital}}</td>
+                            <td>{{item.reference}}</td>
+                            <td>{{item.type}}</td>
+                            <td>{{item.notification}}</td>
+                            <td>{{item.creation | date:"dd-MM-yyyy"}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

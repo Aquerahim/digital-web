@@ -1,0 +1,153 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Service</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Service courrier</a></li>
+                    <li class="breadcrumb-item active">Retrait de colis</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <h4 class="header-title"><b>Retrait de colis</b></h4>
+            <p class="sub-header">
+                Recherchez un colis pour validation du retrait en utilisant le code ou la r&eacute;f&eacute;rence.
+            </p>
+
+            <ul class="nav nav-tabs tabs-bordered nav-justified">
+                <li class="nav-item" ng-class="{ active: isSet(1) }">
+                    <a href="javascript:void(0);" ng-click="setTab(1)" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                        <span class="d-block d-sm-none"><i class="mdi mdi-home-variant"></i></span>
+                        <span class="d-none d-sm-block">Rechercher par le code du colis</span>
+                    </a>
+                </li>
+                <li class="nav-item" ng-class="{ active: isSet(2) }">
+                    <a href="javascript:void(0);" ng-click="setTab(2)" data-toggle="tab" aria-expanded="false" class="nav-link">
+                        <span class="d-block d-sm-none"><i class="mdi mdi-account"></i></span>
+                        <span class="d-none d-sm-block">Recherche Avanc&eacute;e</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane" ng-class="{ active: isSet(1) }" id="home-b2" ng-show="isSet(1)">
+                    <div class="col-md-8 offset-md-2">
+                        <form role="form" novalidate class="parsley-examples"
+                              action="javascript:void(0);" name="retraitForm"
+                              data-ng-submit="submitForm(retraitForm.$valid)">
+                            <div class="input-group">
+                                <input type="text" class="form-control" data-ng-model="retrait.reference"
+                                         name="reference"
+                                        required  ui-mask="99/9-9999">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn waves-effect waves-light btn-primary"
+                                            data-ng-disabled="retraitForm.$invalid"
+                                            data-ng-click="search('A')">
+                                        <i class="fa fa-search mr-1"></i>
+                                        <span>Rechercher</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+                <div class="tab-pane"  ng-class="{ active: isSet(2) }" id="profile-b2" ng-show="isSet(2)">
+                    <form role="form" novalidate class="parsley-examples"
+                          action="javascript:void(0);">
+                        <div class="form-row align-items-center">
+                            <div class="form-group col-md-4">
+                                <label for="nomDest" class="col-form-label">Nom du destinataire<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" id="nomDest" data-ng-model="retrait.nomDest"
+                                       name="nomDest" placeholder="..." minlength="3">
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label for="refColis" class="col-form-label">R&eacute;f&eacute;rence du colis<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="refColis" data-ng-model="refColis" name="refColis"
+                                       ui-mask="99/9-9999" />
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label for="telDest" class="col-form-label">N° t&eacute;l&eacute;phone du destinataire<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="telDest" data-ng-model="retrait.telDest"
+                                       name="telDest" ui-mask="99-99-999-999">
+                            </div>
+
+                            <div class="form-group col-md-2 mt-1 pt-2 mb-0">
+                                <!--data-ng-disabled="retrait.nomDest || retrait.telDest || refColis"-->
+                                <button type="button" class="btn waves-effect waves-light btn-primary w-100" style="padding: 0.6rem 0.9rem;"
+                                        data-ng-click="search('B')">
+                                    <i class="fa fa-search mr-1"></i>
+                                    <span>Rechercher</span>
+                                </button>
+                            </div>
+                        </div>
+                        <span class="font-13 text-muted">NB : Les champs sont ind&eacute;pendant</span>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-12 p-0">
+                <div class="table-responsive">
+                    <table id="datatable" data-datatable="ng" data-dt-options="dtOptions"
+                           data-dt-column-defs="dtColumnDefs"
+                           class="table table-bordered dt-responsive nowrap">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#Code</th>
+                                <th>Destinataire</th>
+                                <th class="text-center">Contact</th>
+                                <th class="text-center">Provenance</th>
+                                <th class="text-center">Valeur colis</th>
+                                <th class="text-center">Frais</th>
+                                <th class="text-center">Montant Frais</th>
+                                <th class="text-center">Frais suivi sms</th>
+                                <th class="text-center">Total Pay&eacute;</th>
+                                <th class="text-center" style="width: 150px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="item in donnees.list track by $index">
+                                <td class="text-center">{{item.refColis}}</td>
+                                <td class="text-left">
+                                    <b>{{item.nomDestinataire}}</b>
+                                </td>
+                                <td class="text-center"><strong>{{item.phoneDestinatire}}</strong></td>
+                                <td class="text-center">{{item.villeDestinatrice}}</td>
+                                <td class="text-center">{{item.valeurColis | formatMillier}} F.CFA</td>
+                                <td class="text-center">{{item.frais}}</td>
+                                <td class="text-center">{{item.montantFrais | formatMillier}} F.CFA</td>
+                                <td class="text-center">{{item.suiviSms | formatMillier}} F.CFA</td>
+                                <td class="text-center">{{item.totalPaye | formatMillier}} F.CFA</td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0);" data-ng-click="validateColis($event, item)"
+                                       class="btn btn-outline-primary btn-rounded waves-effect waves-light btn-sm mr-2">
+                                        <i class="fa fa-check mr-1"></i> Retirer
+                                    </a>
+
+                                    <a href="javascript:void(0);" data-ng-click="listSmsEnvoye($event,item.smsEnvoyes)"
+                                       class="btn btn-outline-warning btn-rounded waves-effect waves-light btn-sm">
+                                        <i class="fa fa-list-ol mr-1"></i> Liste sms
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

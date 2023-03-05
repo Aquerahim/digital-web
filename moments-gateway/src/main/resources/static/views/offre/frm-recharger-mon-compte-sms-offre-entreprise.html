@@ -1,0 +1,154 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true" title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform">{{titleFrm}}</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form" name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate>
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+        <fieldset id="default-wizard-step-0" class="stepy-step">
+            <legend>Information</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="type_formule">Type Formule<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="type_formule" readonly value="OFFRE ENTREPRISE">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="montantRechargement">Montant de votre rechargement<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="montantRechargement" name="montantRechargement"
+                                   data-ng-minlength="4" required placeholder="..."
+                                   data-ng-model="montantRechargement" number-input
+                                   readonly>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="offreSmsEntreprise">Type Offre<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account-group"></i></span>
+                            </div>
+                            <select id="offreSmsEntreprise" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.offreSmsEntreprise" name="offreSmsEntreprise"
+                                    data-ng-options="item as item.nomFormule for item in getList | orderBy:'nomFormule' track by item.nomFormule"
+                                    data-ng-change="showdata(items.offreSmsEntreprise)">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nbreSms">Nombre SMS &eacute;quivalent<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="nbreSms" name="nbreSms"
+                                   readonly placeholder="..."  data-ng-model="nbreSms">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset id="default-wizard-step-1" class="stepy-step">
+            <legend>Paiement</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="refPaiement">R&eacute;f&eacute;rence paiement<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="refPaiement" name="refPaiement"
+                                   data-ng-minlength="3" required placeholder="..."  data-ng-model="items.refPaiement"
+                                   maxlength="30" ng-maxlength="30" minlength="5" ng-minlength="5">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="numPayeur">Numéro marchand<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="numPayeur" name="numPayeur"
+                                   required data-ng-model="items.numPayeur" ui-mask="99-99-999-999">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="typePaiement">Type ou canal de paiement<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <select id="typePaiement" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.typePaiement" name="typePaiement"
+                                    data-ng-change="listTypePaiement()"
+                                    data-ng-options="item as item.typepaiement for item in getListTypePaiement | orderBy:'typepaiement' track by item.typepaiement">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="totalPayer">Total &agrave; payer<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="totalPayer" name="totalPayer"
+                                   readonly required="required" placeholder="..."  data-ng-model="totalPayer" number-input />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <p class="sub-header p-0 m-0 text-left">
+            <code>NB </code> La taxe de rechargement de 6% est appliquer sur le montant &agrave; recharger. 3% est pris en charge par la plate-forme.
+            <br> Les paiements sont recevables que sur le num&eacute;ro <strong>07.57.873.487</strong>
+        </p>
+
+        <div class="form-group mb-0 mt-3">
+            <div class="center text-center">
+                <button type="button" class="btn {{style}} btn-rounded waves-effect text-uppercase
+                width-md waves-light mr-2 pr-4 pl-4 btn-md" data-ng-disabled="addItem.$invalid"
+                        data-ng-click="saveDemandeRechargement()">
+                    <span>{{nomBtn}}</span>
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                        data-ng-click="fermer()">
+                    <span>Fermer</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

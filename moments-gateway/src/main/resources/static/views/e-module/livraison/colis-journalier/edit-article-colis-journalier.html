@@ -1,0 +1,116 @@
+<style>
+    .modal-dialog {
+        width: 75%;
+    }
+</style>
+
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >{{ titleFrm }}</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate
+          action="javascript:void(0);" >
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="natureColis">Nature Colis <span class="text-danger">*</span></label>
+                    <select class="form-control custom-select" style="cursor: pointer" id="natureColis"
+                            data-ng-model="jxes.natureColis" required name="natureColis"
+                            data-ng-options="item as item.typecolis for item in natureColisListBcEdit | orderBy:'typecolis' track by item.typecolis">
+                        <option value="" selected>- Choisissez une valeur -</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="nomProduit">Pr&eacute;cision sur colis <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control text-uppercase" id="nomProduit" name="nomProduit"
+                           data-ng-minlength="3" placeholder="..." required data-ng-model="jxes.nomProduit">
+                </div>
+
+                <div class="form-group">
+                    <label for="montantColis">Montant du colis (FCFA) <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="montantColis" maxlength="9"
+                           data-ng-model="jxes.montantColis" number-input name="montantColis" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="prixLivraison">Prix de la livraison (FCFA) <span class="text-danger">*</span></label>
+                    <select class="form-control custom-select" style="cursor: pointer" id="prixLivraison"
+                            data-ng-model="jxes.prixLivraison" name="prixLivraison" required>
+                        <option value="" selected>- Choisissez une valeur -</option>
+                        <option data-ng-repeat="val in tabPriceEdit" value="{{val}}"> {{val}} </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="elementCassable">Le produit est-il un &eacute;l&eacute;ment est-il cassable ? <span class="text-danger">*</span></label>
+                    <select class="form-control custom-select" style="cursor: pointer" id="elementCassable"
+                            data-ng-model="jxes.elementCassable" required name="elementCassable">
+                        <option value="" selected>- Choisissez une valeur -</option>
+                        <option data-ng-repeat="obj in qtionNotifstBc" value="{{obj.value}}"> {{obj.value}} </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="destinataire">Destinataire <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control text-uppercase" id="destinataire" name="destinataire"
+                           data-ng-minlength="3" placeholder="..."  data-ng-model="jxes.destinataire" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactDestinataire">Contcat Destinataire <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="contactDestinataire" name="contactDestinataire"
+                           data-ng-model="jxes.contactDestinataire" ui-mask="99-99-999-999" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="jxesTypeRecuperation">Type zone de livrasion<span class="text-danger">*</span></label>
+                    <select class="form-control custom-select" style="cursor: pointer" id="jxesTypeRecuperation"
+                            data-ng-model="jxes.zoneLivraison.typeZoneCouverture" name="typeZoneLiv"
+                            ng-change="loadPerimetreEditData(jxes.zoneLivraison.typeZoneCouverture)"
+                            data-ng-options="item as item.typezone for item in typeZoneListEditData | orderBy:'typezone' track by item.typezone">
+                        <option value="" selected>- Choisissez une valeur -</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="jxesZoneRecuperation">Zone de livrasion<span class="text-danger">*</span></label>
+                    <select class="form-control custom-select" style="cursor: pointer" id="jxesZoneRecuperation"
+                            data-ng-model="jxes.zoneLivraison" name="zoneLivraison"
+                            data-ng-options="item as item.zoneCouverture for item in zoneRecuperationListBcEdit | orderBy:'zoneCouverture' track by item.zoneCouverture">
+                        <option value="" selected>- Choisissez une valeur -</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="lieuDeLivraison">Pr&eacute;cision sur zone de livrasion <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control text-uppercase" name="lieuDeLivraison" id="lieuDeLivraison"
+                           data-ng-minlength="3" placeholder="..." data-ng-model="jxes.lieuDeLivraison">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group mb-0 mt-3">
+            <div class="center text-center">
+                <button type="button" class="btn {{style}} btn-rounded waves-effect text-uppercase
+                    width-md waves-light mr-2 pr-4 pl-4 btn-md" data-ng-disabled="addItem.$invalid"
+                        data-ng-click="saveArticleEditData()">
+                    <span>{{nomBtn}}</span>
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                        data-ng-click="fermer()">
+                    <span>Fermer</span>
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>

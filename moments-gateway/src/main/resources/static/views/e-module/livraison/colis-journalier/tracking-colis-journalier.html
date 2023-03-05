@@ -1,0 +1,181 @@
+<div class="se-pre-con-digital" ng-show="loadingPage"></div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Service</a></li>
+                    <li class="breadcrumb-item"><a  data-ui-sref="mainpage.un-colis-journalier" href="javascript: void(0);">Module Livraison</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tracking</a></li>
+                    <li class="breadcrumb-item active">Suivi de la fiche de r&eacute;ception de colis</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box" data-ng-show="!historique">
+            <h4 class="header-title"><b>Suivi de la Fiche</b></h4>
+            <p class="sub-header">
+                Suivi de la fiche de r&eacute;ception de colis.
+            </p>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="pt-3 pb-2">
+                        <form role="form" novalidate class="parsley-examples"
+                              action="javascript:void(0);" name="trackingForm"
+                              data-ng-submit="submitForm(trackingForm.$valid)">
+                            <div class="input-group">
+                                <input type="text" class="form-control" data-ng-model="retrait.reference"
+                                       name="reference" required  ui-mask="AA-999999">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn waves-effect waves-light btn-primary"
+                                            data-ng-disabled="trackingForm.$invalid" data-ng-click="search()"
+                                    ><i class="fa fa-search mr-1"></i> Rechercher</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card-box" data-ng-show="historique">
+            <h4 class="header-title"><b>Bon de recup&eacute;rtaion de colis journalier {{retrait.reference}}</b></h4>
+
+            <div class="col-md-12 pl-0 pr-0">
+                <fieldset id="default-wizard-step-1" class="stepy-step">
+                    <legend>Informations Zone de recup&eacute;rations colis</legend>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>L'&eacute;tat actuel du bon de r&eacute;cup&eacute;rtaion de colis journalier <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly name="reference"  placeholder="..."
+                                       data-ng-model="items.suiviDemande.suivi" style="font-weight: bolder;">
+                            </div>
+                            <div class="form-group">
+                                <label>Ref&eacute;rence Bon<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly
+                                       placeholder="..." data-ng-model="items.reference">
+                            </div>
+                            <div class="form-group">
+                                <label>Type de livraison <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly
+                                       placeholder="..." data-ng-model="items.typeLivraison">
+                            </div>
+                            <div class="form-group">
+                                <label>Date de livraison souhait&eacute;e <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly
+                                       placeholder="..." data-ng-model="items.datelivraisonSouhaite | date: 'dd/MM/yyyy'">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Montant Global <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly
+                                       placeholder="..." data-ng-model="items.montantGlobal">
+                            </div>
+                            <div class="form-group">
+                                <label>Type Zone de Recupr&eacute;ration<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly
+                                       placeholder="..." data-ng-model="items.zoneRecuperation.zoneCouverture">
+                            </div>
+                            <div class="form-group">
+                                <label>Zone de Recupr&eacute;ration<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly
+                                       placeholder="..." data-ng-model="items.zoneRecuperation.typeZoneCouverture.typezone">
+                            </div>
+                            <div class="form-group">
+                                <label>Pr&eacute;cision sur zone de recupr&eacute;ration <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control text-uppercase" readonly
+                                       placeholder="..." data-ng-model="items.precisionZoneRecup">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="col-md-12 mt-3 mb-0 pl-0 pr-0">
+                    <p class="sub-header mb-1">Bon de recup&eacute;rtaion de colis journalier envoy&eacute; &agrave; la structure de livraison</p>
+                    <div class="table-responsive">
+                        <table class="table table-bordered mb-0">
+                            <thead>
+                            <tr class="text-center">
+                                <th style="width: 80px">#</th>
+                                <th>Nature</th>
+                                <th>Nom Produit</th>
+                                <th>Montant</th>
+                                <th>Destinataire</th>
+                                <th>Contact</th>
+                                <th>Prix Livraison</th>
+                                <th>Produit cassable</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-ng-repeat="dx in items.bonDeCommandeList" data-ng-if="items.bonDeCommandeList.length > 0">
+                                <th scope="row">ID-{{dx.id}}</th>
+                                <td class="text-left">{{dx.natureColis.typecolis}}</td>
+                                <td class="text-left text-uppercase">{{dx.nomProduit}}</td>
+                                <td class="text-center text-uppercase">{{dx.montantColis | formatMillier}}</td>
+                                <td class="text-left text-uppercase">{{dx.destinataire}}</td>
+                                <td class="text-center text-uppercase">{{dx.contactDestinataire}}</td>
+                                <td class="text-center text-uppercase">{{dx.prixLivraison | formatMillier}}</td>
+                                <td class="text-center text-uppercase">{{dx.elementCassable}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!--div class="col-lg-4" data-ng-repeat="item in items.smsEnvoyes">
+                    <div class="about-features-box text-center mt-4">
+                        <div class="feature-icon bg-primary avatar-lg mb-3 rounded-circle mx-auto">
+                            <i class="dripicons-broadcast avatar-title h2 m-0"></i>
+                        </div>
+                        <h4 class="font-15">Strategy Solutions</h4>
+
+                        <p class="text-muted mx-2">We put a lot of effort in design, as it’s the most important ingredient of successful website.Sed ut perspiciatis unde omnis iste natus error a type specimen book.</p>
+                    </div>
+                </div -->
+                <!--div class="col-lg-4">
+                    <div class="about-features-box text-center mt-4">
+                        <div class="feature-icon bg-info avatar-lg mb-3 rounded-circle mx-auto">
+                            <i class="dripicons-brightness-medium avatar-title h2 m-0"></i>
+                        </div>
+                        <h4 class="font-15">Dedicated Support</h4>
+
+                        <p class="text-muted mx-2">We put a lot of effort in design, as it’s the most important ingredient of successful website.Sed ut perspiciatis unde omnis iste natus error a type specimen book.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="about-features-box text-center mt-4">
+                        <div class="feature-icon bg-purple avatar-lg mb-3 rounded-circle mx-auto">
+                            <i class="dripicons-clock avatar-title h2 m-0"></i>
+                        </div>
+                        <h4 class="font-15">Digital Design</h4>
+
+                        <p class="text-muted mx-2">We put a lot of effort in design, as it’s the most important ingredient of successful website.Sed ut perspiciatis unde omnis iste natus error a type specimen book.</p>
+                    </div>
+                </div -->
+            </div>
+
+            <div class="form-group mb-0 mt-3" style="width: 100%">
+                <div class="center text-center">
+                    <button type="reset" class="btn btn-warning btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                            data-ng-click="goBackTo1()">
+                        <span>Nouvelle Recherche</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

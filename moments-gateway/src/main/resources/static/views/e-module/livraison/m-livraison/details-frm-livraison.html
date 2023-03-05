@@ -1,0 +1,541 @@
+<style>
+    .modal-dialog {
+        width: 85%;
+    }
+    .nave {
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+    .nave>li {
+        position: relative;
+        display: block;
+    }
+    .nav-pilles > li.active > a {
+        background-color: #007ab3 !important;
+        border-color: #007ab3 !important;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        display: block;
+        padding: 15px 15px;
+        width: 100%;
+        font-size: 12px;
+    }
+    .nav-stacked>li {
+        margin-bottom: 15px;
+        width: 100%;
+        padding-top: 0;
+        padding-left: 0;
+        border: 1pc solid #e9ecef;
+        background: #e9ecef;
+    }
+    .nav-stacked>li.active {
+        padding: 0;
+        border: none;
+        background: none;
+    }
+    .nav-stacked>li>a {
+        text-transform: uppercase;
+        font-size: 12px;
+        color: #000;
+    }
+    a:hover {
+        color: #007ab3;
+    }
+    .btn6 {
+        padding: 13px 70px;
+    }
+</style>
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform labelview f-16" >{{ titleFrm }}</h5>
+</div>
+<div class="modal-body">
+    <div class="row" style="max-width: 100%;margin: 0;">
+        <div class="col-md-3 pl-0" style="max-width: 20%; flex: 0 0 20%;">
+            <ul class="nav nave nav-pilles nav-stacked">
+                <li ng-class="{ active: isSet(1) }" ng-click="setTab(1)">
+                    <a href class="labelview" ng-click="setTab(1)">Client et Recup&eacute;ration colis</a>
+                </li>
+                <li ng-class="{ active: isSet(2) }" ng-click="setTab(2)">
+                    <a href class="labelview" ng-click="setTab(2)">Information sur Colis et Livraison</a>
+                </li>
+                <li ng-class="{ active: isSet(5) }" ng-click="setTab(5)">
+                    <a href class="labelview" ng-click="setTab(5)">Information sur Livreur</a>
+                </li>
+                <li ng-class="{ active: isSet(4) }" ng-click="setTab(4)">
+                    <a href class="labelview" ng-click="setTab(4)">Information sur destinataire</a>
+                </li>
+                <li ng-class="{ active: isSet(6) }" ng-click="setTab(6)">
+                    <a href class="labelview" ng-click="setTab(6)">Historique livraison</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-9 pl-0 pr-0" style="max-width: 80%; flex: 0 0 80%;">
+            <div class="jumbotron" style="margin: 0; border: 1px solid #007ab3;
+                background-color: transparent; border-radius: 0;padding-left: 0;padding-right: 0;
+                padding-bottom: 0;padding-top: 0px;">
+                <div ng-show="isSet(1)" style="padding: 10px; padding-top: 0">
+                    <fieldset id="default-wizard-partenaire" class="stepy-step">
+                        <legend>Information sur le partenaire</legend>
+                        <div class="row" style="max-width: 100%;margin: 0;">
+                            <div class="col-md-6 pl-0">
+                                <div class="form-group">
+                                    <label for="client">Partenaire d'affaire<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-account-group"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="client" name="client"
+                                               data-ng-minlength="3" required placeholder="..."  readonly data-ng-model="items.client.nomComplet"
+                                        >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="activite">Activit&eacute;<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-account-group"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="activite" name="activite"
+                                               data-ng-minlength="3" required placeholder="..."  readonly data-ng-model="items.client.activite"
+                                        >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="client.email">Email<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-account-group"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-lowercase" id="client.email" name="client.email"
+                                               data-ng-minlength="3" required placeholder="..."  readonly data-ng-model="items.client.email"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 pr-0">
+                                <div class="form-group">
+                                    <label for="nomResponsable">Nom responsable<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-contacts"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="nomResponsable" name="nomResponsable"
+                                               data-ng-minlength="3" required placeholder="..."  readonly data-ng-model="items.client.nomResponsable"
+                                        >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactResponsable">Contact responsable<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-contacts"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="contactResponsable" name="contactResponsable"
+                                               data-ng-minlength="3" required placeholder="..."  readonly data-ng-model="items.client.contactResponsable"
+                                        >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="situationGeo">Situation G&eacute;o<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-contacts"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="situationGeo" name="situationGeo"
+                                               data-ng-minlength="3" required placeholder="..."  readonly data-ng-model="items.client.situationGeo"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset id="default-wizard-liraison" class="stepy-step">
+                        <legend>Information sur le colis</legend>
+                        <div class="row" style="max-width: 100%;margin: 0;">
+                            <div class="col-md-6 pl-0">
+                                <div class="form-group">
+                                    <label for="reference">R&eacute;f&eacute;rence colis <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="reference" name="reference"
+                                               data-ng-minlength="3" required placeholder="..."  readonly data-ng-model="items.reference"
+                                        >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                <label for="typeZoneCouverture">Type de zone de recupr&eacute;ration<span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="mdi mdi-crosshairs-gps"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control text-uppercase" id="typeZoneCouverture" name="typeZoneCouverture"
+                                           data-ng-minlength="3" placeholder="..." required data-ng-model="items.zoneRecuperation.typeZoneCouverture.typezone"
+                                           readonly
+                                    >
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-md-6 pr-0">
+                                <div class="form-group">
+                                    <label for="zoneRecuperation">Zone de recupr&eacute;ration<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-crosshairs-gps"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="zoneRecuperation" name="zoneRecuperation"
+                                               data-ng-minlength="3" placeholder="..." required data-ng-model="items.zoneRecuperation.zoneCouverture"
+                                               readonly
+                                        >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="precisionZoneRecup">Pr&eacute;cision sur zone de recupr&eacute;ration <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-crosshairs-gps"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="precisionZoneRecup" name="precisionZoneRecup"
+                                               data-ng-minlength="3" placeholder="..." required data-ng-model="items.precisionZoneRecup"
+                                               readonly >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div ng-show="isSet(2)" style="padding: 10px; padding-top: 0">
+                    <fieldset id="default-wizard-x0" class="stepy-step">
+                        <legend>Information sur le colis</legend>
+                        <div class="row" style="max-width: 100%;margin: 0;">
+                            <div class="col-md-6 pl-0">
+                                <div class="form-group">
+                                    <label for="natureColis">Nature Colis <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-archive"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="natureColis" name="natureColis" readonly
+                                               data-ng-model="items.natureColis.typecolis" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="descriptionColis">Pr&eacute;cision sur colis<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-archive"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="descriptionColis" name="descriptionColis"
+                                               data-ng-minlength="3" readonly placeholder="..."  data-ng-model="items.descriptionColis">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 pr-0">
+                                <div class="form-group">
+                                    <label for="montantColis">Montant du colis (FCFA) <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-calendar-account-outline"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="montantColis" name="montantColis" maxlength="9" readonly
+                                               data-ng-model="items.montantColis" number-input>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="datelivraison">Date livraison<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-archive"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="datelivraison" name="datelivraison"
+                                               data-ng-minlength="3" readonly placeholder="..."  data-ng-model="items.datelivraison | date: 'dd/MM/yyyy'">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset id="default-wizard-x1" class="stepy-step">
+                        <legend>Information sur le colis</legend>
+                        <div class="row" style="max-width: 100%;margin: 0;">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="typeZoneCouverture">Type de Zone de livraison<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-crosshairs-gps"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="typeZoneLivraison" name="typeZoneLivraison"
+                                               data-ng-minlength="3" readonly placeholder="..."  data-ng-model="items.zoneLivraison.typeZoneCouverture.typezone">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="zoneRecuperation">Zone de Livraison<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-crosshairs-gps"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="zoneLivraison" name="zoneLivraison"
+                                               data-ng-minlength="3" readonly placeholder="..."  data-ng-model="items.zoneLivraison.zoneCouverture">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="precisonLieuLivraison">Pr&eacute;cisez sur le lieu de livraison<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-crosshairs-gps"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="precisonLieuLivraison" name="precisonLieuLivraison"
+                                               data-ng-minlength="3" required placeholder="..."  data-ng-model="items.precisonLieuLivraison" readonly >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="prixLivraison">Prix de la livraison en FCFA<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-calendar-account-outline"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="prixLivraison" name="prixLivraison" maxlength="7" required
+                                               data-ng-model="items.prixLivraison" number-input readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div ng-show="isSet(4)" style="padding: 10px; padding-top: 0">
+                    <fieldset id="default-wizard-x4" class="stepy-step">
+                        <legend>Information sur le destinataire</legend>
+                        <div class="row" style="max-width: 100%;margin: 0;">
+                            <div class="col-md-6 pl-0">
+                                <div class="form-group">
+                                    <label for="nomPrenomsDestinataire">Nom & Pr&eacute;noms <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="nomPrenomsDestinataire" name="nomPrenomsDestinataire"
+                                               data-ng-minlength="3" readonly placeholder="..."  data-ng-model="items.nomPrenomsDestinataire">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact">T&eacute;l&eacute;phone <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="contact" name="contactDestinataire" readonly
+                                               data-ng-model="items.contactDestinataire" ui-mask="99-99-999-999">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 pr-0">
+                                <div class="form-group">
+                                    <label for="infoComplementaire">Informations compl&eacute;mentaires</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-pencil-circle-outline"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="infoComplementaire" name="infoComplementaire"
+                                               readonly data-ng-model="items.infoComplementaire" placeholder="...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="notifClient1">Notificatifier le client d&egrave;s archeminement du colis ? <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-message-alert-outline"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="notifClient1" name="notifClient1"
+                                               readonly data-ng-model="items.notifClient" placeholder="...">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset id="default-wizard-x5" class="stepy-step">
+                        <legend>Information sur le lieu</legend>
+                        <div class="row" style="max-width: 100%;margin: 0;">
+                            <div class="col-md-6 pl-0">
+                                <div class="form-group">
+                                    <label for="typeZoneCouverture.typezone">Type Zone Livraison<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="typeZoneCouverture.typezone" name="typeZoneCouverture.typezone"
+                                               data-ng-minlength="3" readonly placeholder="..."  data-ng-model="items.zoneLivraison.typeZoneCouverture.typezone">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="zoneLivraison.zoneCouverture">Zone de livraison <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="zoneLivraison.zoneCouverture" name="zoneLivraison.zoneCouverture" readonly
+                                               data-ng-model="items.zoneLivraison.zoneCouverture" >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 pr-0">
+                                <div class="form-group">
+                                    <label for="precisonLieuLivraison1">Pr&eacute;cison sur Lieu de livraison</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-pencil-circle-outline"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="precisonLieuLivraison1" name="precisonLieuLivraison"
+                                               readonly data-ng-model="items.precisonLieuLivraison" placeholder="...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="notifClient">Notificatifier le client d&egrave;s archeminement du colis ? <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-message-alert-outline"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="notifClient" name="infoComplementaire"
+                                               readonly data-ng-model="items.notifClient" placeholder="...">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div ng-show="isSet(5)" style="padding: 10px; padding-top: 0">
+                    <fieldset id="default-wizard-x2" class="stepy-step">
+                        <legend>Information sur le livreur</legend>
+                        <div class="row" style="max-width: 100%;margin: 0;">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="livreur">Nom Complet Livreur<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-motorbike"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="livreur" name="livreur"
+                                               readonly data-ng-model="items.livreur.nomPrenoms" placeholder="...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="livreur.contact">Contact Livreur<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-motorbike"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="livreur.contact" name="livreur.contact"
+                                               readonly data-ng-model="items.livreur.contact" placeholder="...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="typeContrat.typecontrat">Type Contrat<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="typeContrat.typecontrat" name="typeContrat.typecontrat"
+                                               data-ng-model="items.livreur.typeContrat.typecontrat" readonly >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="typeContrat.typecontrat">Taux commission en %<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control text-uppercase" id="tauxComm" name="tauxComm"
+                                               data-ng-model="items.livreur.tauxComm" readonly >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset id="default-wizard-x3" class="stepy-step">
+                        <legend>Information sur l'engins utilis&eacute;</legend>
+                        <div class="row" style="max-width: 100%;margin: 0;">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="typeEngin.typeengins">Type d'engin utilis&eacute; pour la livrasion <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-motorbike"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="typeEngin.typeengins" name="typeengins"
+                                               readonly data-ng-model="items.livreur.typeEngin.typeengins" placeholder="...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="livreur.assureEngin">Celui-ci est-il assur&eacute; ?<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-motorbike"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="livreur.assureEngin" name="livreur.assureEngin"
+                                               readonly data-ng-model="items.livreur.assureEngin" placeholder="...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="compagnieAssurance">Compagnie d'Assurance <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-motorbike"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="compagnieAssurance" name="compagnieAssurance"
+                                               readonly data-ng-model="items.livreur.compagnieAssurance" placeholder="...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="livreur.dateFinAssurance">Date fin assurance<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="mdi mdi-motorbike"></i></span>
+                                        </div>
+                                        <input type="date" class="form-control" id="livreur.dateFinAssurance" name="livreur.dateFinAssurance"
+                                               readonly data-ng-model="items.livreur.dateFinAssurance" placeholder="...">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div ng-show="isSet(6)" style="max-height: 100%;min-height: auto;height: 400px;overflow-y: auto;">
+                    <div class="row" style="max-width: 100%;margin: 0;">
+                        <div class="card-box mb-0" style="padding: 0.8rem;background-color: #fefefe; width: 100%">
+                            <div data-ng-repeat="item in historiqueList">
+                                <div class="">
+                                    <h5 class="text-custom mb-1">{{item.typeNotification}}</h5>
+                                    <p class="mb-1">{{item.creation  | date: "dd/MM/yyyy '&agrave;' HH:mm:ss" }}</p>
+                                    <p class="mb-1"><b>{{item.ordre}}</b></p>
+                                    <p class="text-muted font-13 mb-0">{{item.libelle}}</p>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

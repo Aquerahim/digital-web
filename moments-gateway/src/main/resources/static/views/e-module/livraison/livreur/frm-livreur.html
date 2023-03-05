@@ -1,0 +1,275 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >{{ titleFrm }}</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate
+          action="javascript:void(0);" >
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+
+        <div data-ng-if="!modif">
+            <fieldset id="default-wizard-step-3" class="stepy-step">
+                <legend>Information de Base</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="nomPrenoms">Nom & Pr&eacute;noms du livreur<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" required id="nomPrenoms"
+                                       name="nomPrenoms" placeholder="..." data-ng-model="items.nomPrenoms">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact">Contact<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" required id="contact"
+                                       ui-mask="99-99-999-999" name="contact"
+                                       data-ng-model="items.contact">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="notifAnniv">Notification anniversaire ? <span class="text-danger">*</span></label>
+                            <select id="notifAnniv" required class="form-control" style="cursor: pointer" name="notifAnniv"
+                                    data-ng-model="items.notifAnniv"
+                                    ng-change="checkField(items.notifAnniv)" >
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option data-ng-repeat="obj in qtionNotifsList" value="{{obj.key}}"> {{obj.value}} </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Relation client (JJ/MM) de naissance</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                </div>
+                                <input type="date" class="form-control text-uppercase" id="birthdate" name="birthdate"
+                                       ng-disabled="actived" disabled="{{actived}}" data-ng-model="items.birthdate" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset id="default-wizard-commission" class="stepy-step">
+                <legend>Information sur Commission</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="typeContrat">Type de Contrat<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-crosshairs-gps"></i></span>
+                                </div>
+                                <select id="typeContrat" class="form-control custom-select" style="cursor: pointer" required
+                                        data-ng-model="items.typeContrat" name="typeContrat"
+                                        data-ng-options="item as item.typecontrat for item in typeContratList | orderBy:'typecontrat' track by item.typecontrat"
+                                        ng-change="checktauxCommissionField(items.typeContrat)">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="tauxComm">Taux Commission en %</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                </div>
+                                <input type="number" min="0" max="100" class="form-control text-uppercase" id="tauxComm"
+                                       name="tauxComm" placeholder="..." data-ng-model="items.tauxComm"
+                                       ng-disabled="checkTaux" disabled="{{checkTaux}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset id="default-wizard-step-assurance" class="stepy-step">
+                <legend>Information Assurance</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="typeEngin">Type d'engin utilis&eacute; pour la livrasion <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-message-alert-outline"></i></span>
+                                </div>
+                                <select id="typeEngin" class="form-control custom-select" style="cursor: pointer" required
+                                        name="typeEngin"
+                                        data-ng-model="items.typeEngin"
+                                        ng-change="checkTypeEnginField(items.typeEngin)"
+                                        data-ng-options="item as item.typeengins for item in typeEnginsList | orderBy:'typeengins' track by item.typeengins">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="assureEngin">Celui-ci est-il assur&eacute; ? <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-message-alert-outline"></i></span>
+                                </div>
+                                <select id="assureEngin" class="form-control" style="cursor: pointer" name="assureEngin"
+                                        data-ng-model="items.assureEngin"
+                                        ng-change="checkAssureEnginField(items.assureEngin)"
+                                        ng-disabled="checkTypeEngin" disabled="{{checkTypeEngin}}"
+                                >
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                    <option data-ng-repeat="obj in qtionNotifst" value="{{obj.value}}"> {{obj.value}} </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="compagnieAssurance">Compagnie d'Assurance <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                </div>
+                                <select id="compagnieAssurance" class="form-control" style="cursor: pointer" name="compagnieAssurance"
+                                        data-ng-model="items.compagnieAssurance"
+                                        ng-disabled="activedAssurEngin" disabled="{{activedAssurEngin}}"
+                                >
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                    <option data-ng-repeat="obj in exCompagnieList" value="{{obj.value}}"> {{obj.value}} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateFinAssurance">Date fin assurance <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                </div>
+                                <input type="date" data-date="" data-date-format="YYYY-MM-DD" class="form-control text-uppercase"
+                                       id="dateFinAssurance" name="dateFinAssurance" ng-disabled="activedAssurEngin" disabled="{{activedAssurEngin}}"
+                                       data-ng-model="items.dateFinAssurance" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset id="default-wizard-step-1" class="stepy-step">
+                <legend>Information Compte</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="profileType">Type profile<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                </div>
+                                <select id="profileType"  class="form-control custom-select" style="cursor: pointer" required
+                                        data-ng-change="userNameGet(items.profileType)"
+                                        data-ng-model="items.profileType" name="profileType"
+                                        data-ng-options="item.key as item.value for item in profileTypeList | orderBy:'value' track by item.value">
+                                    <option value="" selected>- Choisissez une valeur -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="username">Nom Utilisateur / Login<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon2">@</span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" id="username" name="username"
+                                       placeholder="..." readonly data-ng-model="items.username" >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="email">E-mail<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon02">@</span>
+                                </div>
+                                <input type="email" class="form-control text-lowercase" id="email" name="email"
+                                       placeholder="..." required data-ng-model="items.email" >
+                            </div>
+                            <span class="help-block"><small>Cette adresse permettra la recup&eacute;ration du mot de passe en cas d'oublie et la r&eacute;ception des acc&egrave;s lors de la cr&eacute;ation du compte.</small></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-2 mt-0" data-ng-if="items.profileType && items.email">
+                        <div class="ribbon-pricing bg-warning font-14 p-1 text-white text-center">
+                            Un e-mail sera adressé à l'utilsiateur comportant son mot de passe par défaut.
+                            La durée du mot après changement à la prémière connexion est de 120 jours soit 4 Mois
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+
+        <div data-ng-if="modif">
+            <fieldset id="default-wizard-step-03" class="stepy-step">
+                <legend>Information de Base</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="nomPrenoms">Nom & Pr&eacute;noms<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" required
+                                       name="nomPrenoms" placeholder="..." data-ng-model="items.nomPrenoms">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="contact">Contact<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" required
+                                       ui-mask="99-99-999-999" name="contact"
+                                       data-ng-model="items.contact">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="form-group mb-0 mt-3">
+            <div class="center text-center">
+                <button type="button" class="btn {{style}} btn-rounded waves-effect text-uppercase
+                width-md waves-light mr-2 pr-4 pl-4 btn-md" data-ng-disabled="addItem.$invalid"
+                        data-ng-click="saveLivreur()">
+                    <span>{{nomBtn}}</span>
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                        data-ng-click="fermer()">
+                    <span>Fermer</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

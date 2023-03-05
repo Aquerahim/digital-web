@@ -1,0 +1,201 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >{{ titleFrm }}</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate>
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+        <fieldset id="default-wizard-step-0" class="stepy-step">
+            <legend>Information</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="numeroFacture">Num&eacute;ro facture <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <input type="text" class="form-control" autocomplete="on" id="numeroFacture" name="numeroFacture"
+                                   data-ng-minlength="3" required placeholder="..."  data-ng-model="items.numeroFacture">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="statutFacture">Statut Facture <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <select id="statutFacture" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.statutFacture" name="statutFacture">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option data-ng-repeat="obj in statusList" value="{{obj.value}}">{{obj.value}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="dateReception">Date r&eacute;ception <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <input type="date" class="form-control" id="dateReception" name="dateReception"
+                                   required min="{{date | date:'yyyy-MM-dd'}}"  data-ng-model="items.dateReception">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="fournisseur">Fournisseur <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+
+                            <select id="fournisseur" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.fournisseur" name="fournisseur"
+                                    data-ng-options="item as item.nomComplet for item in fournisseurList | orderBy:'nomComplet' track by item.nomComplet">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="accompteFacture">Accompte donn&eacute;e au fournisseur <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="accompteFacture" maxlength="10"
+                                   data-ng-model="items.accompteFacture" name="accompteFacture" number-input
+                                   ng-disabled="items.statutFacture != 'FACTURE RÈGLÉE PARTIELLEMENT' || items.statutFacture == null"
+                                   disabled="{{items.statutFacture != 'FACTURE RÈGLÉE PARTIELLEMENT' || items.statutFacture == null}}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="montantFacture">Montant Facture <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <input type="text" class="form-control" required id="montantFacture" maxlength="9"
+                                   data-ng-model="items.montantFacture" name="montantFacture" number-input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset id="default-wizard-step-1" class="stepy-step">
+            <legend>Notification Fournisseur</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="notifFournisseur">Souhaitez-vous que le fournisseur soit notifi&eacute; ?<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <select id="notifFournisseur" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.notifFournisseur" name="notifFournisseur">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                                <option data-ng-repeat="objet in optionList" value="{{objet.value}}">{{objet.value}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="numeroFournisseur">Num&eacute;ro fournisseur <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-database-plus"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="numeroFournisseur"
+                                   data-ng-model="numeroFournisseur" name="numeroFournisseur" ui-mask="99-99-999-999"
+                                   ng-disabled="items.notifFournisseur == 'NON' || items.notifFournisseur == null"
+                                   disabled="{{items.notifFournisseur == 'NON' || items.notifFournisseur == null}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset id="default-wizard-step-2" class="stepy-step">
+            <legend>Ajout des articles de la facture</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="ordre">R&eacute;f&eacute;rence <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control text-uppercase" id="ordre"
+                               data-ng-minlength="3" placeholder="..."  data-ng-model="donnees.ordre">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="article">Nom de l'article <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control text-uppercase" id="article"
+                               data-ng-minlength="3" placeholder="..."  data-ng-model="donnees.article">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="quantite">Quantit&eacute; de l'article <span class="text-danger">*</span></label>
+                        <input type="number" min="1" class="form-control" id="quantite"
+                               data-ng-model="donnees.quantite" name="quantite">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="montant">Montant de l'article  en F.CFA <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="montant" maxlength="9"
+                               data-ng-model="donnees.montant" number-input name="montant">
+                    </div>
+                </div>
+
+                <div class="col-md-10"></div>
+                <div class="col-md-12 mb-2 mt-2">
+                    <button data-ng-click="addToList()"
+                            data-ng-if="donnees.montant && donnees.article && donnees.quantite"
+                            type="button" class="btn btn-warning btn-rounded pull-right right" style="float: right;">
+                        <i class="fas fa-plus mr-1"></i>
+                        <span>Ajouter au bon de commande</span>
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group mb-0 mt-3">
+            <div class="center text-center">
+                <button type="button" class="btn {{style}} btn-rounded waves-effect text-uppercase
+                width-md waves-light mr-2 pr-4 pl-4 btn-md" data-ng-disabled="addItem.$invalid"
+                        data-ng-click="saveProduit()">
+                    <span>{{nomBtn}}</span>
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                        data-ng-click="fermer()">
+                    <span>Fermer</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

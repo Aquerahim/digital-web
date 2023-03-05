@@ -1,0 +1,249 @@
+<style>
+    .radio label {
+        font-weight: 500;
+    }
+</style>
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >{{ titleFrm }}</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate>
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+
+        <fieldset id="default-wizard-step-0" class="stepy-step" data-ng-show="!modificateur">
+            <legend>Information de Base</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="typesouscrivant">Type souscripteur<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <select id="typesouscrivant" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.typesouscrivant" name="typesouscrivant"
+                                    data-ng-change="loadSelecBox(items.typesouscrivant, 'T')"
+                                    data-ng-options="item as item.typesouscrivant for item in findTypeSouscripteur | orderBy:'typesouscrivant' track by item.typesouscrivant">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="compagnie">Compagnie<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account-group"></i></span>
+                            </div>
+                            <select id="compagnie" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.compagnie" name="compagnie"
+                                    data-ng-change="loadSelecBox(items.compagnie, 'C')"
+                                    data-ng-options="item as item.compagnie for item in findAllSouscripteur | orderBy:'compagnie' track by item.compagnie">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="gareRoutiere">Repr&eacute;santation<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account-group"></i></span>
+                            </div>
+                            <select id="gareRoutiere" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.gareRoutiere" name="gareRoutiere"
+                                    data-ng-options="item as item.gareRoutiere for item in findAllRepresentant | orderBy:'gareRoutiere' track by item.gareRoutiere">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactResponsable">Contact Responsable</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="contactResponsable" readonly data-ng-model="items.gareRoutiere.contactResponsableGareRoutiere" ui-mask="99-99-999-999" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset id="default-wizard-step-1" class="stepy-step">
+            <legend>Information Compte</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="nomPrenoms">Nom complet<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="nomPrenoms" name="nomPrenoms" required placeholder="..." data-ng-model="items.nomPrenoms" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Contact<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="phone" required name="phone" data-ng-model="items.phone" ui-mask="99-99-999-999" >
+                        </div>
+                    </div>
+
+                    <div data-ng-show="!modificateur">
+                        <div class="form-group">
+                            <label for="birthdate">Date de naissance</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                </div>
+                                <input type="date" class="form-control text-uppercase" id="birthdate" name="birthdate" data-ng-model="items.birthdate"
+                                       max="{{minDate | date:'yyyy-MM-dd'}}">
+                            </div>
+                            <span class="help-block"><small>Date de naissance de l'utilisateur connectant</small></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Profil Facebook </label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-facebook"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="facebook" placeholder="url..." name="facebook" data-ng-model="items.facebook" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Profil Twitter </label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-twitch"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="twitter" placeholder="url..." name="twitter" data-ng-model="items.twitter" >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="profileType">Profile<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account-group"></i></span>
+                            </div>
+                            <select id="profileType" data-ng-show="!modificateur" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-change="generateUserName(items.profileType, items.compagnie.abbrev)"
+                                    data-ng-model="items.profileType" name="profileType"
+                                    data-ng-options="item.key as item.value for item in profileTypeList | orderBy:'value' track by item.value">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                            <input type="text" class="form-control text-uppercase" data-ng-show="modificateur" name="profileType" placeholder="..." readonly data-ng-model="profileType" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">Nom Utilisateur / Login<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="username" name="username" placeholder="..." readonly data-ng-model="items.username" >
+                        </div>
+                    </div>
+
+                    <div data-ng-show="!modificateur">
+                        <div class="form-group">
+                            <label for="email">E-mail<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                                </div>
+                                <input type="text" class="form-control text-lowercase" id="email" name="email" required placeholder="..." data-ng-model="items.email" >
+                            </div>
+                            <span class="help-block"><small>Cette adresse sera utilis&eacute; au cas o&ugrave; vous oublierez vos acc&egrave;s. Elle doit être unique</small></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Profil Instagram </label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-instagram"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="instagram" placeholder="url..."  name="instagram" data-ng-model="items.instagram" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Profil Skype </label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-skype"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" id="skype" placeholder="url..."  name="skype" data-ng-model="items.skype" >
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset id="default-wizard-step-2" class="stepy-step">
+            <legend>Module Authoris&eacute;</legend>
+            <div class="row">
+                <div class="col-md-3 mb-2" ng-repeat="itex in listeModules">
+                    <div class="radio radio-success form-check-inline">
+                        <input type="radio" id="inlineRadio1-{{itex.id}}" value="{{itex.module}}" name="radioInline"
+                               ng-checked="itex.checked"
+                               ng-model="items.module" ng-change="handleRadioClick(itex)">
+                        <label for="inlineRadio1-{{itex.id}}"> {{itex.description}} </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="row mt-2" data-ng-show="!modificateur">
+            <div class="col-md-12">
+                <div class="ribbon-pricing bg-warning font-14 p-1 text-white">
+                    Un e-mail sera adressé à l'utilsiateur comportant son mot de passe par défaut.
+                    La durée du mot  après changement à la prémière connexion est de {{timeoutPwd}}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group mb-0 mt-3">
+            <div class="center text-center">
+                <button data-ng-show="modificateur" type="button" class="btn {{style}} btn-rounded waves-effect
+                    text-uppercase width-md waves-light mr-2 pr-4 pl-4 btn-md"
+                        data-ng-click="createUserAccount()">
+                    <span>{{nomBtn}}</span>
+                </button>
+                <button data-ng-show="!modificateur" type="button" class="btn {{style}} btn-rounded waves-effect
+                    text-uppercase width-md waves-light mr-2 pr-4 pl-4 btn-md" data-ng-disabled="addItem.$invalid"
+                        data-ng-click="createUserAccount()">
+                    <span>{{nomBtn}}</span>
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                        data-ng-click="fermer()">
+                    <span>Fermer</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

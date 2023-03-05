@@ -1,0 +1,108 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="fermer()"
+            aria-label="Close">
+        <span aria-hidden="true"  title="Fermer">&times;</span>
+    </button>
+    <h5 class="modal-title textTransform" >{{ titleFrm }}</h5>
+</div>
+
+<div class="modal-body card-box mb-0">
+    <form role="form"  name="addItem" data-ng-submit="submitForm(addItem.$valid)" novalidate>
+        <p class="sub-header p-0 m-0 text-right">
+            <code>(*)</code> Champs au informations requises ou obligatoires
+        </p>
+
+        <fieldset id="default-wizard-step-0" class="stepy-step">
+            <legend>Information</legend>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="libelle">Libell&eacute;<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="libelle" name="libelle"
+                                   data-ng-minlength="5" required placeholder="..."  data-ng-model="items.libelle">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="typeMessage">Type Message<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <select id="typeMessage" class="form-control custom-select" style="cursor: pointer" required
+                                    data-ng-model="items.typeMessage" name="typeMessage"
+                                    data-ng-options="item as item.typemessgae for item
+                                    in findAllTypeMessageList | orderBy:'typemessgae' track by item.typemessgae">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group" data-ng-if="profileType !== 'EXPERT'">
+                        <label for="entreprise">Entreprise<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-home-city-outline"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-uppercase" readonly id="entreprise" name="entreprise"
+                                   placeholder="..."  data-ng-model="items.entreprises.compagnie">
+                        </div>
+                    </div>
+
+                    <div class="form-group" data-ng-if="profileType === 'EXPERT'">
+                        <label for="entreprise">Entreprise<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-home-city-outline"></i></span>
+                            </div>
+                            <select id="typeZoneCouverture" class="form-control custom-select" style="cursor: pointer" required
+                                data-ng-model="items.entreprises" name="entreprises"
+                                data-ng-options="item as item.compagnie for item
+                                    in findAllEntreprises | orderBy:'compagnie' track by item.compagnie">
+                                <option value="" selected>- Choisissez une valeur -</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="example-textarea">Mod&egrave;le Message<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-file"></i></span>
+                            </div>
+                            <textarea class="form-control" placeholder="..." name="message" rows="5"
+                                      id="example-textarea"  data-ng-model="items.message"
+                                      style="resize: none; text-transform: inherit;"
+                            ></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group mb-0 mt-3">
+            <div class="center text-center">
+                <button type="button" class="btn {{style}} btn-rounded waves-effect text-uppercase
+                width-md waves-light mr-2 pr-4 pl-4 btn-md" data-ng-disabled="addItem.$invalid"
+                        data-ng-click="saveModelMessage()">
+                    <span>{{nomBtn}}</span>
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-rounded text-uppercase waves-effect waves-light pr-4 pl-4 btn-md"
+                        data-ng-click="fermer()">
+                    <span>Fermer</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
